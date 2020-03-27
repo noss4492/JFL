@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	<property name="url" value="jdbc:oracle:thin:@orcl.ckyvzseloumz.ap-northeast-2.rds.amazonaws.com:1521:orcl" />
+	<property name="username" value="admin" />
+	<property name="password" value="tigertiger" />
+</bean>
+
+<security:http auto-config="true" use-expressions="true">
+	<security:intercept-url pattern="/auth/*" access="isAuthenticated()"/>
+	<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
+	<security:intercept-url pattern="/member/**" access="hasRole('ROLE_USER')"/>
+ 	<security:intercept-url pattern="/" access="permitAll"/>
+	<security:csrf disabled="true" /><!--  -->
+	<security:form-login login-page="/common/login" 
+		default-target-url="/" 
+		username-parameter="username" 
+		password-parameter="password" 
+		always-use-default-target="true" 
+		authentication-failure-url="/common/login?error"/>
+	<security:logout delete-cookies="JSESSIONID" 
+		invalidate-session="true" 
+		logout-url="/common/logout" 
+		logout-success-url="/"/>
+</security:http>
+
+<!-- 사용할 인코더 빈 등록 -->
+<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+
+	<!-- <security:jdbc-user-service data-source-ref="dataSource" 
+			users-by-username-query=
+			"SELECT id username, pwd password, enabled 
+			 FROM member
+			 WHERE id = ? "
+			authorities-by-username-query=
+			 "SELECT username, 'ROLE_USER' authority 
+			  FROM authorities 
+			  WHERE username = ? and NOT username in ('admin', 'master') "
+		/> 
+	-->
+<security:authentication-manager>
+	<security:authentication-provider>
+<!-- 		<security:password-encoder hash="bcrypt" /> -->
+		<security:password-encoder ref="bCryptPasswordEncoder"/>
+
+		<security:user-service>
+				<security:user name="admin" password="$2a$10$uAg4YEdYpinoyaur2SZ0eekqhmf8RE44cwaDxMl.F1JHtIkNy5RTG" authorities="ROLE_ADMIN"/>
+				<security:user name="testAdmin" password="1234" authorities="ROLE_ADMIN"/>
+				<security:user name="testUserAdmin" password="$2a$10$uAg4YEdYpinoyaur2SZ0eekqhmf8RE44cwaDxMl.F1JHtIkNy5RTG" authorities="ROLE_ADMIN"/>
+		</security:user-service>
+		
+		<security:jdbc-user-service data-source-ref="dataSource" 
+				users-by-username-query=
+					"SELECT username , password , 1 as enabled
+					 FROM user_m
+					 WHERE username = ? "
+				 authorities-by-username-query=
+				   "SELECT username, 'ROLE_USER' as authority
+					FROM user_m 
+					WHERE username = ? "
+		/>
+		<!-- and NOT username in ('admin', 'master')  -->
+
+	</security:authentication-provider>
+</security:authentication-manager>
+
+</beans>
