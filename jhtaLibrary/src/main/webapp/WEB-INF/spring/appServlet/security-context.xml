@@ -48,21 +48,25 @@
 	<security:authentication-provider>
 <!-- 		<security:password-encoder hash="bcrypt" /> -->
 		<security:password-encoder ref="bCryptPasswordEncoder"/>
-
+<!-- 이 서비스는 동시에 두개 사용이 불가능함. 이걸 알았다면 시간을 많이 줄일 수 있었을텐데...
 		<security:user-service>
 				<security:user name="admin" password="$2a$10$uAg4YEdYpinoyaur2SZ0eekqhmf8RE44cwaDxMl.F1JHtIkNy5RTG" authorities="ROLE_ADMIN"/>
 				<security:user name="testAdmin" password="1234" authorities="ROLE_ADMIN"/>
 				<security:user name="testUserAdmin" password="$2a$10$uAg4YEdYpinoyaur2SZ0eekqhmf8RE44cwaDxMl.F1JHtIkNy5RTG" authorities="ROLE_ADMIN"/>
 		</security:user-service>
-		
+		 -->
+		 <!-- right_status to_num('1') enable to_num('0') disabled -->
 		<security:jdbc-user-service data-source-ref="dataSource" 
 				users-by-username-query=
-					"SELECT username , password , 1 as enabled
-					 FROM user_m
+					"SELECT username , password , to_number(right_status) as enabled 
+					 FROM admin.user_m 
 					 WHERE username = ? "
 				 authorities-by-username-query=
-				   "SELECT username, 'ROLE_USER' as authority
-					FROM user_m 
+				   "SELECT username, 
+				   		CASE WHEN grade_status='2' THEN 'ROLE_ADMIN' 
+				   		ELSE 'ROLE_USER' 
+				   		END as authority 
+					FROM admin.user_m 
 					WHERE username = ? "
 		/>
 		<!-- and NOT username in ('admin', 'master')  -->

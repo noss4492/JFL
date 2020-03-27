@@ -16,17 +16,16 @@
 <a href="./signUp">goto signUp form</a>
 <a href='./common/login'>로그인</a>
 <a href='./common/logout'>로그아웃</a>
-principal: ${principal }<br>
+<a href="./showPrincipal">유저개인정보</a>
+principal: ${principalInfo}<br>
 <%--  <p> principal : <sec:authentication property="principal" /> </p>
 <p> 어드민인지 확인 : <sec:authentication property="principal.authorities"/></p> --%>
-<c:url value="/common/login" /><br>
-<c:url value="/common/logout" /><br>
 ${_csrf.parameterName}<br>
 	<sec:authorize access="isAuthenticated()">
-		로그인중<br>
+	${principal}
+		<h1>로그인중</h1><br>
 		<a href="<c:url value="/common/logout" />">로그아웃</a>
 	</sec:authorize>
 	<sec:authorize access=""></sec:authorize>t
-	<c:url value="/common/logout" />
 </body>
 </html>

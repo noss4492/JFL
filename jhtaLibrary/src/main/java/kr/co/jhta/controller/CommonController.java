@@ -1,5 +1,6 @@
 package kr.co.jhta.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -24,12 +25,20 @@ import lombok.Setter;
 public class CommonController {
 	// JdbcUserDetailsManager judm;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@Setter(onMethod=@__({@Autowired}))
 	MemberService ms;
+	
+	@RequestMapping("/showPrincipal")
+	public String show(Principal principal, Model model) {
+		System.out.println(">>>> info of principal : "+principal); 
+//		return "redirect:"+principal;
+		model.addAttribute("principal", principal);
+		return "common/principal";
+	}
 	
 	@RequestMapping(value="/signUp", method = RequestMethod.GET)
 	public String signUpForm() {
@@ -49,6 +58,7 @@ public class CommonController {
 			model.addAttribute("error", "log : error");
 		else if(logout != null)
 			model.addAttribute("logout", "log : logout");
+		
 //		System.out.println("username : "+map.get("username")+" password : "+map.get("password"));
 //		System.out.println("err/logout : "+error+"/"+logout);
 	}
