@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h1>시큐리티 로그인 좀 되라 </h1>
-	<h2> 여기 경로로 보냄 <c:url value="/login" /></h2>
+	<h2> 이 경로는 무조건 고정이어야만함. 여기 경로로 보냄 <c:url value="/login" /></h2>
 	
 	<h2>
 		<c:out value="${error}" />

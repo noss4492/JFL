@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+
+h3 {
+	margin-bottom: 20px;
+}
+
+tabNavContents a {
+	text-decoration: none;
+	color: inherit;
+}
+
+tabNavContents a:hover {
+	text-decoration: none;
+	color: inherit;
+}
+
+#tabNav {
+	width: 880px;
+	height: 50px;
+	text-align: center;
+}
+
+#tabNavContents {
+	list-style: none;
+	vertical-align: middle;
+}
+
+#tabNavContents li {
+	float: left;
+	width: 49%;
+	border: 1px solid rgb(226, 214, 214, 0.904);
+	height: 50px;
+	padding-top: 12px;
+	display: block;
+	font-size: 17px;
+}
+
+#tabNavContents li:first-child {
+	background-color: #46B7D9;
+	color: white;
+}
+
+.info li {
+	height: 30px;
+	font-size: 16px;
+	color: #666666;
+}
+
+.kk {
+	list-style: circle;
+}
+
+#rentLink {
+	margin-top: 20px;
+	padding: 10px 10px 10px 10px;
+	background-color: rgb(221, 227, 233);
+	height: 60px;
+}
+
+#rentLink dt {
+	float: left;
+	font-size: 20px;
+	padding: 5px 5px 5px 5px;
+}
+
+#rentLink dd {
+	float: right;
+	display: block;
+}
+
+#rentLink a {
+	text-decoration: none;
+}
+
+#rentLink dd button {
+	width: 123px;
+	height: 38px;
+	font-weight: bolder;
+	font-size: 14px;
+	padding: 5px 15px 5px 15px;
+}
+
+#rentLinkBtn1, #rentLinkBtn2 {
+	color: white;
+}
+
+#rentLinkBtn1 {
+	background-color: RGB(100, 104, 109);
+}
+
+#rentLinkBtn2 {
+	background-color: rgb(92, 119, 30);
+}

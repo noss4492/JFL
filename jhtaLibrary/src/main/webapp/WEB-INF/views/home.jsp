@@ -6,26 +6,37 @@
 <html>
 <head>
 	<title>Home</title>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value="css/lib/xeicon.min.css"/>" > --%>
 </head>
 <body>
 <h1>
 	Hello world!  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
-<a href="./signUp">goto signUp form</a>
-<a href='./common/login'>로그인</a>
-<a href='./common/logout'>로그아웃</a>
-<a href="./showPrincipal">유저개인정보</a>
-principal: ${principalInfo}<br>
-<%--  <p> principal : <sec:authentication property="principal" /> </p>
-<p> 어드민인지 확인 : <sec:authentication property="principal.authorities"/></p> --%>
+<P>  The time on the server is ${serverTime}. </P><br><br>
+자원 끌어다 써보기<br><br>
+리소스 경로 예시(img) : <c:url value="/resources/img/headerLogo.png"/><br><br>
+<img src = "<c:url value="/resources/img/headerLogo.png"/>" /><br><br>
+<img src="resources/img/headerLogo.png"/>
+<!-- link test <i class="xi-face xi-5x"></i> xi-5x -->
+
+
+login/logout 빼고는 아래 주소와 연결 시켜야함. <br><br>
+<a href="./signUp">goto signUp form</a><br><br>
+<a href="<c:url value="/common/login"/>">로그인주소 : contextpath<c:url value="/common/login"/> </a><br><br>
+<a href="<c:url value="/common/login"/>">로그아웃</a><br><br>
+<a href="<c:url value="/showPrincipal"/>">유저개인정보</a><br><br>
+principal: ${principalInfo}<br><br><br>
 ${_csrf.parameterName}<br>
-	<sec:authorize access="isAuthenticated()">
+
+
+	<sec:authorize access="isAuthenticated()"><!-- 인증된 사용자들, role_ 있으면 ok -->
 	${principal}
 		<h1>로그인중</h1><br>
-		<a href="<c:url value="/common/logout" />">로그아웃</a>
+		<a href="<c:url value="/common/login"/>">로그아웃</a><br><br>
 	</sec:authorize>
-	<sec:authorize access=""></sec:authorize>t
+	<sec:authorize access=""></sec:authorize>
+	<%--  <p> principal : <sec:authentication property="principal" /> </p>
+<p> 어드민인지 확인 : <sec:authentication property="principal.authorities"/></p> --%>
 </body>
 </html>

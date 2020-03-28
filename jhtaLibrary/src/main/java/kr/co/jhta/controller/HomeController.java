@@ -56,4 +56,46 @@ public class HomeController {
 		return "home";
 	}
 	
+//	준영 start
+	@RequestMapping(value ="/header" , method = RequestMethod.GET)
+	public String header() {
+		return "header";
+	}
+	@RequestMapping(value ="/header2" , method = RequestMethod.GET)
+	public String header2() {
+		return "header2";
+	}
+	@RequestMapping(value ="/main" , method = RequestMethod.GET)
+	public String main() {
+		return "main";
+	}
+	@RequestMapping(value ="/facilityRentForm1" , method = RequestMethod.GET)
+	public String facilityRentForm1() {
+		return "applicationService/facilityRentForm/facilityRentForm1";
+	}
+	@RequestMapping(value ="/facilityRentForm2" , method = RequestMethod.GET)
+	public String facilityRentForm2() {
+		return "/applicationService/facilityRentForm/facilityRentForm2";
+	}
+	@RequestMapping(value ="/facilityRentForm3" , method = RequestMethod.GET)
+	public String facilityRentForm3() {
+		return "/applicationService/facilityRentForm/facilityRentForm3";
+	}
+	@RequestMapping(value ="/tourApplication1" , method = RequestMethod.GET)
+	public String tourApplication1() {
+		return "/applicationService/tourApplication/tourApplication1";
+	}
+	@RequestMapping(value ="/tourApplication2" , method = RequestMethod.GET)
+	public String tourApplication2() {
+		return "/applicationService/tourApplication/tourApplication2";
+	}
+	@RequestMapping(value ="/volunteerApplication1" , method = RequestMethod.GET)
+	public String volunteerApplication() {
+		return "/applicationService/volunteerApplication/volunteerApplication1";
+	}
+	@RequestMapping(value ="/basicForm" , method = RequestMethod.GET)
+	public String basicForm() {
+		return "/basicForm";
+	}
+//	준영 end
 }
