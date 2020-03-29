@@ -20,6 +20,7 @@
 		<br> platform_status <input type="hidden" name="platformStatus" id="" value="1" />	
 		<br> right_status <input type="text" name="rightStatus" id="" value="1" />	
 		<br> grade_status <input type="text" name="gradeStatus" id="" value="1" />	
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<input type="submit" value="회원등록하기" />
 	</form>
 </body>

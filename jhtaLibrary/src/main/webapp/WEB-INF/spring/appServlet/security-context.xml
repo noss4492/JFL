@@ -18,15 +18,15 @@
 	<security:intercept-url pattern="/member/**" access="hasRole('ROLE_USER')"/>
  	<security:intercept-url pattern="/" access="permitAll"/>
 	<!-- <security:csrf disabled="true" /> --><!--  -->
-	<security:form-login login-page="/common/login" 
+	<security:form-login login-page="/securityLogin/login" 
 		default-target-url="/" 
 		username-parameter="username" 
 		password-parameter="password" 
 		always-use-default-target="true" 
-		authentication-failure-url="/common/login?error"/>
+		authentication-failure-url="/securityLogin/login?error"/>
 	<security:logout delete-cookies="JSESSIONID" 
 		invalidate-session="true" 
-		logout-url="/common/logout" 
+		logout-url="/securityLogin/logout" 
 		logout-success-url="/"/>
 </security:http>
 

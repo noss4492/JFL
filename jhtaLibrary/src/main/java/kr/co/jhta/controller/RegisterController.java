@@ -26,14 +26,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class RegisterController {
 	String dicetemp; 
 	
-	@RequestMapping(value= {"/register1"}, method = RequestMethod.GET)
-	public static void register1(Model model) {
+//	@RequestMapping(value= {"/register1"}, method = RequestMethod.GET)
+//	public static void register1(Model model) {
 	
 		
 //		return "register1";
 
-		
-	}
+//	}
+	
 	@RequestMapping(value= {"/register2"}, method = RequestMethod.GET)
 	public static void register2(Model model) {
 	
@@ -118,7 +118,7 @@ public class RegisterController {
             }
             
             ModelAndView mv = new ModelAndView();    //ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
-            mv.setViewName("/register1");     //뷰의이름
+            mv.setViewName("/common/registerMemberForm/register1");     //뷰의이름
             mv.addObject("dice", dice);
             System.out.println(e_mail);
             System.out.println(tomail);
@@ -139,11 +139,18 @@ public class RegisterController {
             return mv;
             }
 //        }
-    
+        
+        
     //이메일 인증 페이지 맵핑 메소드
     @RequestMapping("/register1.do")
+    public String redirect() {
+        return "redirect:/common/registerMemberForm/register1";
+    }
+    
+    //이메일 인증 페이지 맵핑 메소드
+    @RequestMapping("/common/registerMemberForm/register1")
     public String email() {
-        return "register1";
+        return "/common/registerMemberForm/register1";
     }
     
     

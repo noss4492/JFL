@@ -38,19 +38,33 @@ public class CommonController {
 //		return "redirect:"+principal;
 		model.addAttribute("principal", principal);
 		System.out.println("아 좀 빨리 바뀌지 그래 ㅡㅡ");
-		return "common/principal";
+		return "securityLogin/principal";
 	}
 	
 	@RequestMapping(value="/signUp", method = RequestMethod.GET)
 	public String signUpForm() {
-		return "common/signUpMember";
+		System.out.println("가입폼으로왔고");
+		return "/securityLogin/test-signUpMember";
 	}
-	
+
 	@RequestMapping(value="/signUp", method = RequestMethod.POST)
 	public String signUpUser(@ModelAttribute UserDTO dto) {
+		System.out.println("디비에올리면되는데1");
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
 		ms.wrtieOneMember(dto);
+//		return "/";
+		System.out.println("디비에올리면되는데");
 		return "redirect:/home";
+	}
+	
+	
+	@RequestMapping(value="/securityLogin/login")
+	public String sli() {
+		return "/securityLogin/login";
+	}
+	@RequestMapping(value="/securityLogin/logout")
+	public String slo() {
+		return "/securityLogin/logout";
 	}
 	
 	@RequestMapping(value="/login")
