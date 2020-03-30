@@ -26,6 +26,12 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	
+	@RequestMapping(value ="/testRent" , method = RequestMethod.GET)
+	public String facilityRentForm12() {
+		return "libApplicationService/facilityRentForm/facilityRentForm1";
+	}
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, Principal principal) {
 		logger.info("Welcome home! The client locale is {}.", locale);
