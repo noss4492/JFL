@@ -22,7 +22,7 @@ import lombok.Setter;
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
-	
+	/*
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Setter(onMethod=@__({@Autowired}))
@@ -105,5 +105,5 @@ public class ArticleController {
 		return "redirect:/board/list";
 	}
 	
-	
+	*/
 }

@@ -1,5 +1,6 @@
 package kr.co.jhta.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -24,36 +25,60 @@ import lombok.Setter;
 public class CommonController {
 	// JdbcUserDetailsManager judm;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@Setter(onMethod=@__({@Autowired}))
 	MemberService ms;
 	
-	@RequestMapping(value="/signUp", method = RequestMethod.GET)
-	public String signUpForm() {
-		return "common/signUpMember";
+	@RequestMapping("/showPrincipal")
+	public String show(Principal principal, Model model) {
+		System.out.println(">>>> info of principal : "+principal); 
+//		return "redirect:"+principal;
+		model.addAttribute("principal", principal);
+		System.out.println("아 좀 빨리 바뀌지 그래 ㅡㅡ");
+		return "securityLogin/principal";
 	}
 	
+	@RequestMapping(value="/signUp", method = RequestMethod.GET)
+	public String signUpForm() {
+		System.out.println("가입폼으로왔고");
+		return "/securityLogin/test-signUpMember";
+	}
+
 	@RequestMapping(value="/signUp", method = RequestMethod.POST)
 	public String signUpUser(@ModelAttribute UserDTO dto) {
+		System.out.println("디비에올리면되는데1");
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
 		ms.wrtieOneMember(dto);
+//		return "/";
+		System.out.println("디비에올리면되는데");
 		return "redirect:/home";
 	}
 	
-	@RequestMapping(value="/common/login")
+	
+	@RequestMapping(value="/securityLogin/login")
+	public String sli() {
+		return "/securityLogin/login";
+	}
+	@RequestMapping(value="/securityLogin/logout")
+	public String slo() {
+		return "/securityLogin/logout";
+	}
+	
+	@RequestMapping(value="/login")
 	public void login(String error, String logout, Model model) {//@RequestParam HashMap map
 		if(error != null)
 			model.addAttribute("error", "log : error");
 		else if(logout != null)
 			model.addAttribute("logout", "log : logout");
+		System.out.println("왜왜왜애ㅗ애ㅗ애ㅐ");
 //		System.out.println("username : "+map.get("username")+" password : "+map.get("password"));
 //		System.out.println("err/logout : "+error+"/"+logout);
 	}
 	
-	@RequestMapping(value="/common/logout")
+	@RequestMapping(value="/logout")
 	public void logoutGet() {
 		logger.info("logout");
 	}

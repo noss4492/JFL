@@ -7,8 +7,11 @@
 
 <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	<property name="dataSource" ref="dataSource"></property>	
-	<property name="configLocation" value="classpath:mybatis/configuration.xml"></property>
-	<!-- <property name="configLocation" value="/WEB-INF/sqlMapConfig.xml" /> 마이바티스 설정 파일 경로
+	<property name="configLocation" value="/WEB-INF/mybatis/configuration.xml" />
+	<property name="mapperLocations" value="/WEB-INF/mybatis/mappers/*.xml" />
+	<!-- mybatis/mapper -> config/sqlmap/mapper 원래 이런 식으로 작명하나봄? 보류-->
+	<!-- <property name="configLocation" value="classpath:mybatis/configuration.xml" /> -->
+	<!-- <property name="configLocation" value="/WEB-INF/mybatis/sqlMapConfig.xml" /> 마이바티스 설정 파일 경로
 	<property name="mapperLocations" value="/WEB-INF/mybatisMapper.xml" />  Mapper 파일 경로 -->
 </bean>
 

@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h1>시큐리티 로그인 좀 되라 </h1>
-	<h2> 여기 경로로 보냄 <c:url value="/login" /></h2>
+	<h2> 이 경로는 무조건 고정이어야만함. 여기 경로로 보냄 <c:url value="/login" /></h2>
 	
 	<h2>
 		<c:out value="${error}" />
@@ -19,6 +19,11 @@
 	<h2>
 		<c:out value="${logout}" />
 	</h2>
+	in-memory<br>
+	admin/1234/$2a$10$uAg4YEdYpinoyaur2SZ0eekqhmf8RE44cwaDxMl.F1JHtIkNy5RTG<br>
+	jdbc-auth<br>
+	guest9/1234/$2a$10$vmCTa5xC/OhbXM8XcyDXyu76G0yFj2mRFqUP.7/Zt1OR8wBUfABau<br>
+	
 	
 	<form action='<c:url value="/login" />' method="post"><!-- 이게 로그인페이지 주소가 무조건 고정되어 있다고? -->
 		<table>
