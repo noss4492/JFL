@@ -1,0 +1,97 @@
+@charset "UTF-8";
+ *{
+            margin: 0;
+            padding: 0;
+            
+        }
+        #readingRoomWholeWrapper {
+            width: 1920px;
+            height: 1000px
+            background: black;
+            background-color: rgba(0,0,0,0.5);
+            /* opacity: 0.2; */
+
+        }
+        #readingRoomWrapper{
+            background-color: #46B7D9;
+            /* display: inline-block; */
+            width: 1400px;
+            height: 830px;
+            margin: auto;
+
+        }
+        #readingRoomHeadWrapper{
+            width: 1400px;
+            height: 110px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            
+        }
+        #libLogo{
+            /* display: inline; */
+            
+        }
+        #readingRoomTitle{
+            /* display: inline; */
+            
+        }
+        #right{
+            /* float: right; */
+        }
+        
+        #seatInfo{
+            display: flex;
+            justify-content: space-between;
+        }
+        #seatChart{
+            /* float: left; */
+        }
+        #seatType{
+            /* float: right; */
+        }
+
+
+
+
+
+
+
+        #readingRoomBodyWrapper{
+            width: 1350px;
+            height: 700px;
+            background-color: coral;
+            margin: 0 auto;
+        }    
+        #seatChart{
+            display: grid;
+            width: 1000px;
+            height: 90%;
+            margin: 0 auto;
+            background-color: white;
+            align-content: space-around;
+            grid-template-rows: 157.5px 157.5px 157.5px 157.5px;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: center;
+            justify-items: center;
+        }    
+        .seatChartGroup{
+            width: 120px;
+            height: 90px;
+            /* justify-content: space-around; */
+            display: flex;
+            flex-wrap: wrap;
+            /* grid-template-columns: repeat(2,1fr);
+            grid-template-rows: repeat(3,1fr); */
+            
+        }
+        .seatNum{
+            border: 1px solid rgb(36, 154, 190);
+            width: 58px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            background-color: #46B7D9;
+            
+
+        }

@@ -1,5 +1,7 @@
 package kr.co.jhta.dto;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -12,7 +14,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReadingRoomDTO {
+	long ReserveSeatId;
 	long readingRoomId;
-	String name;
+	long userId;
+	String reserveDate;
+	String requestDate;
+	String startTime;
+	String endTime;
+	byte status;
+	
+	
 
 }

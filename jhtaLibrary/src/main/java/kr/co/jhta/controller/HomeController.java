@@ -94,5 +94,6 @@ public class HomeController {
 	public String basicForm() {
 		return "/basicForm";
 	}
+	
 //	준영 end
 }

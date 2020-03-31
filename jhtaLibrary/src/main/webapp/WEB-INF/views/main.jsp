@@ -211,7 +211,7 @@
                         <a href="" class="roomup">
                             <div class="roomicon">
                                 <div id="roomicon1" class="glyphicon glyphicon-film"></div>
-                                <div class="roomdiv">디지털자료예약</div>
+                                <div class="roomdiv">디지털자료실예약</div>
                                 <div id="plus1" class="glyphicon glyphicon-plus"></div>
                             </div>
                         </a>
