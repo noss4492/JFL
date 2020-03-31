@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/main.css">
+	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -16,11 +17,10 @@
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
     <script type="text/javascript">
         $(document).ready(function() {
             buildCalendar();
@@ -33,6 +33,7 @@
                 pager: false,
                 slideHeight: 370,
                 slideWidth: 340,
+                controls: true
             });
             let eventtap = $(".eventtap");
             let eventview = $(".eventmiddle");
@@ -167,26 +168,29 @@
 </head>
 
 <body>
+	<%@ include file="./header.jsp"%>
     <div id="main">
         <div id="topOne" style="background-image: url(img/mainPage/main.jpg)">
             <div class="main_slogan">남양주 시민의 꿈을 펼쳐 갈 미래 유비쿼터스,<br><span>남양주시 도서관</span>입니다.</div>
             <div id="divgroup">
                 <div id="div1">
-                    <form action="#">
+                <sec:authorize access="isAnonymous()">
+                    <form action='<c:url value="/login" />' method="post">
                         <div>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon" id="">
                                     <div class="glyphicon glyphicon-user"></div>
                                 </span>
-                                <input type="text" class="form-control" placeholder="ID" aria-describedby="sizing-addon1">
+                                <input type="text" name="username" class="form-control" placeholder="ID" aria-describedby="sizing-addon1">
                             </div>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon" id="">
                                     <div class="glyphicon glyphicon-lock"></div>
                                 </span>
-                                <input type="password" class="form-control" placeholder="PASSWORD" aria-describedby="sizing-addon1">
+                                <input type="password" name="password" class="form-control" placeholder="PASSWORD" aria-describedby="sizing-addon1">
                             </div>
-                            <button id="btns" class="btn btn-lg btn-info btn-block" type="submit">로그인</button>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <button id="btns" type="submit" class="btn btn-lg btn-info btn-block" >로그인</button>
                         </div>
                     </form>
                     <div id="loginMenu">
@@ -194,6 +198,13 @@
                         <a href="" class="rightA">아이디 찾기</a>
                         <a href="" class="rightA">비밀번호 재발급</a>
                     </div>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                	<div>
+                		<p class="user-info-title">회원정보</p>
+                		<b></b><p>님 환영합니다!</p>
+                	</div>
+                </sec:authorize>
                     <a href="">
                         <div id="lookup">
                             대출/예약 조회
@@ -384,10 +395,10 @@
                 <div class="mainbanner" style="margin: 0px;
             padding: 0px;
             border: 0px;">
-                    <a href=""><img src='<c:url value="/resources/img/mainPage/banner/banner1.jpg"/>' alt=""></a>
-                    <a href=""><img src='<c:url value="/resources/img/mainPage/banner/banner2.jpg"/>' alt=""></a>
-                    <a href=""><img src='<c:url value="/resources/img/mainPage/banner/banner3.jpg"/>' alt=""></a>
-                    <a href=""><img src='<c:url value="/resources/img/mainPage/banner/banner4.png"/>' alt=""></a>
+                    <a href=""><img src='<c:url value="/img/mainPage/banner/banner1.jpg"/>' alt=""></a>
+                    <a href=""><img src='<c:url value="/img/mainPage/banner/banner2.jpg"/>' alt=""></a>
+                    <a href=""><img src='<c:url value="/img/mainPage/banner/banner3.jpg"/>' alt=""></a>
+                    <a href=""><img src='<c:url value="/img/mainPage/banner/banner4.png"/>' alt=""></a>
                 </div>
             </div>
             </div>
@@ -507,6 +518,6 @@
 
         </div>
     </div>
-
+	<%@ include file="./footer.jsp"%>
 
 </body></html>

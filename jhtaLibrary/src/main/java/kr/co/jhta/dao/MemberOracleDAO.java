@@ -32,6 +32,7 @@ public class MemberOracleDAO implements MemberDAO{
 	
 	@Override
 	public UserDTO selectOne(String username) {
+		System.out.println("적어도 여기까진옴");
 		return ss.selectOne("kr.co.jhta.member.selectOnebyUsername", username);
 	}	
 	

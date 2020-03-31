@@ -73,6 +73,10 @@ public class CommonController {
 			model.addAttribute("error", "log : error");
 		else if(logout != null)
 			model.addAttribute("logout", "log : logout");
+		
+		
+
+		
 		System.out.println("왜왜왜애ㅗ애ㅗ애ㅐ");
 //		System.out.println("username : "+map.get("username")+" password : "+map.get("password"));
 //		System.out.println("err/logout : "+error+"/"+logout);

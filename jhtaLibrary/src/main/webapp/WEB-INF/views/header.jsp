@@ -7,11 +7,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 	<script>
 	  $(function () {
@@ -37,9 +45,7 @@
 </head>
 <body>
         <header id="header">
-
             <div id="headerTopWrapper">
-
                 <div id="headerTop">
                     <div id="siteUtilGroup">
                         <div id="libraryShortcut" class="dropdown">
@@ -67,11 +73,12 @@
 
             <div id="headerMid">
                 <div id=logo>
-                    <img src="<c:url value="resources/images/logo.png"/>" alt="">
+                	
+                    <img src='<c:url value="/img/headerLogo.png"/>' alt="">
                 </div>
                 <div id="topSearchBarDiv">
                     <input type="text" name="topSearchBar" id="topSearchBarInput" placeholder="도서명 또는 저자명 입력">
-                    <a href="" id="topSearchBtn"><img id="searchBtn" src="<c:url value="resources/images/searchImg.png"/>" alt=""></a>
+                    <a href="" id="topSearchBtn"><img id="searchBtn" src='<c:url value="img/searchImg.png"/>' alt=""></a>
                 </div>
             </div>
             <div id="navBarWrapper">
@@ -138,6 +145,5 @@
                 </div>
             </div>
         </header>
-    </div>
 </body>
 </html>

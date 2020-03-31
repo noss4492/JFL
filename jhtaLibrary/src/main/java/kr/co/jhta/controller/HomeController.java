@@ -7,10 +7,15 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.co.jhta.dto.UserDTO;
+import kr.co.jhta.service.MemberServiceImpl;
+import lombok.Setter;
 
 /**
  * Handles requests for the application home page.
@@ -20,10 +25,21 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	@Setter(onMethod=@__({@Autowired}))
+	MemberServiceImpl memberServiceImple;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value ="/" , method = RequestMethod.GET)
+	public String main(Principal principal, Model model) {
+		if(principal!=null) {
+			UserDTO dto = memberServiceImple.readOneMember(principal.getName());
+			System.out.println(dto.toString());
+		}
+		return "main";
+	}
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, Principal principal) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -61,10 +77,6 @@ public class HomeController {
 	@RequestMapping(value ="/header2" , method = RequestMethod.GET)
 	public String header2() {
 		return "header2";
-	}
-	@RequestMapping(value ="/main" , method = RequestMethod.GET)
-	public String main() {
-		return "main";
 	}
 	@RequestMapping(value ="/facilityRentForm1" , method = RequestMethod.GET)
 	public String facilityRentForm1() {

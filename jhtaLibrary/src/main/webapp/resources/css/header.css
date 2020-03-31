@@ -7,6 +7,12 @@
 		'sans-serif';
 }
 
+#header{
+	width: 100%;
+	margin: 0 auto;
+	z-index: 500 !important;
+}
+
 header h3 {
 	font-size: 25px;
 	color: #46B7D9;
@@ -29,10 +35,7 @@ header a:hover {
 /* 	z-index: absolute; */
 }
 
-#header {
-	width: 100%;
-	margin: 0 auto;
-}
+
 
 #headerTopWrapper {
 	margin: 0 auto;
@@ -49,6 +52,7 @@ header a:hover {
 
 #siteMenu {
 	text-align: right;
+	padding-top: 10px;	
 }
 
 #siteMenu li {
@@ -169,6 +173,7 @@ header a:hover {
 	/* overflow: hidden; */
 }
 
+
 #navBar1 {
 	height: 40px;
 	width: 1200px;
@@ -249,9 +254,9 @@ header a:hover {
 /* 	top: 7px; */
 /* 	border-top: 1px solid rgba(0, 0, 0, 0.3); */
  font-size: 16px;
-            font-weight: lighter;
-            top: 4px;
-            border-top: 1px solid  rgba(0, 0, 0, 0.3);
+font-weight: lighter;
+top: 4px;
+border-top: 1px solid  rgba(0, 0, 0, 0.3);
 }
 
 .navBar2 {
@@ -274,8 +279,9 @@ header a:hover {
 	height: 40px;
 	/* padding-bottom: 10px; */
 	margin-top: 0px;
-	border-bottom: 1px solid gray;
-	
+	border-bottom: none !important;
+	/* border-bottom: 1px solid gray; */
+	z-index: 500 !important;
 }
 
 .jbOffset2 {
@@ -285,7 +291,7 @@ header a:hover {
 	height: 40px;
 	/* padding-bottom: 10px; */
 	margin-top: 0px;
-/* 	border-bottom: 1px solid gray; */
+	
 }
 
 .navBarLi:hover {
