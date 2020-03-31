@@ -2,47 +2,66 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
- 
+
+
 <mapper namespace="kr.co.jhta.member">
- 	<select id="selectAll" resultType="udto">
+	<select id="selectAll" resultType="udto">
 	<![CDATA[
 		SELECT user_m_id, username, password, email, name, nickname, gender, brith, age_group, register_date, platform_status, right_status, grade_status 
 		FROM USER_M 
 	]]>
 	</select>
 	<select id="selectOne" resultType="udto" parameterType="int">
-		SELECT user_m_id, username, password, email, name, nickname, gender, brith, age_group, register_date, platform_status, right_status, grade_status 
-		FROM USER_M 
-		WHERE UNO = #{uno} 
+		SELECT user_m_id, username, password, email, name, nickname, gender, brith,
+		age_group, register_date, platform_status, right_status, grade_status 
+		FROM USER_M
+		WHERE UNO = #{uno}
 	</select>
 	<insert id="insertOne" parameterType="udto">
-		INSERT INTO USER_M(user_m_id, username, password, email, name, nickname, gender, brith, age_group, register_date, platform_status, right_status, grade_status) 
-		VALUES(user_m_seq.nextval, #{username}, #{password}, #{email}, #{name}, 
-		#{nickname}, #{gender}, #{birth}, #{ageGroup}, sysdate, #{platformStatus}, #{rightStatus}, #{gradeStatus} )
+		INSERT INTO USER_M(user_m_id, username, password, email, name, nickname, gender, 
+		brith, age_group, register_date, platform_status, right_status, grade_status, address) 
+		VALUES (user_m_seq.nextval, #{username}, #{password}, #{email}, #{name}, 
+		#{nickname}, #{gender}, #{birth}, #{ageGroup}, sysdate, '1', '1', '1', #{address} ) 
+		<!-- #{platformStatus}, 
+		#{rightStatus}, #{gradeStatus} ) -->
+		
 	</insert>
 	<update id="updateOne" parameterType="udto">
 		UPDATE USER_M 
-		SET user_m_id = #{userId}, 
-			username = #{username}, 
-			password = #{password}, 
-			email = #{email},
-			name = #{name}, 
-			nickname = #{nickname}, 
-			gender = #{gender}, 
-			brith = #{birth}, 
-			age_group = #{ageGroup}, 
-			register_date = #{registerDate}, 
-			platform_status = #{platformStatus}, 
-			right_status = #{rightStatus}, 
-			grade_status = #{gradeStatus}
-		WHERE user_m_id = #{userId} 
+		SET user_m_id = #{userId},
+		username = #{username},
+		password = #{password},
+		email = #{email},
+		name = #{name},
+		nickname = #{nickname},
+		gender = #{gender},
+		brith = #{birth},
+		age_group = #{ageGroup},
+		register_date = #{registerDate},
+		platform_status = #{platformStatus},
+		right_status = #{rightStatus},
+		grade_status = #{gradeStatus} 
+		WHERE user_m_id = #{userId}
 	</update>
 	<delete id="deleteOne" parameterType="int">
 		DELETE USER_M 
 		WHERE UNO = #{uno}
 	</delete>
 	<select id="totalCount" resultType="int">
-		SELECT count(*) FROM USER_M 
+		SELECT count(*) FROM USER_M
 	</select>
+
+<!-- 	아이디 중복 체크 -->
+<!-- 	아이디가 있으면 COUNT가 1 없으면 0 -->
+<!-- 	<select id="idChk" resultType="int"> -->
+<!-- 		SELECT count(*) FROM USER_M WHERE user_m_id = #{userId} -->
+<!-- 	</select> -->
+
+<!-- 닉네임 중복 체크 -->
+<!-- 닉네임이 있으면 COUNT가 1 없으면 0 -->
+<!-- 	<select id="nickChk" resultType="int"> -->
+<!-- 		SELECT count(*) FROM USER_M WHERE nickname = #{nickname} -->
+<!-- 	</select> -->
+
+
 </mapper>

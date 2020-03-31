@@ -12,5 +12,7 @@ public interface MemberService {
 	public void changeOneMember(UserDTO dto);
 	public void removeOneMember(int uno);
 	public int getTotal();
+//	public int idChk(String userid);
+//	public int nickChk(String nickname);
 
 }

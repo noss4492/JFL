@@ -12,4 +12,12 @@ public interface MemberDAO {
 	public void updateOne(UserDTO dto);
 	public void deleteOne(int uno);
 	public int getTotal();
+	
+	//회원가입
+//	public void memberJoin(UserDTO dto);
+	
+	//아이디 및 닉네임 체크
+//	public int idChk(String userid);
+//	public int nickChk(String nickname);
+	
 }

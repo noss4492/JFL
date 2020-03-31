@@ -49,4 +49,17 @@ public class MemberServiceImpl implements MemberService{
 	public int getTotal() {
 		return dao.getTotal();
 	}
+
+//	@Override
+//	public int idChk(String userid) {
+//		return dao.idChk(userid);
+//	
+//	}
+
+//	@Override
+//	public int nickChk(String nickname) {
+//		return dao.nickChk(nickname);
+//	}
+	
+	
 }

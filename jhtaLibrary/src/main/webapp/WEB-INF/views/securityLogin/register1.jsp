@@ -196,6 +196,7 @@ ul li {
 							<div class="temp">
 								메일 인증
 								<form action="auth.do" method="post">
+					
 								<div class="fieldText">E-mail :</div>
 								<div class="form-inline">
 									<input type="text" name="em1" id="em1" size="10"class="form-control" value="${em1 }"> @ <input type="text" name="em2" id="em2" size="10" value="${em2 }" class="form-control"> 
@@ -213,7 +214,6 @@ ul li {
 							<div class="code">
 								<div class="fieldText">인증코드 :</div>
 								<form action="join_injeung.do" method="post">
-							
 								
 <!-- 								<div class="input"> -->
 <!-- 								<progress id="progress"> -->

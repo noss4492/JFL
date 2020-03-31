@@ -50,4 +50,23 @@ public class MemberOracleDAO implements MemberDAO{
 		return ss.selectOne("kr.co.jhta.member.totalCount");
 	}
 
+	
+//	@Override
+//	public void memberJoin(UserDTO dto) {
+//		ss.insert("member.join", dto);
+//		
+//	}
+// 아이디 및 닉네임 중복 확인
+//	@Override
+//	public int idChk(String userid) {		
+//		return ss.selectOne("kr.co.jhta.member.idChk", userid);
+//	}
+
+//	@Override
+//	public int nickChk(String nickname) {
+//		return ss.selectOne("kr.co.jhta.member.nickChk", nickname);
+//	}
+
+
+
 }

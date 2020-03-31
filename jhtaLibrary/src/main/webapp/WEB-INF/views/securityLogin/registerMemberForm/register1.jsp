@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- csrf토큰 -->
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" /> 
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
 </head>
@@ -192,7 +196,7 @@ ul li {
 
 						<!-- <div class="checkmail" style="border: 4px inset  #46B7D9 "> 아래에 아이디로 주기. 보더 속성 변경때문에-->
 						<div class="certifyBox">
-	
+							
 							<div class="temp">
 								메일 인증
 								<form action="auth.do" method="post">
@@ -204,7 +208,10 @@ ul li {
 										<option value="naver.com">네이버</option>
 										<option value="daum.com">다음</option>
 										<option value="gmail.com">구글</option>
-									</select> <input type="submit" value="인증코드요청" name="submit" /><div>${sendKey }</div>
+									</select> 
+									<input type="submit" value="인증코드요청" name="submit" />
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									<div>${sendKey }</div>
 								</div>
 								</form>
 							</div>
@@ -213,8 +220,7 @@ ul li {
 							<div class="code">
 								<div class="fieldText">인증코드 :</div>
 								<form action="join_injeung.do" method="post">
-							
-								
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <!-- 								<div class="input"> -->
 <!-- 								<progress id="progress"> -->
 									<input type="text" name="email_injeung" id="chCo" size="10" />
@@ -224,7 +230,6 @@ ul li {
 								<div class="btnfield">								
 								<button type="submit" id="agree" class="btn btn-primary" name="submit">본인확인</button>
 								<button type="button" id="noagree" class="btn btn-warning">취소</button>
-
 								</div>
 								</form>
 							</div>

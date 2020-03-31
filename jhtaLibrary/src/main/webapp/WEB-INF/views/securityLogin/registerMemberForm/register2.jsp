@@ -4,7 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
- <meta charset="UTF-8">
+<!-- csrf토큰 -->
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" /> 
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- 합쳐지고 최소화된 최신 CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -19,7 +22,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+  
 
   <style>
 * {
@@ -164,8 +167,6 @@ ul li {
         var ch1 = $("input[name='group1']:checked").val();
         var ch2 = $("input[name='group2']:checked").val();
         var ch3 = $("input[name='group3']:checked").val();
-
-        if (ch1 != "yes" || ch2 != "yes2") {
           if (ch1 != "yes") {
             alert("이용약관에 동의해주시기 바랍니다.")
           } else if (ch2 != "yes2") {
@@ -173,14 +174,11 @@ ul li {
           } else if (ch1 != "yes" || ch2 != "yes2") {
             alert("이용약관 및 개인정보취급방침에 동의해주시기 바랍니다.");
           } else if (ch1 == "yes" && ch2 == "yes2") {
-            // frm.action = "pregisterOk.jsp";
-            // frm.method = "get";
-            // frm.submit();
-          } else {
-
-
+	          var str = "register3";
+	          console.log(str);
+        	  location.replace(str);
           }
-        }
+        
       }
 
       $(document).ready(function(){
@@ -199,6 +197,7 @@ ul li {
 <title>Insert title here</title>
 </head>
 <body>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<div id="wrap" class="wrap">
 		<div id="container" class="sub">
 			<div class="contentGroup">
@@ -218,11 +217,13 @@ ul li {
 						</div>
 
 
+						<form action="register3.do" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<div class="noct1">
 							<div class=title>
-								이용약관
-								</h4>
+								<h4>이용약관</h4>
 							</div>
+							
 							<!-- <pre>   -->
 							<textarea class="noct" readonly="readonly">
  제1장 총칙
@@ -265,9 +266,10 @@ ul li {
               </textarea>
 							<!-- </pre> -->
 						</div>
+						
 						<div class="fieldTexta">
 							이용약관에 동의합니다 <input type="radio" name="group1" value="yes"
-								class="yes" //>
+								class="yes" />
 
 						</div>
 
@@ -368,6 +370,7 @@ ul li {
                 경찰청 사이버테러대응센터 : 1566-0112 (http://www.netan.go.kr)
     </textarea>
 						</div>
+						
 						<div class="fieldTexta">
 							개인정보취급방침에 동의합니다 <input type="radio" name="group2" value="yes2"
 								class="yes" />
@@ -375,20 +378,23 @@ ul li {
 						</div>
 						<div class="fieldTexta">
 							약관에 모두 동의합니다 <input type="radio" name="group3" value="allcheck"
-								class="allcheck" //>
+								class="allcheck"/>
 
 						</div>
-
+						
 						<div class="btnfield">
-							<button type="button" id="agree" class="btn btn-primary">동의합니다.</button>
+							<button type="button" id="agree" class="btn btn-primary" name="submit">동의합니다.</button>
 
-							<button type="button" id="noagree" class="btn btn-warning">
+							<button type="button" id="noagree" class="btn btn-warning" onclick="location.href='register1'">
 								동의하지 않습니다.</button>
 
 						</div>
-
+						</form>	
 					</div>
 				</div>
+				</div>
+				</div>
 			</div>
+			
 </body>
 </html>
