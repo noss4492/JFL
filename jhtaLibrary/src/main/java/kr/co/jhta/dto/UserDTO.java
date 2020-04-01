@@ -25,4 +25,5 @@ public class UserDTO {
 	byte platformStatus;
 	byte rightStatus;
 	byte gradeStatus;
+	String address;
 }

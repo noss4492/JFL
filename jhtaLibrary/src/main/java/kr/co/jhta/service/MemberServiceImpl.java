@@ -50,16 +50,15 @@ public class MemberServiceImpl implements MemberService{
 		return dao.getTotal();
 	}
 
-//	@Override
-//	public int idChk(String userid) {
-//		return dao.idChk(userid);
-//	
-//	}
 
-//	@Override
-//	public int nickChk(String nickname) {
-//		return dao.nickChk(nickname);
-//	}
+	@Override
+	public int idChk(String username) {
+		
+		int idCnt = dao.idChk(username);
+		return idCnt;
+	}
+
+
 	
 	
 }

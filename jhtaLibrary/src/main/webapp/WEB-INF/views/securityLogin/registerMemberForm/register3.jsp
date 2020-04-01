@@ -28,12 +28,10 @@
 	href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"
 	rel="stylesheet" />
 <!--아래에서 올림-->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
 <script
@@ -291,144 +289,83 @@ ul li {
 
 
 <script type="text/javascript">
-	//중복확인 버튼을 누르면 콘솔에 메세지 출력
-
 
 
 	var idflag = 0; // id확인 논리값
 	var pwflag = 0; // 비밀번호 재입력 확인 논리값
-	var nickflag = 0; // 닉네임 중복 논리값
-	var nameflag = 0; //이름 중복 논리값
+	var nameflag = 0; //이름 논리값
 	var idJ = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
 
 
 	//////////////////////////////////////닉네임 중복 확인 및 아이디 중복 확인 버튼 클릭시//////////////////////////////////
 	$(function() {
-		// $("#header").load("header.html");
-		// $("#contents").load("side.html");
-
-// 		$("input[value='중복확인']").on("click", idcheckup);
-		$("input[value='닉네임중복확인']").on("click", ncheckup);
+		
 
 		$('#datet').datetimepicker({
 			viewMode : 'years',
 			format : 'DD/MM/YYYY',
-			// defaultDate: moment('01/01/1990', 'DD/MM/YYYY'),
 			showClear : true
 
 		});
 	});
 
-// 	function idcheckup() {//아이디체크업
-// 		var idflag = 0;
-// 		var userid = document.getElementById("user_m_id").value;
+
 
 $(document).ready(function(){
 
 		$("#user_m_id").blur(function() {
-			if($('#user_m_id').val()==''){		
-			$('#id_check').text('아이디를 입력하세요.');
-			$('#id_check').css('color', 'red');
-			} 
-			else if(idJ.test($('#user_m_id').val())!=true){
-			$('#id_check').text('4~12자의 영문, 숫자만 사용 가능합니다.');
-			$('#id_check').css('color', 'red');
-			} 
-			else if($('#user_m_id').val()!=''){			
-			}
-			var user_m_id=$('#user_m_id').val();
+
+			var username=$('#user_m_id').val();
+			
+			
 			$.ajax({
-			async : true,
-			type : 'POST',
-			data : user_m_id,//user_m_id라는 이름으로 user_m_id라는 데이터를 @WebServlet("/idsearch.do")에 보내겠다
-			url : '${pageContext.request.contextPath}/member/idChk?memberId='+user_m_id,
-			type : 'get',			
+			async : false,
+			type : "POST",
+			url : "idCheck.do",
+			data : username,
+			beforeSend: function(xhr){
+			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}"); //시큐리티 때문에 필요
+			},
 			success : function(data) {
-			if(data.cnt > 0){			
-			$('#id_check').text('중복된 아이디 입니다.');
-			$('#id_check').css('color', 'red');
-			$("#registerChk").attr("disabled", true);
-			}else{
-			if(idJ.test(user_m_id)){
-				
-			$('#id_check').text('사용가능한 아이디 입니다.');
-			$('#id_check').css('color', 'blue');
-			$("#registerChk").attr("disabled", false);
-			console.log(idflag);
+				if($('#user_m_id').val()==''){		
+					$('#id_check').text('아이디를 입력하세요.');
+					$('#id_check').css('color', 'red');
+					idflag=2;
+					} 
+					else if(idJ.test($('#user_m_id').val())!=true){
+					$('#id_check').text('4~12자의 영문, 숫자만 사용 가능합니다.');
+					$('#id_check').css('color', 'red');
+					idflag=2;
+					} 
+					else if($('#user_m_id').val()!=''){		
+						$('#id_check').text('');
+						if(data == "S") {
+
+							$('#id_check').text('사용가능한 아이디입니다..');
+							$('#id_check').css('color', 'red');
+							idflag = 1;
+						} else {
+
+								$('#id_check').text('아이디가 존재합니다. 다른 아이디를 입력해주세요');
+								$('#id_check').css('color', 'red');
+								idflag=2;
+
+						}
+						
+					}
+			
+
+			},
+			error: function(req, status, errThrown) {
+
 			}
-			else if(user_m_id==''){
-				$('#id_check').text('아이디를 입력해주세요.');
-			$('#id_check').css('color', 'red');
-			$("#registerChk").attr("disabled", true);
-	
-			}
-			else{
-			$('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다.");
-			$('#id_check').css('color', 'red');
-			$("#registerChk").attr("disabled", true);
-			}
-			}
-			}
-			});//ajax///
+			
+			})//ajax///		
 			//else if
-			});//blur
+			});//blur			
+			
 });
-// 		if (!userid) {
-// 			alert("아이디를 입력하지 않았습니다.");
-// 			idflag = 2;
-// 			return false;
-// 		}
-		
-// 		var txt = $("#id").val().trim(); //공백제거
-// 		var params = "id=" + txt;
-// 		sendRequest("pidCheckup.jsp", params, idcallback, "GET")
-
-// 		function idcallback() {//아이디 콜백
-// 			//통신완료이고 정상 페이지라면
-// 			if (xhr.readyState == 4 && xhr.status == 200) {
-// 				var msg = xhr.responseText.trim();
-// 				//만약 응답이 true라면 div에 아이디가 존재합니다.
-// 				//false라면 사용가능합니다.
-// 				if (msg == 'true') {
-// 					$(".idCh").html("같은 아이디가 존재합니다");
-// 					idflag = 0;
-// 				} else {
-// 					$(".idCh").html("사용 가능한 아이디입니다");
-// 					idflag = 1;
-// 				}
-// 			}
-// 		}
-
 	
-	//닉네임체크업
-	function ncheckup() {
-		var userNick = document.getElementById("nick").value;
-		if (!userNick) {
-			alert("닉네임을 입력하지 않았습니다.");
-			nickflag = 2;
-			return false;
-		}
-		var txt = $("#nick").val().trim(); //공백제거
-		var params = "nick=" + txt;
-		sendRequest("pnCheckup.jsp", params, ncallback, "GET")
-	}
-	//닉네임 콜백
-	function ncallback() {
-		//통신완료이고 정상 페이지라면
-		if (xhr.readyState == 4 && xhr.status == 200)
-			var msg = xhr.responseText.trim();
-		//만약 응답이 true라면 div에 아이디가 존재합니다.
-		//false라면 사용가능합니다.
-		if (msg == 'true') {
-			$(".nCh").html("같은 닉네임이 존재합니다");
-			nickflag = 0;
-		} else {
-			$(".nCh").html("사용 가능한 닉네임입니다");
-			nickflag = 1;
-
-		}
-	}
-	//------------------------------------------------------------------------------------------------
 
 	////////////////////////////////////////////비밀번호 체크/////////////////////////////////
 	$(function() {
@@ -447,18 +384,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-	//-----------------------------------------------------------------------------------
 
-
-	function callback1() {
-		console.log("콜백함수 ㅎ");
-		key = xhr.responseText.trim();//값 받아와서.
-		if (xhr.readyState == 4) {
-			if (xhr.status == 200) {
-			}
-		}
-	}
-	//------------------------------------------------------------------
 
 	function postCode() {
 		new daum.Postcode({
@@ -477,29 +403,7 @@ $(document).ready(function(){
 					addr = data.jibunAddress;
 				}
 
-				//참고 항목은 지웠음.
-				// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-
-				// if(data.userSelectedType === 'R'){
-				//     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-				//     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-				//     if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-				//         extraAddr += data.bname;
-				//     }
-				//     // 건물명이 있고, 공동주택일 경우 추가한다.
-				//     if(data.buildingName !== '' && data.apartment === 'Y'){
-				//         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-				//     }
-				//     // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-				//     if(extraAddr !== ''){
-				//         extraAddr = ' (' + extraAddr + ')';
-				//     }
-				//     // 조합된 참고항목을 해당 필드에 넣는다.
-				//     document.getElementById("sample6_extraAddress").value = extraAddr;
-
-				// } else {
-				//     document.getElementById("sample6_extraAddress").value = '';
-				// }
+		
 
 				// 우편번호와 주소 정보를 해당 필드에 넣는다.
 				document.getElementById('addr1').value = data.zonecode;
@@ -511,58 +415,70 @@ $(document).ready(function(){
 	}
 
 	///////////////////////////////////////최종검사///////////////////////////////////////////////////////
-// 	window.onload = function() {
+window.onload = function() {
 
-// 		var frm = document.frm;
-// 		var btn1 = document.getElementById("btn1");
-// 		var btn2 = document.getElementById("chCosend");
+		var frm = document.frm;
+		
+		var btn1 = document.getElementById("btn1");
+		var btn2 = document.getElementById("chCosend");
 
-// 		// 		btn1.disabled = true; //가입신청 버튼 숨기기.  보류
+// 		btn1.disabled = true; //가입신청 버튼 숨기기.  보류
 
-// 		btn1.onclick = function() {
-// 			var ch1 = $("input[name='group1']:checked").val();
-// 			var ch2 = $("input[name='group2']:checked").val();
-// 			for (var i = 0; i < $("#name").val().length; i++) {
-// 				var chk = $("#name").val().substring(i, i + 1);
-// 				if (chk.match(/[0-9]|[a-z]|[A-Z]/)) {
-// 					alert("이름에는 영문 및 특수문자,숫자를 사용하실 수 없습니다.");
-// 					return;
-// 				}
-// 				if (chk.match(/([^가-힣\x7])/i)) {
-// 					alert("이름을 정확히 입력해주세요");
-// 					return;
-// 				}
-// 				if ($("#name").val() == "") {
-// 					alert("이름을 입력해주세요");
-// 					return;
-// 				}
-// 			}
+		btn1.onclick = function() {
 
-// 			if (ch1 == "no" || ch2 == "no2" || idflag == 0	|| idflag == 2 || nickflag == 0 || nickflag == 2	|| pwflag == 0 || pwflag == 2) {
-// 				if (ch1 == "no" || ch2 == "no2") {
-// 					alert("이용약관 및 개인정보취급방침에 동의해주시기 바랍니다.");
-// 				} 
-// 				else if (idflag == 0 || idflag == 2) {
-// 					alert("아이디를 확인해주세요.")
-// 				} else if (nickflag == 0 || nickflag == 2) {
-// 					alert("닉네임을 확인해주세요")
-// 				} else if (pwflag == 0 || pwflag == 2) {
-// 					alert("패스워드를 확인해주세요")
-// 				} 
-// 			} else if (ch1 == "yes" && ch2 == "yes2" && pwflag == 1 && idflag == 1 && nickflag == 1) {
-// 				frm.action = "pregisterOk.jsp";
-// 				frm.method = "get";
-// 				frm.submit();
-// 			} else {
-// 				console.log("ch1 : " + ch1);
-// 				console.log("ch1 : " + ch2);
-// 				console.log("idflag : " + idflag);
-// 				console.log("nickflag : " + nickflag);
-// 				console.log("pwflag : " + pwflag);
+			for (var i = 0; i < $("#name").val().length; i++) {
+				var chk = $("#name").val().substring(i, i + 1);
+				if (chk.match(/[0-9]|[a-z]|[A-Z]/)) {
 
-// 			}
-// 		}
-// 	}
+					$('#name_check').text('이름에는 영문 및 특수문자,숫자를 사용하실 수 없습니다.');
+					$('#name_check').css('color', 'red');
+					nameflag = 0;
+					return;
+				}
+				if (chk.match(/([^가-힣\x7])/i)) {
+
+					$('#name_check').text('이름을 정확히 입력해주세요');
+					$('#name_check').css('color', 'red');
+					return;
+					nameflag= 0;
+				}
+				if ($("#name").val() == "") {
+
+					$('#name_check').text('이름을 입력해주세요');
+					$('#name_check').css('color', 'red');
+					nameflag = 0;
+					return;
+				}
+				else {
+					nameflag = 1;
+					}
+				}			
+	
+			if ( nameflag == 0 || idflag == 0 || idflag == 2 || pwflag == 0 || pwflag == 2) {
+
+				 if(nameflag == 0){
+					 alert("이름을 확인해주세요.")
+				 }
+				 else if (idflag == 0 || idflag == 2) {
+					alert("아이디를 확인해주세요.")
+				}
+				 
+				else if (pwflag == 0 || pwflag == 2) {
+					alert("패스워드를 확인해주세요")
+				} 
+				}else if ( nameflag == 1 && pwflag == 1 && idflag == 1 ) {	
+				
+				document.f.submit();
+
+				} else {
+
+				console.log("idflag : " + idflag);
+				console.log("pwflag : " + pwflag);
+
+			}
+	}
+	}
+
 </script>
 
 </head>
@@ -592,8 +508,7 @@ $(document).ready(function(){
 
 <%-- 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 
-<!-- 					<form action="pregisterOk.jsp" id="register" name="frm"> -->
-					<form action="./registerOk" id="registerChk" name="frm" method="post">
+					<form name = "f" action="./registerOk" id="registerChk" name="frm" method="post">
 
 						<div id="rcontainer">
 							<table>
@@ -604,7 +519,7 @@ $(document).ready(function(){
 											<input type="text" name="name" id="name" max-width="220"
 												maxlength="5">
 										</div>
-										<div class=nameCheck></div>
+										<span id="name_check"></span>
 									</td>
 								</tr>
 								<tr>
@@ -621,20 +536,12 @@ $(document).ready(function(){
 									<th>비밀번호</th>
 									<td>
 										<div class="input">
-											<input type="password" name="email" id="uPw" max-width="220"
+											<input type="password" name="password" id="uPw" max-width="220"
 												height="5px" >
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<th>이메일</th>
-									<td>
-										<div class="input">
-											<input type="text" name="email" id="email" max-width="220"
-												height="5px" value="${tomail}">
-										</div>
-									</td>
-								</tr>
+						
 								<tr>
 									<th>비밀번호 확인</th>
 									<td>
@@ -650,7 +557,7 @@ $(document).ready(function(){
 									<td>
 										<div class="input">
 											<input type="text" name="nickname" id="nick" max-width="220" />&nbsp;&nbsp;
-											<input type="button" value="닉네임중복확인" id="btn" />
+												 <span id="nick_check"></span>
 										</div>
 									</td>
 								</tr>
@@ -660,10 +567,7 @@ $(document).ready(function(){
 										<div class="input">
 											<input type="radio" name="gender" id="mail" class="frm_input" value="1">남
 											&nbsp;&nbsp; <input type="radio" name="gender" id="femail" class="frm_input" value="2">여
-											<!-- <select class="form-control" id="gender">
-                    <option value="M">남</option>
-                    <option value="F">여</option>
-                  </select> -->
+					
 										</div>
 									</td>
 								</tr>
@@ -682,26 +586,34 @@ $(document).ready(function(){
 										
 									</td>
 								</tr>
+										<tr>
+									<th>이메일</th>
+									<td>
+										<div class="input">
+											<input type="text" name="email" id="email" max-width="220"
+												height="5px" value="${tomail}" readonly="readonly">
+										</div>
+									</td>
+								</tr>
 								<tr>
 									<th rowspan="2">주소</th>
 									<td rowspan="2">
 										<div class="input">
-											<input type="text" id="addr1" max-width="220"
+											<input type="text" name="addr1" id="addr1" max-width="220"
 												placeholder="우편번호" />&nbsp;&nbsp; <input type="button"
 												onclick="postCode()" value="우편번호 찾기" id="btn" /><br>
 										</div>
 										<div>
-											<input type="text" id="addr2" placeholder="주소"
-												class="addr1input mv" /> <input type="text" id="addr3"
-												placeholder="상세주소 " class="mv" />
+											<input type="text" name="addr2" id="addr2" placeholder="주소"
+												class="addr1input mv" /> 
+												<input type="text" name="addr3" id="addr3" placeholder="상세주소 " class="mv" />
 										</div>
 									</td>
 								</tr>
 							</table>
 							<div class=btnfield>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-								<input type="submit" id="btn1" class="btn btn-primary" value="가입신청" >
-								
+								<input type="submit" id="btn1" class="btn btn-primary" value="가입신청" >								
 								 <input type="button" id="btn2"	class="btn btn-warning" value="취소"	onclick="window.location='main.jsp'">
 							</div>
 
@@ -714,6 +626,6 @@ $(document).ready(function(){
 		</div>
 
 	</div>
-	</div>
+
 </body>
 </html>

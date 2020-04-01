@@ -3,12 +3,17 @@ package kr.co.jhta.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Member;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,11 +77,15 @@ public class RegisterController {
 //		return "/";
 //	}
 	@RequestMapping(value = "/registerOk", method = RequestMethod.POST)
-	public String registerOk(@ModelAttribute UserDTO dto) {
-	
+	public String registerOk(@ModelAttribute UserDTO dto, HttpServletRequest request, HttpServletResponse response_equals) {
+		String addr1 = request.getParameter("addr1");
+		String addr2 = request.getParameter("addr2");
+		String addr3 = request.getParameter("addr3");
+		String address = addr1 +","+addr2+","+addr3;
+		System.out.println("합친 주소" +address);
 		System.out.println("ageGroup :" + dto.getAgeGroup());
 
-		System.out.println("생년월일 :" + dto.getBirth());
+		System.out.println("생년월일(자르기 전) :" + dto.getBirth());
 
 		System.out.println("이메일 :" +dto.getEmail());
 
@@ -87,7 +97,7 @@ public class RegisterController {
 
 		System.out.println("닉네임 :" +dto.getNickname());
 		
-		System.out.println("비밀번호 : " +dto.getPassword());
+		System.out.println("비밀번호(인코딩 전) : " +dto.getPassword());
 
 		System.out.println("플랫폼 :" +dto.getPlatformStatus());
 
@@ -98,18 +108,46 @@ public class RegisterController {
 		System.out.println("회원번호 :" +dto.getUserId());
 
 		System.out.println("아이디 :" +dto.getUsername());
+		
+//		System.out.println("주소 : " +dto.getAddress());
+		
 
+		dto.setBirth(dto.getBirth().replace("/", ""));
+		dto.setAddress(address);
+		System.out.println("생년월일(자른 후) :" + dto.getBirth());
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
+		System.out.println("비밀번호(인코딩 후) : " +dto.getPassword());
 		ms.wrtieOneMember(dto);
 		return "/";
 	}
-//	@RequestMapping
-	// 아이디 중복 체크
+
+//	 아이디 중복 체크
+//	@RequestMapping("/idCheck.do")
 //	@ResponseBody
-//	@RequestMapping(value="/member/idChk", method = RequestMethod.GET)
-//	public int idChk(@RequestParam("memberId") String user_m_id) {
-//		return reg_service.userIdCheck(user_m_id);
+//	public Map<Object, Object> idcheck(@RequestBody String username){
+//		int count = 0;
+//		System.out.println("오오오");
+//		Map<Object, Object> map = new HashMap<Object, Object>();
+//		count = ms.idcheck(username);
+//		map.put("cnt", count);
+//		return map;
 //	}
+//	 아이디 중복 체크
+
+	@RequestMapping("idCheck.do")
+	@ResponseBody
+	public String idCheck(@RequestBody String username) {
+		String checkRst;
+		System.out.println("체크컨트롤러왔음");
+		int idCnt = ms.idChk(username);
+		if(idCnt > 0)
+			checkRst = "F";
+		else
+			checkRst = "S";		
+		return checkRst;		
+	}
+	
+
 //	//----------------------------------메일 인증----------------------------
 
 	@Inject // 서비스를 호출하기 위해 의존성을 주입
@@ -123,7 +161,7 @@ public class RegisterController {
 	// mailSending 코드
 	@RequestMapping(value = "/auth.do", method = RequestMethod.POST)
 	public ModelAndView mailSending(HttpServletRequest request, String e_mail, HttpServletResponse response_email,
-			Model model) throws IOException {
+			Model model, 	HttpSession session) throws IOException {
 
 		Random r = new Random();
 		int dice = r.nextInt(4589362) + 49311; // 이메일로 받는 인증코드 부분 (난수)
@@ -134,8 +172,13 @@ public class RegisterController {
 		String em2 = request.getParameter("em2");
 		String tomail = em1 + "@" + em2; // 받는 사람 이메일
 		System.out.println(tomail);
-		request.setAttribute("tomail", tomail);
+//		request.setAttribute("tomail", tomail);
 
+//		model.addAttribute("tomail", tomail);
+		
+		session.setAttribute("tomail", tomail);
+		
+		
 //            if(@Email private String email) {
 //            	   String sendKey = "이메일을 다시 입력해주세요.";
 //                   request.setAttribute("sendKey", sendKey);
