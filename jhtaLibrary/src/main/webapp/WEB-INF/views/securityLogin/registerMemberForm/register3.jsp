@@ -346,14 +346,12 @@ $(document).ready(function(){
 							idflag = 1;
 						} else {
 
-								$('#id_check').text('아이디가 존재합니다. 다른 아이디를 입력해주세요');
-								$('#id_check').css('color', 'red');
-								idflag=2;
+						$('#id_check').text('아이디가 존재합니다. 다른 아이디를 입력해주세요');
+						$('#id_check').css('color', 'red');
+						idflag=2;
 
-						}
-						
-					}
-			
+						}						
+					}			
 
 			},
 			error: function(req, status, errThrown) {
@@ -366,18 +364,15 @@ $(document).ready(function(){
 			
 });
 	
-
 	////////////////////////////////////////////비밀번호 체크/////////////////////////////////
 	$(function() {
 		$('#uPw').keyup(function() {
 			$('.pwCh').html('');
 		});
-
 		$('#uPwch').keyup(function() {
 			if ($('#uPw').val() != $('#uPwch').val()) {
 				$('.pwCh').html('비밀번호가 일치하지 않습니다.');
 				pwflag = 0;
-
 			} else {
 				$('.pwCh').html("비밀번호가 일치합니다.")
 				pwflag = 1;
@@ -491,9 +486,9 @@ window.onload = function() {
 			<div class="terms">
 				<div class="contentcore">
 					<h3>회원가입</h3>
-					<hr class="one">
-					<div>네비게이션</div>
-					<hr class="one">
+<!-- 					<hr class="one"> -->
+<!-- 					<div>네비게이션</div> -->
+<!-- 					<hr class="one"> -->
 					<div class="joinStep">
 						<ul class="list-group list-group-horizontal">
 

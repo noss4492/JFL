@@ -44,17 +44,17 @@
 		});
 		//------------------------------------------------------------------
 		////이메일 인증키///
-		$('#chCo').keyup(function() {
-			chCo = document.getElementById("chCo").value;
-			if (chCo == key) {
-				$('.keyCh').html("일치합니다");
-				emailflag = 1;
+// 		$('#chCo').keyup(function() {
+// 			chCo = document.getElementById("chCo").value;
+// 			if (chCo == key) {
+// 				$('.keyCh').html("일치합니다");
+// 				emailflag = 1;
 
-			} else {
-				$('.keyCh').html("인증키가 일치하지 않습니다");
-				emailflag = 0;
-			}
-		});
+// 			} else {
+// 				$('.keyCh').html("인증키가 일치하지 않습니다");
+// 				emailflag = 0;
+// 			}
+// 		});
 	});
 	//-------------------------------------------------------------------------
 </script>
@@ -166,9 +166,9 @@ ul li {
 				<div class="terms">
 					<div class="contentcore">
 						<h3>회원가입</h3>
-						<hr class="one">
-						<div>네비게이션</div>
-						<hr class="one">
+<!-- 						<hr class="one"> -->
+<!-- 						<div>네비게이션</div> -->
+<!-- 						<hr class="one"> -->
 						<div class="joinStep">
 							<ul class="list-group list-group-horizontal">
 								<li class="list-group-item">가입확인</li>

@@ -204,9 +204,9 @@ ul li {
 				<div class="terms">
 					<div class="contentcore">
 						<h3>회원가입</h3>
-						<hr class="one">
-						<div>네비게이션</div>
-						<hr class="one">
+<!-- 						<hr class="one"> -->
+<!-- 						<div>네비게이션</div> -->
+<!-- 						<hr class="one"> -->
 						<div class="joinStep">
 							<ul class="list-group list-group-horizontal">
 								<li class="list-group-item">가입확인</li>

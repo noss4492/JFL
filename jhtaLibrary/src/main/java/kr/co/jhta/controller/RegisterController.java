@@ -177,7 +177,8 @@ public class RegisterController {
 //		model.addAttribute("tomail", tomail);
 		
 		session.setAttribute("tomail", tomail);
-		
+		session.setAttribute("em1", em1);
+		session.setAttribute("em2", em2);
 		
 //            if(@Email private String email) {
 //            	   String sendKey = "이메일을 다시 입력해주세요.";
