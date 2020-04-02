@@ -35,9 +35,20 @@ public class HomeController {
 	public String main(Principal principal, Model model) {
 		if(principal!=null) {
 			UserDTO dto = memberServiceImple.readOneMember(principal.getName());
-			System.out.println(dto.toString());
+			model.addAttribute("username", dto.getName());
+			model.addAttribute("userno", dto.getUserId());
 		}
 		return "main";
+	}
+	@RequestMapping(value ="/content/loginForm" , method = RequestMethod.GET)
+	public String loginForm(Model model) {
+			model.addAttribute("content","");
+		return "loginForm";
+	}
+	@RequestMapping(value ="/content" , method = RequestMethod.GET)
+	public String content(Model model) {
+			model.addAttribute("content","/loginForm");
+		return "contentCore";
 	}
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, Principal principal) {

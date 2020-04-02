@@ -159,8 +159,14 @@
                 
             }
         }
-
         
+        /* var $frm = $("frm[name=logout]");
+        function logout(){
+        	console.log($frm);
+        	 $frm.action = "/securityLogin/logout";
+        	$frm.method = "post"; 
+        	document.frm.submit();
+        } */
         
     </script>
     <title>Document</title>
@@ -193,21 +199,30 @@
                             <button id="btns" type="submit" class="btn btn-lg btn-info btn-block" >로그인</button>
                         </div>
                     </form>
-                    <div id="loginMenu">
+                    <div class="loginMenu">
                         <a href="">회원가입</a>
                         <a href="" class="rightA">아이디 찾기</a>
                         <a href="" class="rightA">비밀번호 재발급</a>
                     </div>
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
-                	<div>
-                		<p class="user-info-title">회원정보</p>
-                		<b></b><p>님 환영합니다!</p>
+                	<p class="user-info-title">회원정보</p>
+                	<div id="logininfo">
+                		<b>${username}</b><span>님 환영합니다!</span>
+                		<p>대출자번호:${userno}</p>
+                	</div>
+                	<div class="loginMenu">
+	                	<form action="<c:url value="/securityLogin/logout" />" name="logout" method="post">
+							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+	                		<input type="submit" class="logoutbtn" value="로그아웃" />
+	                		<a href="" class="rightA">내서재</a>
+	                		<a href="" class="rightA">정보수정</a>
+						</form>
                 	</div>
                 </sec:authorize>
                     <a href="">
                         <div id="lookup">
-                            대출/예약 조회
+                         	대출/예약 조회
                         </div>
                     </a>
                     <div id="roomgroup">
@@ -272,7 +287,7 @@
                             </div>
                             <div class="desc">
                                 <p>
-                                    매월 첫째·셋째 금요일, 법정공휴일<br />(일요일 제외)
+                                    	매월 첫째·셋째 금요일, 법정공휴일<br />(일요일 제외)
                                 </p>
                             </div>
                         </div>

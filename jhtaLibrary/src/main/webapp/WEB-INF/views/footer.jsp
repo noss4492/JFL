@@ -94,14 +94,52 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 	margin: 0px auto;
 }
 
-.footer_Area a .{
-	color: #666666;
-	float: left;
-	width: 29px;
-	height: 30px;
-	margin: 0px auto;
-}
+.footer_Area
+ 
+a
+ 
+.{
+color
+:
+ 
+#666666
+;
 
+	
+float
+:
+ 
+left
+;
+
+	
+width
+:
+ 
+29
+px
+;
+
+	
+height
+:
+ 
+30
+px
+;
+
+	
+margin
+:
+ 
+0
+px
+ 
+auto
+;
+
+
+}
 .footer_zone {
 	width: 990px;
 	height: 30px;
@@ -221,10 +259,10 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 	height: 35px;
 	position: absolute;
 	left: 49%;
-	top:13px;
-	margin-left: 350px;
+	top: 13px; margin-left : 350px;
 	padding-right: 20px;
 	font-size: 18px;
+	margin-left: 350px;
 }
 
 .footer_familysite.blind {
@@ -260,29 +298,33 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 	padding-right: 3px;
 }
 
-.footer_Add {
-	width: 1200px;
-	position: relative;
-	overflow: hidden;
-	max-width: 1200px;
-	margin: 0 auto;
-	color: #999;
-	box-sizing: border-box;
-	margin-top: 50px;
-}
+.footer_Add{
+        width: 1200px;
+        position: relative;
+        max-width: 1200px;
+        overflow: auto;
+        margin: 0 auto;
+        color: #999;
+        box-sizing: border-box;
+        margin-top: 50px;
+        height: 42px;
+        }
 
 .footer_logo {
 	position: absolute;
 }
 
-.footer_Add ul.li {
-	float: left;
-	position: relative;
-	margin-right: 1em;
-	padding-right: 10px;
-	list-style: none;
-}
-
+    .footer_Add ul.li {
+    position: relative;
+    margin-right: 1em;
+    padding-left: 15px;
+    }
+    .footer_Add cite{
+     display: block;
+     line-height: normal;
+     text-align: center;
+     margin-right: 140px;
+    }
 .footer_ovh {
 	overflow: hidden;
 }
@@ -398,26 +440,21 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 
 
 					<div class="footer_InnerClearfix">
-						
+
 						<div class="footer_Add">
 							<div class="footer_logo">
-								<img src="img/footer_logo.png">
+								<img
+									src="https://lib.nyj.go.kr/include/image/common/footer_logo.png">
 							</div>
 							<ul>
-								<li class="footer_ovh"><p class="footer_lib">화도도서관</p></li>
+								<li class="footer_ovh"><p class="footer_lib">화도도서관
+										&nbsp;&nbsp; 경기도 남양주시 화도읍 수레로1260번길 33 &nbsp; &nbsp; TEL :
+										031-590-4587</p>
 							</ul>
-							<ul>
-								<li class="footer_ovh"><p class="footer_lib">경기도 남양주시
-										화도읍 수레로1260번길 33</p></li>
-							</ul>
-							<ul>
-								<li class="footer_ovh"><p class="footer_lib">TEL :
-										031-590-4587</p></li>
-							</ul>
-							<ul>
-								<li class="footer_ovh"><p class="footer_lib">Copyright
-										© 남양주시도서관. ALL RIGHTS RESERVED.</p></li>
-							</ul>
+
+
+							<cite>Copyright © 남양주시도서관. ALL RIGHTS RESERVED.</cite>
+
 						</div>
 						<!--Footer 텍스트부분-->
 					</div>
