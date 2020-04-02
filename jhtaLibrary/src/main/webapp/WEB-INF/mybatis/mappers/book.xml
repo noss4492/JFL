@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.jhta.book">
+<!-- se #{startNo} #{endNo} -->
+ 	
+<!-- 
+GENERAL_BOOK_ID V
+GENRE V
+TITLE V
+DESCRIPTION V
+DETAIL_URL V
+PUBLICATION_DATE V
+PUBLISHER V
+PUBLISHER D
+THUMBNAIL_URL V 
+STATUS C
+RECOMMEND_STATUS C(0~255)
+-->
+				  
+<!-- 변수명 다른거는 alias로 처리해도 되고 resultMap을 만들어서 처리해도 된다.
+     resultMap으로 만들고 싶은데 시간이 너무 없어서 패스함. 				  
+<resultMap type="gbdto" id="serachBookResultList" >
+</resultMap>
+<select id="selectSearchPage" resultMap="serachBookResultList" parameterType="hashmap">
+ -->
+<!--  	<select id="selectSearchPage" resultType="gbdto" parameterType="hashmap" parameterMap=""> -->
+<!-- ROWNUM DESCRIPTION -->
+<!--  	<select id="selectSearchPage" resultType="serachBookPageList" parameterType="hashmap">
+	<![CDATA[
+	SELECT ROWNUM RNM, GENERAL_BOOK_ID as generalBookId , GENRE, TITLE, DESCRIPTION, DETAIL_URL, PUBLICATION_DATE, PUBLISHER, THUMBNAIL_URL, STATUS, RECOMMEND_STATUS, AUTHOR_NAME 
+	FROM(
+		SELECT ROWNUM RN, GENERAL_BOOK_ID, GENRE, TITLE, DESCRIPTION, DETAIL_URL, PUBLICATION_DATE, PUBLISHER, THUMBNAIL_URL, STATUS, RECOMMEND_STATUS, AUTHOR_NAME 
+		FROM(
+			SELECT G.GENERAL_BOOK_ID GENERAL_BOOK_ID, G.GENRE GENRE, G.TITLE TITLE, G.DESCRIPTION DESCRIPTION, G.DETAIL_URL DETAIL_URL, G.PUBLICATION_DATE PUBLICATION_DATE, G.PUBLISHER PUBLISHER, G.THUMBNAIL_URL THUMBNAIL_URL, G.STATUS STATUS, G.RECOMMEND_STATUS RECOMMEND_STATUS, A.AUTHOR_NAME AUTHOR_NAME 
+			FROM GENERAL_BOOK G 
+			INNER JOIN AUTHOR A 
+			ON G.GENERAL_BOOK_ID = A.GENERAL_BOOK_ID
+			INNER JOIN LIBRARY_BOOK L 
+			ON G.GENERAL_BOOK_ID = L.GENERAL_BOOK_ID
+			WHERE GENERAL_BOOK_ID like '%#{}%' and TITLE like '%#{}%' and AUTHOR_NAME like '%#{}%'
+		) 
+		WHERE ROWNUM <= #{endNo} 
+	) 
+	WHERE RN >= #{startNo}
+	]]>
+	</select> -->
+	<insert id="insertOne">
+	</insert>
+	<delete id="deleteOne">
+	</delete>
+	<select id="getTotalCount">
+	</select>
+</mapper>

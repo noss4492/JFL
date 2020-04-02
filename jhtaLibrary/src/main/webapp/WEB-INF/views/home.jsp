@@ -22,9 +22,11 @@ test2 : <img src="resources/img/headerLogo.png"/>
 
 login/logout 빼고는 아래 주소와 연결 시켜야함. <br><br>
 <a href="./signUp">goto signUp form</a><br><br>
+<a href="<c:url value="/kakaoLogin"/>">카카오로 로그인</a><br><br>
 <a href="<c:url value="/securityLogin/login"/>">로그인주소 : contextpath<c:url value="/login"/> </a><br><br>
 <a href="<c:url value="/securityLogin/logout"/>">로그아웃</a><br><br>
 <a href="<c:url value="/showPrincipal"/>">유저개인정보</a><br><br>
+
 principal: ${principalInfo}<br><br><br>
 csrf param : ${_csrf.parameterName}<br>
 	<sec:authorize access="isAuthenticated()"><!-- 인증된 사용자들, role_ 있으면 ok -->

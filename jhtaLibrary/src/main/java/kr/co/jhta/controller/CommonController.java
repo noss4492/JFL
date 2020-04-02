@@ -2,7 +2,6 @@ package kr.co.jhta.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import kr.co.jhta.dto.UserDTO;
 import kr.co.jhta.service.ArticleService;
@@ -31,6 +32,7 @@ public class CommonController {
 	
 	@Setter(onMethod=@__({@Autowired}))
 	MemberService ms;
+   
 	
 	@RequestMapping("/showPrincipal")
 	public String show(Principal principal, Model model) {
