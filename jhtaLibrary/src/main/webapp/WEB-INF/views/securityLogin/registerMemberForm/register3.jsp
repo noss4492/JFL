@@ -288,210 +288,7 @@ ul li {
 </style>
 
 
-<script type="text/javascript">
 
-
-	var idflag = 0; // id확인 논리값
-	var pwflag = 0; // 비밀번호 재입력 확인 논리값
-	var nameflag = 0; //이름 논리값
-	var nickflag= 0;
-	var idJ = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
-	var pwJ = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-	console.log(pwflag);
-	console.log(idflag);
-	console.log(nameflag);
-
-	//////////////////////////////////////닉네임 중복 확인 및 아이디 중복 확인 버튼 클릭시//////////////////////////////////
-	$(function() {
-
-		$('#datet').datetimepicker({
-			viewMode : 'years',
-			format : 'DD/MM/YYYY',
-			showClear : true
-
-		});
-	});
-
-
-
-$(document).ready(function(){
-
-		$("#user_m_id").blur(function() {
-
-			var username=$('#user_m_id').val();
-			
-			
-			$.ajax({
-			async : false,
-			type : "POST",
-			url : "idCheck.do",
-			data : username,
-			beforeSend: function(xhr){
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}"); //시큐리티 때문에 필요
-			},
-			success : function(data) {
-				if($('#user_m_id').val()==''){		
-					$('#id_check').text('아이디를 입력하세요.');
-					$('#id_check').css('color', 'red');
-					idflag=2;
-					} 
-					else if(idJ.test($('#user_m_id').val())!=true){
-					$('#id_check').text('4~12자의 영문, 숫자만 사용 가능합니다.');
-					$('#id_check').css('color', 'red');
-					idflag=2;
-					} 
-					else if($('#user_m_id').val()!=''){		
-						$('#id_check').text('');
-						if(data == "S") {
-							$('#id_check').text('사용가능한 아이디입니다.');
-							$('#id_check').css('color', 'red');
-							idflag = 1;
-						} else {
-
-						$('#id_check').text('아이디가 존재합니다. 다른 아이디를 입력해주세요');
-						$('#id_check').css('color', 'red');
-						idflag=2;
-
-						}						
-					}			
-
-			},
-			error: function(req, status, errThrown) {
-
-			}
-			
-			})//ajax///		
-			//else if
-			});//blur			
-			
-});
-	
-	////////////////////////////////////////////비밀번호 체크/////////////////////////////////
-	$(function() {
-		$('#uPw').keyup(function() {
-// 			$('.pwjCh').html('');
-			if(pwJ.test($('#uPw').val())!=true){
-				$('.pwjCh').html('최소 8자, 하나의 숫자 및 특수 문자가 포함되어야 합니다.');
-				pwflag = 0;
-			}else{
-				$('.pwjCh').html('');
-			}				
-		});
-		$('#uPwch').keyup(function() {				
-				if ($('#uPw').val() != $('#uPwch').val()) {
-				$('.pwCh').html('비밀번호가 일치하지 않습니다.');
-				pwflag = 0;
-				} else{
-// 				$('.pwCh').html("비밀번호가 일치합니다.");
-				$('.pwCh').html("");
-				pwflag = 1;
-				}
-			
-		});
-	});
-
-
-	function postCode() {
-		new daum.Postcode({
-			oncomplete : function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-				var addr = ''; // 주소 변수
-				var extraAddr = ''; // 참고항목 변수
-
-				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-					addr = data.roadAddress;
-				} else { // 사용자가 지번 주소를 선택했을 경우(J)
-					addr = data.jibunAddress;
-				}		
-
-				// 우편번호와 주소 정보를 해당 필드에 넣는다.
-				document.getElementById('addr1').value = data.zonecode;
-				document.getElementById("addr2").value = addr;
-				// 커서를 상세주소 필드로 이동한다.
-				document.getElementById("addr3").focus();
-			}
-		}).open();
-	}
-
-	///////////////////////////////////////최종검사///////////////////////////////////////////////////////
-window.onload = function() {
-
-		var frm = document.frm;
-		
-		var btn1 = document.getElementById("btn1");
-		var btn2 = document.getElementById("chCosend");
-		var nickname=$('#nick').val();
-
-// 		btn1.disabled = true; //가입신청 버튼 숨기기.  보류
-
-		btn1.onclick = function() {
-		
-			for (var i = 0; i < $("#name").val().length; i++) {
-				var chk = $("#name").val().substring(i, i + 1);
-				if (chk.match(/[0-9]|[a-z]|[A-Z]/)) {
-					$('#name_check').text('이름에는 영문 및 특수문자,숫자를 사용하실 수 없습니다.');
-					$('#name_check').css('color', 'red');
-					nameflag = 0;					
-					return;				
-				}
-				if (chk.match(/([^가-힣\x7])/i)) {
-					$('#name_check').text('이름을 정확히 입력해주세요');
-					$('#name_check').css('color', 'red');
-					nameflag= 0;
-					return;
-				}else if ($("#name").val() == '') {
-					$('#name_check').text('이름을 입력해주세요');
-					$('#name_check').css('color', 'red');
-					nameflag = 0;
-					return;
-				}
-				else {
-					nameflag = 1;
-					}
-				}			
-				if(nickname == null || nickname == ""){
-// 					alert("닉네임")
-					nickflag = 0;
-				}
-// 				else{
-					
-// 				}
-// 				else{
-// // 					alert("ㅇㅋ")
-// 					nickflag = 1;
-// 				}
-					
-					
-			if ( nameflag == 0 || idflag == 0 || idflag == 2 || pwflag == 0 || pwflag == 2 || nickflag == 0) {
-
-				 if(nameflag == 0){
-					 alert("이름을 확인해주세요.")
-				 }
-				 else if (idflag == 0 || idflag == 2) {
-					alert("아이디를 확인해주세요.")
-				}
-				 
-				else if (pwflag == 0 || pwflag == 2) {
-					alert("패스워드를 확인해주세요")
-				}else if(nickflag == 0){
-					alert("닉네임 확인");
-				}
-				 
-				}
-				else if (nameflag == 1 && pwflag == 1 && idflag == 1 && nickflag == 1) {	
-				document.f.submit();
-				}		
-				
-	}
-	}
-console.log(pwflag);
-console.log(idflag);
-console.log(nameflag);
-</script>
 
 </head>
 <body>
@@ -517,8 +314,6 @@ console.log(nameflag);
 						</ul>
 					</div>
 
-
-<%-- 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 
 					<form name = "f" action="./registerOk" id="registerChk" name="frm" method="post">
 
@@ -640,6 +435,210 @@ console.log(nameflag);
 		</div>
 
 	</div>
+<script type="text/javascript">
+	var idflag = 0; // id확인 논리값
+	var pwflag = 0; // 비밀번호 재입력 확인 논리값
+	var nameflag = 0; //이름 논리값
+	var nickflag= 0;
+	var nickflag22= 333;
+	var idJ = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
+	var pwJ = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+	console.log(pwflag);
+	console.log(idflag);
+	console.log(nameflag);
+	console.log(nickflag);
 
+	//////////////////////////////////////닉네임 중복 확인 및 아이디 중복 확인 버튼 클릭시//////////////////////////////////
+	$(function() {
+		$('#datet').datetimepicker({
+			viewMode : 'years',
+			format : 'DD/MM/YYYY',
+			showClear : true
+
+		});
+	});
+
+
+
+$(document).ready(function(){
+
+		$("#user_m_id").blur(function() {
+
+			var username=$('#user_m_id').val();
+			
+			
+
+			
+			$.ajax({
+			async : false,
+			type : "POST",
+			url : "idCheck.do",
+			data : username,
+			beforeSend: function(xhr){
+			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}"); //시큐리티 때문에 필요
+			},
+			success : function(data) {
+				if($('#user_m_id').val()==''){		
+					$('#id_check').text('아이디를 입력하세요.');
+					$('#id_check').css('color', 'red');
+					idflag=2;
+					} 
+					else if(idJ.test($('#user_m_id').val())!=true){
+					$('#id_check').text('4~12자의 영문, 숫자만 사용 가능합니다.');
+					$('#id_check').css('color', 'red');
+					idflag=2;
+					} 
+					else if($('#user_m_id').val()!=''){		
+						$('#id_check').text('');
+						if(data == "S") {
+							$('#id_check').text('사용가능한 아이디입니다.');
+							$('#id_check').css('color', 'red');
+							idflag = 1;
+						} else {
+
+						$('#id_check').text('아이디가 존재합니다. 다른 아이디를 입력해주세요');
+						$('#id_check').css('color', 'red');
+						idflag=2;
+
+						}						
+					}			
+
+			},
+			error: function(req, status, errThrown) {
+
+			}
+			
+			})//ajax///		
+			//else if
+			});//blur			
+			
+});
+	
+	////////////////////////////////////////////비밀번호 체크/////////////////////////////////
+	$(function() {
+		$('#uPw').keyup(function() {
+// 			$('.pwjCh').html('');
+			if(pwJ.test($('#uPw').val())!=true){
+				$('.pwjCh').html('최소 8자, 하나의 숫자 및 특수 문자가 포함되어야 합니다.');
+				pwflag = 0;
+			
+			}else{
+				$('.pwjCh').html('');
+				pwflag
+			}				
+		});
+		$('#uPwch').keyup(function() {				
+				if ($('#uPw').val() != $('#uPwch').val()) {
+				$('.pwCh').html('비밀번호가 일치하지 않습니다.');
+				pwflag = 0;
+				} else{
+				$('.pwCh').html("");
+				pwflag = 1;
+				}
+			
+		});
+	});
+
+
+	function postCode() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+				var addr = ''; // 주소 변수
+				var extraAddr = ''; // 참고항목 변수
+
+				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+					addr = data.roadAddress;
+				} else { // 사용자가 지번 주소를 선택했을 경우(J)
+					addr = data.jibunAddress;
+				}		
+
+				// 우편번호와 주소 정보를 해당 필드에 넣는다.
+				document.getElementById('addr1').value = data.zonecode;
+				document.getElementById("addr2").value = addr;
+				// 커서를 상세주소 필드로 이동한다.
+				document.getElementById("addr3").focus();
+			}
+		}).open();
+	}
+
+	///////////////////////////////////////최종검사///////////////////////////////////////////////////////
+window.onload = function() {
+
+		var frm = document.frm;
+		var btn1 = document.getElementById("btn1");
+		var btn2 = document.getElementById("chCosend");
+		var nickname=$('#nick').val();
+	
+
+// 		btn1.disabled = true; //가입신청 버튼 숨기기.  보류
+
+		btn1.onclick = function() {
+		
+			for (var i = 0; i < $("#name").val().length; i++) {
+				var chk = $("#name").val().substring(i, i + 1);
+				if (chk.match(/[0-9]|[a-z]|[A-Z]/)) {
+					$('#name_check').text('이름에는 영문 및 특수문자,숫자를 사용하실 수 없습니다.');
+					$('#name_check').css('color', 'red');
+					nameflag = 0;					
+					return;				
+				}
+				if (chk.match(/([^가-힣\x7])/i)) {
+					$('#name_check').text('이름을 정확히 입력해주세요');
+					$('#name_check').css('color', 'red');
+					nameflag= 0;
+					return;
+				}else if ($("#name").val() == '') {
+					$('#name_check').text('이름을 입력해주세요');
+					$('#name_check').css('color', 'red');
+					nameflag = 0;
+					return;
+				}
+				else {
+					$('#name_check').text('');
+					nameflag = 1;
+					}
+				}			
+				if($("#nick").val() == null || $("#nick").val() == ''){
+// 					alert("닉네임")
+					nickflag = 0;
+				}
+
+				else{
+// 					alert("ㅇㅋ")
+					nickflag = 1;
+				}
+					
+					
+			if ( nameflag == 0 || idflag == 0 || idflag == 2 || pwflag == 0 || pwflag == 2 || nickflag == 0) {
+
+					 if(nameflag == 0){
+					 alert("이름을 확인해주세요.")
+					 }
+					 else if (idflag == 0 || idflag == 2) {
+					alert("아이디를 확인해주세요.")
+					}
+				 
+					else if (pwflag == 0 || pwflag == 2) {
+					alert("패스워드를 확인해주세요")
+					}else if(nickflag == 0){
+					alert("닉네임 확인");
+					}
+				 
+					}
+				else if (nameflag == 1 && pwflag == 1 && idflag == 1 && nickflag == 1) {	
+				document.f.submit();
+				}		
+				
+	}
+	}
+console.log(pwflag);
+console.log(idflag);
+console.log(nameflag);
+</script>
 </body>
 </html>
