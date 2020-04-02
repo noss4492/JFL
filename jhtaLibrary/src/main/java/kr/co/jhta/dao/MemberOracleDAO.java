@@ -64,6 +64,12 @@ public class MemberOracleDAO implements MemberDAO{
 				return idCount;
 	}
 
-
+	@Override
+	public int mailChk(String email) {
+		System.out.println("mail check");
+		int mailCount = ss.selectOne("emCheck", email.replace("=",""));
+		System.out.println(email);
+		return mailCount;
+	}
 
 }

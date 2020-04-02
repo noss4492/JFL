@@ -30,31 +30,22 @@
 <script type="text/javascript" src="../js/httpRequest.js"></script>
 <script type="text/javascript">
 	/////////////////////이메일 수정 선택 가능 셀렉터 드롭박스////////////////////////////
-	$(function() {
+	
+	
+	$(function() {	
+		
 		$('#sbox').change(function() {
 			$("#sbox option:selected").each(function() {
 				if ($(this).val() == '1') {
 					$("#em2").val('');
-					$("#em2").attr("disabled", false);
+					$("#em2").attr("readonly", false);
 				} else {
 					$("#em2").val($(this).val());
-					$("#em2").attr("disabled", true);
+					$("#em2").attr("readonly", true);
 				}
 			});
 		});
-		//------------------------------------------------------------------
-		////이메일 인증키///
-// 		$('#chCo').keyup(function() {
-// 			chCo = document.getElementById("chCo").value;
-// 			if (chCo == key) {
-// 				$('.keyCh').html("일치합니다");
-// 				emailflag = 1;
 
-// 			} else {
-// 				$('.keyCh').html("인증키가 일치하지 않습니다");
-// 				emailflag = 0;
-// 			}
-// 		});
 	});
 	//-------------------------------------------------------------------------
 </script>

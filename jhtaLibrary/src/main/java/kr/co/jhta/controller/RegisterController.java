@@ -77,61 +77,50 @@ public class RegisterController {
 //		return "/";
 //	}
 	@RequestMapping(value = "/registerOk", method = RequestMethod.POST)
-	public String registerOk(@ModelAttribute UserDTO dto, HttpServletRequest request, HttpServletResponse response_equals) {
+	public String registerOk(@ModelAttribute UserDTO dto, HttpServletRequest request,
+			HttpServletResponse response_equals) {
 		String addr1 = request.getParameter("addr1");
 		String addr2 = request.getParameter("addr2");
 		String addr3 = request.getParameter("addr3");
-		String address = addr1 +","+addr2+","+addr3;
-		System.out.println("합친 주소" +address);
+		String address = addr1 + "," + addr2 + "," + addr3;
+		System.out.println("합친 주소" + address);
 		System.out.println("ageGroup :" + dto.getAgeGroup());
 
 		System.out.println("생년월일(자르기 전) :" + dto.getBirth());
 
-		System.out.println("이메일 :" +dto.getEmail());
+		System.out.println("이메일 :" + dto.getEmail());
 
-		System.out.println("성별 : " +dto.getGender());
-		
-		System.out.println("회원등급 :" +dto.getGradeStatus());
-	
-		System.out.println("이름 :" +dto.getName());
+		System.out.println("성별 : " + dto.getGender());
 
-		System.out.println("닉네임 :" +dto.getNickname());
-		
-		System.out.println("비밀번호(인코딩 전) : " +dto.getPassword());
+		System.out.println("회원등급 :" + dto.getGradeStatus());
 
-		System.out.println("플랫폼 :" +dto.getPlatformStatus());
+		System.out.println("이름 :" + dto.getName());
 
-		System.out.println("가입일 :" +dto.getRegisterDate());
-	
-		System.out.println("사용가능등급 :" +dto.getRightStatus());
+		System.out.println("닉네임 :" + dto.getNickname());
 
-		System.out.println("회원번호 :" +dto.getUserId());
+		System.out.println("비밀번호(인코딩 전) : " + dto.getPassword());
 
-		System.out.println("아이디 :" +dto.getUsername());
-		
+		System.out.println("플랫폼 :" + dto.getPlatformStatus());
+
+		System.out.println("가입일 :" + dto.getRegisterDate());
+
+		System.out.println("사용가능등급 :" + dto.getRightStatus());
+
+		System.out.println("회원번호 :" + dto.getUserId());
+
+		System.out.println("아이디 :" + dto.getUsername());
+
 //		System.out.println("주소 : " +dto.getAddress());
-		
 
 		dto.setBirth(dto.getBirth().replace("/", ""));
 		dto.setAddress(address);
 		System.out.println("생년월일(자른 후) :" + dto.getBirth());
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
-		System.out.println("비밀번호(인코딩 후) : " +dto.getPassword());
+		System.out.println("비밀번호(인코딩 후) : " + dto.getPassword());
 		ms.wrtieOneMember(dto);
 		return "/";
 	}
 
-//	 아이디 중복 체크
-//	@RequestMapping("/idCheck.do")
-//	@ResponseBody
-//	public Map<Object, Object> idcheck(@RequestBody String username){
-//		int count = 0;
-//		System.out.println("오오오");
-//		Map<Object, Object> map = new HashMap<Object, Object>();
-//		count = ms.idcheck(username);
-//		map.put("cnt", count);
-//		return map;
-//	}
 //	 아이디 중복 체크
 
 	@RequestMapping("idCheck.do")
@@ -140,13 +129,12 @@ public class RegisterController {
 		String checkRst;
 		System.out.println("체크컨트롤러왔음");
 		int idCnt = ms.idChk(username);
-		if(idCnt > 0)
+		if (idCnt > 0)
 			checkRst = "F";
 		else
-			checkRst = "S";		
-		return checkRst;		
+			checkRst = "S";
+		return checkRst;
 	}
-	
 
 //	//----------------------------------메일 인증----------------------------
 
@@ -161,7 +149,7 @@ public class RegisterController {
 	// mailSending 코드
 	@RequestMapping(value = "/auth.do", method = RequestMethod.POST)
 	public ModelAndView mailSending(HttpServletRequest request, String e_mail, HttpServletResponse response_email,
-			Model model, 	HttpSession session) throws IOException {
+			String email, Model model, HttpSession session) throws IOException {
 
 		Random r = new Random();
 		int dice = r.nextInt(4589362) + 49311; // 이메일로 받는 인증코드 부분 (난수)
@@ -172,73 +160,85 @@ public class RegisterController {
 		String em2 = request.getParameter("em2");
 		String tomail = em1 + "@" + em2; // 받는 사람 이메일
 		System.out.println(tomail);
-//		request.setAttribute("tomail", tomail);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/securityLogin/registerMemberForm/register1");
 
-//		model.addAttribute("tomail", tomail);
+		String checkRst;
+		System.out.println("이메일 체크");
+		int mailCnt = ms.mailChk(tomail);
+		if (mailCnt > 0) {
+			System.out.println("메일있음");
+			String sendKey = "가입된 이메일 주소입니다.";
+			request.setAttribute("sendKey", sendKey);
 		
-		session.setAttribute("tomail", tomail);
-		session.setAttribute("em1", em1);
-		session.setAttribute("em2", em2);
-		
-//            if(@Email private String email) {
-//            	   String sendKey = "이메일을 다시 입력해주세요.";
-//                   request.setAttribute("sendKey", sendKey);
-//            }else{
+//			return mv;
+		} else {
+			System.out.println("메일없음");
+			ModelAndView mv2 = new ModelAndView();
 
-		String setfrom = "jhta4@nn.com";
+//			mv2.setViewName("/securityLogin/registerMemberForm/auth.do");
 
-		String title = "회원가입 인증 이메일 입니다."; // 제목
-		String content =
+			session.setAttribute("tomail", tomail);
+			session.setAttribute("em1", em1);
+			session.setAttribute("em2", em2);
 
-				System.getProperty("line.separator") + // 한줄씩 줄간격을 두기위해 작성
+			String setfrom = "jhta4@nn.com";
 
-						System.getProperty("line.separator") +
+			String title = "회원가입 인증 이메일 입니다."; // 제목
+			String content =
 
-						"안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
+					System.getProperty("line.separator") + // 한줄씩 줄간격을 두기위해 작성
 
-						+ System.getProperty("line.separator") +
+							System.getProperty("line.separator") +
 
-						System.getProperty("line.separator") +
+							"안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
 
-						" 인증번호는 " + dice + " 입니다. "
+							+ System.getProperty("line.separator") +
 
-						+ System.getProperty("line.separator") +
+							System.getProperty("line.separator") +
 
-						System.getProperty("line.separator") +
+							" 인증번호는 " + dice + " 입니다. "
 
-						"받으신 인증번호를 홈페이지에 입력해 주시면 다음으로 넘어갑니다."; // 내용
+							+ System.getProperty("line.separator") +
 
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+							System.getProperty("line.separator") +
 
-			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
-			messageHelper.setTo(tomail); // 받는사람 이메일
-			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-			messageHelper.setText(content); // 메일 내용
-			mailSender.send(message);
-		} catch (Exception e) {
-			System.out.println(e);
+							"받으신 인증번호를 홈페이지에 입력해 주시면 다음으로 넘어갑니다."; // 내용
+
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+
+				messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+				messageHelper.setTo(tomail); // 받는사람 이메일
+				messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+				messageHelper.setText(content); // 메일 내용
+				mailSender.send(message);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+
+			ModelAndView mv3 = new ModelAndView(); // ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
+			mv3.setViewName("/securityLogin/registerMemberForm/register1"); // 뷰의이름
+			mv3.addObject("dice", dice);
+			System.out.println(e_mail);
+			System.out.println(tomail);
+			System.out.println("mv3 : " + mv3);
+
+			model.addAttribute(em1, em1);
+			model.addAttribute(em2, em2);
+
+			response_email.setContentType("text/html; charset=UTF-8");
+			PrintWriter out_email = response_email.getWriter();
+			String sendKey = "이메일이 발송되었습니다. 인증번호를 입력해주세요.";
+			request.setAttribute("sendKey", sendKey);
+
+			out_email.flush();
+
+			return mv3;
 		}
-
-		ModelAndView mv = new ModelAndView(); // ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
-		mv.setViewName("/securityLogin/registerMemberForm/register1"); // 뷰의이름
-		mv.addObject("dice", dice);
-		System.out.println(e_mail);
-		System.out.println(tomail);
-		System.out.println("mv : " + mv);
-
-		model.addAttribute(em1, em1);
-		model.addAttribute(em2, em2);
-
-		response_email.setContentType("text/html; charset=UTF-8");
-		PrintWriter out_email = response_email.getWriter();
-		String sendKey = "이메일이 발송되었습니다. 인증번호를 입력해주세요.";
-		request.setAttribute("sendKey", sendKey);
-//            out_email.println("<script>alert('이메일이 발송되었습니다. 인증번호를 입력해주세요.');</script>");
-		out_email.flush();
-
 		return mv;
+
 	}
 //        }
 
@@ -275,7 +275,6 @@ public class RegisterController {
 		mv.setViewName("/securityLogin/registerMemberForm/register2");
 
 		mv.addObject("e_mail", email_injeung);
-//        mv.addObject("e_mail",email_injeung);
 
 		if (email_injeung.equals(dice)) {
 
@@ -290,8 +289,7 @@ public class RegisterController {
 
 			response_equals.setContentType("text/html; charset=UTF-8");
 			PrintWriter out_equals = response_equals.getWriter();
-//            request.setAttribute("인증번호 일치", sendk);
-//            out_equals.println("<script>alert('인증번호가 일치하였습니다. 회원가입창으로 이동합니다.');</script>");
+
 			out_equals.flush();
 
 			return mv;
@@ -312,7 +310,6 @@ public class RegisterController {
 			return mv2;
 
 		}
-
 		return mv;
 
 	}

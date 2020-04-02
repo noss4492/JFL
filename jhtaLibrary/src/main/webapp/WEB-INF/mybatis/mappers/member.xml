@@ -62,8 +62,14 @@
       SELECT count(*) FROM USER_M 
    </select>
    <!-- 아이디 중복 체크 -->
-	<select id="idCheck" parameterType="String" resultType="Integer">
+	<select id="idCheck" parameterType="String" resultType="int">
 	SELECT COUNT(*) FROM USER_M WHERE username = #{username}
 	</select>
-
+	
+	<!--이메일 체크  -->
+	<select id="emCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM USER_M
+		WHERE EMAIL = #{email}
+</select>
 </mapper>

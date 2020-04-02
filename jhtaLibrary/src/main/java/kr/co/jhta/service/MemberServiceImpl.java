@@ -58,6 +58,13 @@ public class MemberServiceImpl implements MemberService{
 		return idCnt;
 	}
 
+	@Override
+	public int mailChk(String email) {
+		int mailCnt = dao.mailChk(email);
+		
+		return mailCnt;
+	}
+
 
 	
 	

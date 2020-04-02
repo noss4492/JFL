@@ -18,6 +18,7 @@ public interface MemberDAO {
 	
 	//아이디 중복 체크
 	public int idChk(String username);
-
+	//이메일 중복 체크
+	public int mailChk(String email);
 	
 }
