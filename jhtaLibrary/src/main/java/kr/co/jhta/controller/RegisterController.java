@@ -40,9 +40,6 @@ import lombok.Setter;
 public class RegisterController {
 	String dicetemp;
 
-	// JdbcUserDetailsManager judm;
-//		private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -159,6 +156,18 @@ public class RegisterController {
 		String em1 = request.getParameter("em1");
 		String em2 = request.getParameter("em2");
 		String tomail = em1 + "@" + em2; // 받는 사람 이메일
+		
+		
+		
+		if(tomail.matches(regExp)) {
+		
+			System.out.println("맞음");
+		}else {
+			System.out.println("안맞음");
+		}
+		
+		
+		
 		System.out.println(tomail);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/securityLogin/registerMemberForm/register1");

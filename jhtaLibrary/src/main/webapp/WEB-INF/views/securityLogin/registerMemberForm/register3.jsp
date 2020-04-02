@@ -294,12 +294,15 @@ ul li {
 	var idflag = 0; // id확인 논리값
 	var pwflag = 0; // 비밀번호 재입력 확인 논리값
 	var nameflag = 0; //이름 논리값
+	var nickflag= 0;
 	var idJ = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
-
+	var pwJ = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+	console.log(pwflag);
+	console.log(idflag);
+	console.log(nameflag);
 
 	//////////////////////////////////////닉네임 중복 확인 및 아이디 중복 확인 버튼 클릭시//////////////////////////////////
 	$(function() {
-		
 
 		$('#datet').datetimepicker({
 			viewMode : 'years',
@@ -340,8 +343,7 @@ $(document).ready(function(){
 					else if($('#user_m_id').val()!=''){		
 						$('#id_check').text('');
 						if(data == "S") {
-
-							$('#id_check').text('사용가능한 아이디입니다..');
+							$('#id_check').text('사용가능한 아이디입니다.');
 							$('#id_check').css('color', 'red');
 							idflag = 1;
 						} else {
@@ -367,16 +369,24 @@ $(document).ready(function(){
 	////////////////////////////////////////////비밀번호 체크/////////////////////////////////
 	$(function() {
 		$('#uPw').keyup(function() {
-			$('.pwCh').html('');
+// 			$('.pwjCh').html('');
+			if(pwJ.test($('#uPw').val())!=true){
+				$('.pwjCh').html('최소 8자, 하나의 숫자 및 특수 문자가 포함되어야 합니다.');
+				pwflag = 0;
+			}else{
+				$('.pwjCh').html('');
+			}				
 		});
-		$('#uPwch').keyup(function() {
-			if ($('#uPw').val() != $('#uPwch').val()) {
+		$('#uPwch').keyup(function() {				
+				if ($('#uPw').val() != $('#uPwch').val()) {
 				$('.pwCh').html('비밀번호가 일치하지 않습니다.');
 				pwflag = 0;
-			} else {
-				$('.pwCh').html("비밀번호가 일치합니다.")
+				} else{
+// 				$('.pwCh').html("비밀번호가 일치합니다.");
+				$('.pwCh').html("");
 				pwflag = 1;
-			}
+				}
+			
 		});
 	});
 
@@ -414,29 +424,26 @@ window.onload = function() {
 		
 		var btn1 = document.getElementById("btn1");
 		var btn2 = document.getElementById("chCosend");
+		var nickname=$('#nick').val();
 
 // 		btn1.disabled = true; //가입신청 버튼 숨기기.  보류
 
 		btn1.onclick = function() {
-
+		
 			for (var i = 0; i < $("#name").val().length; i++) {
 				var chk = $("#name").val().substring(i, i + 1);
 				if (chk.match(/[0-9]|[a-z]|[A-Z]/)) {
-
 					$('#name_check').text('이름에는 영문 및 특수문자,숫자를 사용하실 수 없습니다.');
 					$('#name_check').css('color', 'red');
-					nameflag = 0;
-					return;
+					nameflag = 0;					
+					return;				
 				}
 				if (chk.match(/([^가-힣\x7])/i)) {
-
 					$('#name_check').text('이름을 정확히 입력해주세요');
 					$('#name_check').css('color', 'red');
-					return;
 					nameflag= 0;
-				}
-				if ($("#name").val() == "") {
-
+					return;
+				}else if ($("#name").val() == '') {
 					$('#name_check').text('이름을 입력해주세요');
 					$('#name_check').css('color', 'red');
 					nameflag = 0;
@@ -446,8 +453,20 @@ window.onload = function() {
 					nameflag = 1;
 					}
 				}			
-	
-			if ( nameflag == 0 || idflag == 0 || idflag == 2 || pwflag == 0 || pwflag == 2) {
+				if(nickname == null || nickname == ""){
+// 					alert("닉네임")
+					nickflag = 0;
+				}
+// 				else{
+					
+// 				}
+// 				else{
+// // 					alert("ㅇㅋ")
+// 					nickflag = 1;
+// 				}
+					
+					
+			if ( nameflag == 0 || idflag == 0 || idflag == 2 || pwflag == 0 || pwflag == 2 || nickflag == 0) {
 
 				 if(nameflag == 0){
 					 alert("이름을 확인해주세요.")
@@ -458,20 +477,20 @@ window.onload = function() {
 				 
 				else if (pwflag == 0 || pwflag == 2) {
 					alert("패스워드를 확인해주세요")
-				} 
-				}else if ( nameflag == 1 && pwflag == 1 && idflag == 1 ) {	
-				
+				}else if(nickflag == 0){
+					alert("닉네임 확인");
+				}
+				 
+				}
+				else if (nameflag == 1 && pwflag == 1 && idflag == 1 && nickflag == 1) {	
 				document.f.submit();
-
-				} else {
-
-				console.log("idflag : " + idflag);
-				console.log("pwflag : " + pwflag);
-
-			}
+				}		
+				
 	}
 	}
-
+console.log(pwflag);
+console.log(idflag);
+console.log(nameflag);
 </script>
 
 </head>
@@ -532,6 +551,8 @@ window.onload = function() {
 											<input type="password" name="password" id="uPw" max-width="220"
 												height="5px" >
 										</div>
+										<span class="pwjCh"></span>
+									
 									</td>
 								</tr>
 						
@@ -606,7 +627,7 @@ window.onload = function() {
 							</table>
 							<div class=btnfield>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-								<input type="submit" id="btn1" class="btn btn-primary" value="가입신청" >								
+								<input type="button" id="btn1" class="btn btn-primary" value="가입신청" >								
 								 <input type="button" id="btn2"	class="btn btn-warning" value="취소"	onclick="window.location='main.jsp'">
 							</div>
 
