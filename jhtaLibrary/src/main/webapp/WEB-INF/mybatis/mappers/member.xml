@@ -2,53 +2,74 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
- 
+
 <mapper namespace="kr.co.jhta.member">
- 	<select id="selectAll" resultType="udto">
-	<![CDATA[
-		select user_m_id userId, username, password, email, name, nickname, gender, birth, age_group ageGroup, register_date registerDate, platform_status platformStatus, right_status rightStatus, grade_status gradeStatus, address 
-		FROM USER_M 
-	]]>
+    <!-- selectAll 관리자 페이지에서 페이징 필요할거 같아서 만들어 둠 -->
+    <select id="selectAll" resultType="udto" parameterType="se">
+   <![CDATA[
+         SELECT ROWNUM RNM, USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
+         FROM(
+            ROWNUM RN, USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
+            FROM(
+               SELECT USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
+               FROM USER_M 
+               ORDER BY USER_M_ID 
+            )
+            WHERE ROWNUM <= #{endNo} 
+         ) 
+         WHERE RN >= #{startNo}  
+   ]]>
+   <!-- WHERE USERNAME LIKE '%#{username}%' OR 이거 한줄 order절 위에 추가하면 parameterType="hash"로 바꿔서 hashmap으로 넣어야함 -->
+   </select>
+   <select id="selectOne" resultType="udto" parameterType="int">
+      SELECT USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
+      FROM USER_M 
+      WHERE USER_M_ID = #{userId} 
+   </select>
+   <select id="selectOnebyUsername" resultType="udto" parameterType="String">
+      SELECT USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS  
+      FROM USER_M 
+      WHERE USERNAME = #{username} 
+   </select>
+   <insert id="insertOne" parameterType="udto">
+      INSERT INTO USER_M(USER_M_ID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP, REGISTER_DATE, PLATFORM_STATUS, RIGHT_STATUS, GRADE_STATUS, ADDRESS) 
+      VALUES (USER_M_SEQ.NEXTVAL, #{username}, #{password}, #{email}, #{name}, 
+      #{nickname}, #{gender}, #{birth}, #{ageGroup}, SYSDATE, #{platformStatus}, #{rightStatus}, #{gradeStatus}, #{address} )
+   </insert>
+   <update id="updateOne" parameterType="udto">
+      UPDATE USER_M 
+      SET USER_M_ID = #{userId}, 
+         USERNAME = #{username}, 
+         PASSWORD = #{password}, 
+         EMAIL = #{email},
+         NAME = #{name}, 
+         NICKNAME = #{nickname}, 
+         GENDER = #{gender}, 
+         BIRTH = #{birth}, 
+         AGE_GROUP = #{ageGroup}, 
+         REGISTER_DATE = #{registerDate}, 
+         PLATFORM_STATUS = #{platformStatus}, 
+         RIGHT_STATUS = #{rightStatus}, 
+         GRADE_STATUS = #{gradeStatus},
+         ADDRESS = #{address} 
+      WHERE USER_M_ID = #{userId}
+   </update>
+   <delete id="deleteOne" parameterType="int">
+      DELETE USER_M 
+      WHERE USER_M_ID = #{userId}
+   </delete>
+   <select id="totalCount" resultType="int">
+      SELECT count(*) FROM USER_M 
+   </select>
+   <!-- 아이디 중복 체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+	SELECT COUNT(*) FROM USER_M WHERE username = #{username}
 	</select>
-	<select id="selectOne" resultType="udto" parameterType="int">
-		select user_m_id userId, username, password, email, name, nickname, gender, birth, age_group ageGroup, register_date registerDate, platform_status platformStatus, right_status rightStatus, grade_status gradeStatus, address
-		FROM USER_M 
-		WHERE UNO = #{uno} 
-	</select>
-	<select id="selectOnebyUsername" resultType="udto" parameterType="String">
-		select user_m_id userId, username, password, email, name, nickname, gender, birth, age_group ageGroup, register_date registerDate, platform_status platformStatus, right_status rightStatus, grade_status gradeStatus, address 
-		FROM USER_M 
-		WHERE username = #{username}
-	</select>
-	<insert id="insertOne" parameterType="udto">
-		INSERT INTO USER_M(user_m_id, username, password, email, name, nickname, gender, bir, age_group, register_date, platform_status, right_status, grade_status, address) 
-		VALUES(user_m_seq.nextval, #{username}, #{password}, #{email}, #{name}, 
-		#{nickname}, #{gender}, #{birth}, #{ageGroup}, sysdate, #{platformStatus}, #{rightStatus}, #{gradeStatus}, , #{address} )
-	</insert>
-	<update id="updateOne" parameterType="udto">
-		UPDATE USER_M 
-		SET user_m_id = #{userId}, 
-			username = #{username}, 
-			password = #{password}, 
-			email = #{email},
-			name = #{name}, 
-			nickname = #{nickname}, 
-			gender = #{gender}, 
-			birth = #{birth}, 
-			age_group = #{ageGroup}, 
-			register_date = #{registerDate}, 
-			platform_status = #{platformStatus}, 
-			right_status = #{rightStatus}, 
-			grade_status = #{gradeStatus},
-			address = #{address} 
-			WHERE user_m_id = #{userId}
-	</update>
-	<delete id="deleteOne" parameterType="int">
-		DELETE USER_M
-		WHERE UNO = #{uno}
-	</delete>
-	<select id="totalCount" resultType="int">
-		SELECT count(*) FROM USER_M 
-	</select>
+	
+	<!--이메일 체크  -->
+	<select id="emCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM USER_M
+		WHERE EMAIL = #{email}
+</select>
 </mapper>

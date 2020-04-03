@@ -51,4 +51,26 @@ public class MemberOracleDAO implements MemberDAO{
 		return ss.selectOne("kr.co.jhta.member.totalCount");
 	}
 
+	
+//	@Override
+//	public void memberJoin(UserDTO dto) {
+//		ss.insert("member.join", dto);
+//		
+//	}
+// 아이디 중복 확인
+	@Override
+	public int idChk(String username) {		
+		System.out.println("dao insert complete");
+		int idCount = ss.selectOne("idCheck", username.replace("=", ""));
+				return idCount;
+	}
+
+	@Override
+	public int mailChk(String email) {
+		System.out.println("mail check");
+		int mailCount = ss.selectOne("emCheck", email.replace("=",""));
+		System.out.println(email);
+		return mailCount;
+	}
+
 }
