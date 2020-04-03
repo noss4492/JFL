@@ -438,6 +438,7 @@ ul li {
 <script type="text/javascript">
 	var idflag = 0; // id확인 논리값
 	var pwflag = 0; // 비밀번호 재입력 확인 논리값
+	var pwflag2 = 0;
 	var nameflag = 0; //이름 논리값
 	var nickflag= 0;
 	var nickflag22= 333;
@@ -524,19 +525,21 @@ $(document).ready(function(){
 			
 			}else{
 				$('.pwjCh').html('');
-				pwflag
+				pwflag = 1;
 			}				
 		});
+
 		$('#uPwch').keyup(function() {				
 				if ($('#uPw').val() != $('#uPwch').val()) {
 				$('.pwCh').html('비밀번호가 일치하지 않습니다.');
-				pwflag = 0;
+				pwflag2 = 0;
 				} else{
 				$('.pwCh').html("");
-				pwflag = 1;
+				pwflag2 = 1;
 				}
 			
 		});
+	
 	});
 
 
@@ -614,7 +617,7 @@ window.onload = function() {
 				}
 					
 					
-			if ( nameflag == 0 || idflag == 0 || idflag == 2 || pwflag == 0 || pwflag == 2 || nickflag == 0) {
+			if ( nameflag == 0 || idflag == 0 || idflag == 2 || pwflag == 0 || pwflag == 2 || nickflag == 0 || pwflag2 == 0 || pwflag2 == 2) {
 
 					 if(nameflag == 0){
 					 alert("이름을 확인해주세요.")
@@ -623,14 +626,14 @@ window.onload = function() {
 					alert("아이디를 확인해주세요.")
 					}
 				 
-					else if (pwflag == 0 || pwflag == 2) {
+					else if (pwflag == 0 || pwflag == 2 || pwflag2 == 0 || pwflag2 == 2) {
 					alert("패스워드를 확인해주세요")
 					}else if(nickflag == 0){
 					alert("닉네임 확인");
 					}
 				 
 					}
-				else if (nameflag == 1 && pwflag == 1 && idflag == 1 && nickflag == 1) {	
+				else if (nameflag == 1 && pwflag == 1 && idflag == 1 && nickflag == 1 && pwflag2 == 1) {	
 				document.f.submit();
 				}		
 				
