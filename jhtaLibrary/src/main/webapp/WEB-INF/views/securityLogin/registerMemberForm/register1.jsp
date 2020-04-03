@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,12 +24,22 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
+   
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet"
+   href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+   <link rel="stylesheet"
+   href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script
+   src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="../js/httpRequest.js"></script>
+<link rel="stylesheet" href="css/header.css">
+<script src="js/viewjs/header.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 	/////////////////////이메일 수정 선택 가능 셀렉터 드롭박스////////////////////////////
 	
@@ -50,6 +62,19 @@
 	//-------------------------------------------------------------------------
 </script>
 <style>
+#mainWrapper {
+   width: 1200px;
+   margin: auto;
+   display: flex;
+}
+
+.all_contents {
+   width: 880px;
+   padding: 20px 0;
+   margin-left: 50px;
+   word-break: keep-all;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -80,7 +105,7 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 
 .btnfield {
 	margin-top: 80px;
-	text-align: center;
+/* 	text-align: center; */
 }
 
 #agree {
@@ -151,6 +176,13 @@ ul li {
 }
 </style>
 <body>
+   <%@include file="../../header.jsp"%>
+   <div id="mainWrapper">
+      <%@include file="../../sideBar.jsp"%>
+      <div class="all_contents">
+         <%@include file="../../contentTitle.jsp"%>
+
+
 	<div id="wrap" class="wrap">
 		<div id="container" class="sub">
 			<div class="contentGroup">
@@ -231,6 +263,10 @@ ul li {
 				</div>
 			</div>
 		</div>
-	</div>
+<!-- 	</div> -->
+	 </div>
+   </div>
+   <%@include file="../../footer.jsp"%>
+	
 </body>
 </html>
