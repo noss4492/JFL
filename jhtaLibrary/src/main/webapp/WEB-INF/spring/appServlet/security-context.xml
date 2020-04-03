@@ -23,9 +23,10 @@
 		username-parameter="username" 
 		password-parameter="password" 
 		always-use-default-target="true" 
-		authentication-failure-url="/securityLogin/login?error"/>
+		authentication-failure-url="/login"
+		/>
 	<security:logout delete-cookies="JSESSIONID" 
-		invalidate-session="true" 
+		invalidate-session="true"
 		logout-url="/securityLogin/logout" 
 		logout-success-url="/"/>
 </security:http>
@@ -58,12 +59,12 @@
 		 <!-- right_status to_num('1') enable to_num('0') disabled -->
 		<security:jdbc-user-service data-source-ref="dataSource" 
 				users-by-username-query=
-					"SELECT username , password , to_number(right_status) as enabled 
+					"SELECT username , password, to_number(right_status) as enabled 
 					 FROM admin.user_m 
 					 WHERE username = ? "
 				 authorities-by-username-query=
 				   "SELECT username, 
-				   		CASE WHEN grade_status='2' THEN 'ROLE_ADMIN' 
+				   		CASE WHEN grade_status='1' THEN 'ROLE_ADMIN' 
 				   		ELSE 'ROLE_USER' 
 				   		END as authority 
 					FROM admin.user_m 
