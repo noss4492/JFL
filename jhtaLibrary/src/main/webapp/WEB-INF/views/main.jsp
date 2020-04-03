@@ -21,6 +21,8 @@
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <script src="js/viewjs/header.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             buildCalendar();

@@ -25,6 +25,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap"
 	rel="stylesheet">
+	<link rel="stylesheet" href="css/header.css">
+	<script src="js/viewjs/header.js" type="text/javascript"></script>
 <style>
 body {
 	font-family: 'Noto Sans', '나눔고딕', 'Nanum Gothic', 'Helvetica',

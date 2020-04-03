@@ -73,14 +73,13 @@ public class CommonController {
 	public String slo() {
 		return "/securityLogin/logout";
 	}
-	@RequestMapping(value="/test")
+	@RequestMapping(value="/login")
 	public String test(Model model, Principal principal) {
 		if(principal!=null) {
 			return "redirect:/";
 		}
 		model.addAttribute("category", "회원정보");
 		model.addAttribute("title", "로그인");
-		model.addAttribute("menu", "테스트");
 		return "/loginForm";
 	}
 	@RequestMapping(value="/map")
@@ -92,20 +91,17 @@ public class CommonController {
 		return "/comeMap";
 	}
 	
-	@RequestMapping(value="/login")
-	public void login(String error, String logout, Model model) {//@RequestParam HashMap map
-		if(error != null)
-			model.addAttribute("error", "log : error");
-		else if(logout != null)
-			model.addAttribute("logout", "log : logout");
-		
-		
-
-		
-		System.out.println("왜왜왜애ㅗ애ㅗ애ㅐ");
-//		System.out.println("username : "+map.get("username")+" password : "+map.get("password"));
-//		System.out.println("err/logout : "+error+"/"+logout);
-	}
+//	@RequestMapping(value="/login")
+//	public void login(String error, String logout, Model model) {//@RequestParam HashMap map
+//		if(error != null)
+//			model.addAttribute("error", "log : error");
+//		else if(logout != null)
+//			model.addAttribute("logout", "log : logout");
+//		
+//		System.out.println("왜왜왜애ㅗ애ㅗ애ㅐ");
+////		System.out.println("username : "+map.get("username")+" password : "+map.get("password"));
+////		System.out.println("err/logout : "+error+"/"+logout);
+//	}
 	
 	@RequestMapping(value="/logout")
 	public void logoutGet() {

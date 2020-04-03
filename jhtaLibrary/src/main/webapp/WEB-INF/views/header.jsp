@@ -3,13 +3,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-
 <header id="header">
 	<div id="headerTopWrapper">
 		<div id="headerTop">
 			<div id="siteUtilGroup">
 				<div id="libraryShortcut" class="dropdown">
-
 					<button class="dropdownbtn">
 						<a href="">도서관바로가기 </a>
 					</button>
@@ -22,7 +20,7 @@
 				<div id="siteMenu" class="siteMenu">
 					<ul>
 						<sec:authorize access="isAnonymous()">
-							<li class="login"><a href="">로그인</a></li>
+							<li class="login"><a href='<c:url value="/login"/>'>로그인</a></li>
 							<li class="register"><a href="">회원가입</a></li>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
@@ -48,7 +46,7 @@
 	<div id="headerMid">
 		<div id=logo>
 
-			<img src='<c:url value="/img/headerLogo.png"/>' alt="">
+			<a href='<c:url value="/"/>'><img src='<c:url value="/img/headerLogo.png"/>' alt=""></a>
 		</div>
 		<div id="topSearchBarDiv">
 			<input type="text" name="topSearchBar" id="topSearchBarInput"
@@ -90,7 +88,7 @@
 
 					<ul class="navBarSub">
 						<li class="navBarLiSub"><a href="">공지사항</a></li>
-						<li class="navBarLiSub"><a href="">열린소리함</a></li>
+						<li class="navBarLiSub"><a href='<c:url value="/list"/>'>열린소리함</a></li>
 						<li class="navBarLiSub"><a href="">자주하는질문</a></li>
 						<li class="navBarLiSub"><a href="">기증도서알림</a></li>
 						<li class="navBarLiSub"><a href="">설문조사</a></li>

@@ -23,7 +23,7 @@
 		username-parameter="username" 
 		password-parameter="password" 
 		always-use-default-target="true" 
-		authentication-failure-url="/test"
+		authentication-failure-url="/login"
 		/>
 	<security:logout delete-cookies="JSESSIONID" 
 		invalidate-session="true"

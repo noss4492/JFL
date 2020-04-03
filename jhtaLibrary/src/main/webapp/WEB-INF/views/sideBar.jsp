@@ -6,7 +6,9 @@
 	<div class="navArea">
 		<h2>${category}</h2>
 		<input type="hidden" id="hidden_title" name="hidden_title" value="${title}"  />
-		<input type="hidden" id="hidden_menu" name="hidden_menu" value="${menu}"  />
+		<c:if test="${menu ne null}">
+			<input type="hidden" id="hidden_menu" name="hidden_menu" value="${menu}"  />
+		</c:if>
 		<ul class="lnb">
 		<!-- /////////////////////////////////////////////////////////////////////// -->
 		<c:if test="${category eq '도서관소개' }">
