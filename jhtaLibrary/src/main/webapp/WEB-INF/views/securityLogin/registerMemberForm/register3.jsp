@@ -38,6 +38,12 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <!--datatimepicker 사용-->
 
+	<link rel="stylesheet"
+   href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+   <link rel="stylesheet"
+   href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script
+   src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
@@ -47,58 +53,26 @@
 <!-- 주소 api -->
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+<link rel="stylesheet" href="css/header.css">
+<script src="js/viewjs/header.js" type="text/javascript"></script>
 <style>
+#mainWrapper {
+   width: 1200px;
+   margin: auto;
+   display: flex;
+}
+
+.all_contents {
+   width: 880px;
+   padding: 20px 0;
+   margin-left: 50px;
+   word-break: keep-all;
+}
 * {
 	margin: 0;
 	padding: 0;
 }
 
-/* css초기화 */
-/* html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-/* article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-} */
-/* css초기화 */
 body {
 	font-family: 'Noto Sans', '나눔고딕', 'Nanum Gothic', 'Helvetica',
 		sans-serif;
@@ -292,6 +266,11 @@ ul li {
 
 </head>
 <body>
+<%@include file="../../header.jsp"%>
+   <div id="mainWrapper">
+      <%@include file="../../sideBar.jsp"%>
+      <div class="all_contents">
+         <%@include file="../../contentTitle.jsp"%>
 	<div id="wrap" class="wrap">
 		<!-- <div id="header">이부분은 헤더</div> -->
 		<!-- <div id="container" class="sub"> -->
@@ -435,6 +414,10 @@ ul li {
 		</div>
 
 	</div>
+	 </div>
+   </div>
+   <%@include file="../../footer.jsp"%>
+	
 <script type="text/javascript">
 	var idflag = 0; // id확인 논리값
 	var pwflag = 0; // 비밀번호 재입력 확인 논리값

@@ -48,13 +48,19 @@ public class RegisterController {
 
 	@RequestMapping(value = { "/register1" }, method = RequestMethod.GET)
 	public String register1(Model model) {
-
+	      model.addAttribute("category", "회원정보");
+	      model.addAttribute("title", "로그인");
+	      model.addAttribute("menu", "테스트");
 		return "/securityLogin/registerMemberForm/register1";
 
 	}
 
 	@RequestMapping(value = { "/register2" }, method = RequestMethod.GET)
 	public String register2(Model model) {
+		
+	      model.addAttribute("category", "회원정보");
+	      model.addAttribute("title", "로그인");
+	      model.addAttribute("menu", "테스트");
 
 		return "/securityLogin/registerMemberForm/register2";
 
@@ -63,7 +69,12 @@ public class RegisterController {
 	@RequestMapping(value = { "/register3" }, method = RequestMethod.GET)
 	public String register3(Model model) {
 		System.out.println("들어갑니다");
+	      model.addAttribute("category", "회원정보");
+	      model.addAttribute("title", "로그인");
+	      model.addAttribute("menu", "테스트");
 		return "/securityLogin/registerMemberForm/register3";
+
+		
 	}
 
 //	@RequestMapping(value="/registerOk", method = RequestMethod.POST)
@@ -115,7 +126,7 @@ public class RegisterController {
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
 		System.out.println("비밀번호(인코딩 후) : " + dto.getPassword());
 		ms.wrtieOneMember(dto);
-		return "/";
+		return "/securityLogin/login";
 	}
 
 //	 아이디 중복 체크
@@ -306,9 +317,7 @@ public class RegisterController {
 		} else if (email_injeung != dice) {
 
 			ModelAndView mv2 = new ModelAndView();
-
 			mv2.setViewName("/securityLogin/registerMemberForm/register1");
-
 			response_equals.setContentType("text/html; charset=UTF-8");
 			PrintWriter out_equals = response_equals.getWriter();
 			String keych = "일치하지 않습니다. 다시 확인해주세요";

@@ -132,9 +132,9 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 
 ul li {
 	float: left;
-	margin-left: 6px;
-	margin-right: 6px;
-	border-radius: 10px;
+/* 	margin-left: 6px; */
+/* 	margin-right: 6px; */
+ 	border-radius: 10px; 
 }
 
 .agree {
@@ -263,7 +263,7 @@ ul li {
 				</div>
 			</div>
 		</div>
-<!-- 	</div> -->
+	</div>
 	 </div>
    </div>
    <%@include file="../../footer.jsp"%>
