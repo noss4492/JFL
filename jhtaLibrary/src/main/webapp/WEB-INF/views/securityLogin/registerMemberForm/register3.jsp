@@ -100,6 +100,7 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 .joinStep {
 	overflow: hidden;
 	margin-bottom: 40px;
+	text-align: center;
 }
 
 .joinStep li {
@@ -278,14 +279,14 @@ ul li {
 		<div class="contentGroup">
 			<div class="terms">
 				<div class="contentcore">
-					<h3>회원가입</h3>
+<!-- 					<h3>회원가입</h3> -->
 <!-- 					<hr class="one"> -->
 <!-- 					<div>네비게이션</div> -->
 <!-- 					<hr class="one"> -->
 					<div class="joinStep">
 						<ul class="list-group list-group-horizontal">
 
-							<li class="list-group-item">가입확인</li>
+<!-- 							<li class="list-group-item">가입확인</li> -->
 							<li class="list-group-item">본인확인</li>
 							<li class="list-group-item">약관동의</li>
 							<li class="list-group-item active" id="active">정보입력</li>

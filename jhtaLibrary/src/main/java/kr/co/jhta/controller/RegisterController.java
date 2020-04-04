@@ -49,8 +49,8 @@ public class RegisterController {
 	@RequestMapping(value = { "/register1" }, method = RequestMethod.GET)
 	public String register1(Model model) {
 	      model.addAttribute("category", "회원정보");
-	      model.addAttribute("title", "로그인");
-	      model.addAttribute("menu", "테스트");
+//	      model.addAttribute("title", "로그인");
+	      model.addAttribute("menu", "회원가입");
 		return "/securityLogin/registerMemberForm/register1";
 
 	}
@@ -59,8 +59,8 @@ public class RegisterController {
 	public String register2(Model model) {
 		
 	      model.addAttribute("category", "회원정보");
-	      model.addAttribute("title", "로그인");
-	      model.addAttribute("menu", "테스트");
+//	      model.addAttribute("title", "로그인");
+	      model.addAttribute("menu", "회원가입");
 
 		return "/securityLogin/registerMemberForm/register2";
 
@@ -70,13 +70,14 @@ public class RegisterController {
 	public String register3(Model model) {
 		System.out.println("들어갑니다");
 	      model.addAttribute("category", "회원정보");
-	      model.addAttribute("title", "로그인");
-	      model.addAttribute("menu", "테스트");
+//	      model.addAttribute("title", "로그인");
+	      model.addAttribute("menu", "회원가입");
 		return "/securityLogin/registerMemberForm/register3";
 
 		
 	}
 
+	
 //	@RequestMapping(value="/registerOk", method = RequestMethod.POST)
 //	public String registerOk(@ModelAttribute UserDTO dto) {
 //		System.out.println("들어갑니다2");
