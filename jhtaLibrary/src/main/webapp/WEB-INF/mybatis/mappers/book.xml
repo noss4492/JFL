@@ -27,7 +27,7 @@
 	]]>
 	</select>
 	
-	<!-- resultType은 String인가 list<String>인가 -->
+
 	<select id="selectAuthorByIsbn" resultType="String" parameterType="String">
 	SELECT A.AUTHOR_NAME 
 	FROM AUTHOR A INNER JOIN GENERAL_BOOK G
@@ -41,52 +41,5 @@
 	ON T.GENERAL_BOOK_ID = G.GENERAL_BOOK_ID 
 	WHERE A.GENERAL_BOOK_ID = '#{translatorName}'
 	</select>
-	
-	<update id="RecommendBookFlagOn" parameterType="String">
-	UPDATE GENERAL_BOOK 
-	SET RECOMMEND_STATUS = 1 
-	WHERE GENERAL_BOOK_ID = #{generalBookId}
-	</update>
-	
-	<update id="deleteRecommendBookOff" parameterType="String">
-	UPDATE GENERAL_BOOK 
-	SET RECOMMEND_STATUS = 0 
-	WHERE GENERAL_BOOK_ID = #{generalBookId}
-	</update>
-	
-	<insert id="insertUserFavoriteBook" parameterType="hashmap">
-	INSERT INTO FAVORITE_BOOK(FAVORITE_BOOK_ID, GENERAL_BOOK_ID, USER_M_ID) 
-	VALUES (FAVORITE_BOOK_SEQ.NEXTVAL, #{generalBookId}, #{userId} )
-	</insert>
-	
-	<delete id="deleteUserFavoriteBook" parameterType="hashmap">
-	DELETE FAVORITE_BOOK
-	WHERE GENERAL_BOOK_ID = #{generalBookId} and USER_M_ID = #{userId} 
-	</delete>
-	
-	
-	<insert id="insertOne">
-	</insert>
-	<delete id="deleteOne">
-	</delete>
-	<select id="getTotalCount">
-	</select>
-	<!-- se #{startNo} #{endNo} -->
- 	
-	<!-- 
-	GENERAL_BOOK_ID V
-	GENRE V
-	TITLE V
-	DESCRIPTION V
-	DETAIL_URL V
-	PUBLICATION_DATE V
-	PUBLISHER V
-	PUBLISHER D
-	THUMBNAIL_URL V 
-	STATUS C
-	RECOMMEND_STATUS C(0~255)
-	-->
-				  
-	<!-- 변수명 다른거는 alias로 처리해도 되고 resultMap을 만들어서 처리해도 된다. resultMap으로 만들고 싶은데 시간이 너무 없어서 패스함. 				 -->  
-	<!--  java.util.HashMap, HashMap, hashmap(alias)- -->
+
 </mapper>

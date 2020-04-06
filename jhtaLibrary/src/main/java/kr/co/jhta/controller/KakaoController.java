@@ -101,7 +101,7 @@ public class KakaoController {
 		System.out.println();
 		
 		// 해당 아이디 규칙으로 가입한 사람이 있다면 이미 가입해있다고 간주하여 그냥 로그인을 시켜주자
-		UserDTO userDtoOnDB = ms.readOneMember(nickname+modId);
+		UserDTO userDtoOnDB = ms.readOneMemberByName(nickname+modId);
 		
 		// login form에서 우리가 쓸 때의 정보들
 		String newUserId = nickname+modId;

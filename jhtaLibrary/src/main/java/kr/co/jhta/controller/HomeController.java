@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Setter(onMethod=@__({@Autowired}))
-	MemberService ms2;
+	MemberService ms;
 
 	// 인터페이스로 DI 해서 쓰는게 더 좋을거 같은디요....
 	@Setter(onMethod=@__({@Autowired}))
@@ -36,9 +38,14 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value ="/" , method = RequestMethod.GET)
-	public String main(Principal principal, Model model) {
-		if(principal!=null) {
-			UserDTO dto = memberServiceImple.readOneMember(principal.getName());
+	public String main(Principal principal, Model model, HttpSession session) {
+		if(principal!=null && session.getAttribute("userId")==null) {
+			// 메인화면 올 때 마다 이래야하는구만.
+			System.out.println("+++ ms.selectUserNoByUsername : "+ ms.selectUserPkByUsername(principal.getName()));
+			
+			session.setAttribute("userId", ms.selectUserPkByUsername(principal.getName()));
+			
+			UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
 			model.addAttribute("username", dto.getName());
 			model.addAttribute("userno", dto.getUserId());
 		}

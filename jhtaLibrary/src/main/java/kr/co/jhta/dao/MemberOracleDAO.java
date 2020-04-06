@@ -31,8 +31,9 @@ public class MemberOracleDAO implements MemberDAO{
 	}
 	
 	@Override
-	public UserDTO selectOne(String username) {
-		System.out.println("적어도 여기까진옴");
+	public UserDTO selectOneByUsername(String username) {
+		System.out.println("Member Oracle DAO");
+		System.out.println("Username : "+username);
 		return ss.selectOne("kr.co.jhta.member.selectOnebyUsername", username);
 	}	
 	
@@ -51,13 +52,7 @@ public class MemberOracleDAO implements MemberDAO{
 		return ss.selectOne("kr.co.jhta.member.totalCount");
 	}
 
-	
-//	@Override
-//	public void memberJoin(UserDTO dto) {
-//		ss.insert("member.join", dto);
-//		
-//	}
-// 아이디 중복 확인
+	// 아이디 중복 확인
 	@Override
 	public int idChk(String username) {		
 		System.out.println("dao insert complete");
@@ -71,6 +66,12 @@ public class MemberOracleDAO implements MemberDAO{
 		int mailCount = ss.selectOne("emCheck", email.replace("=",""));
 		System.out.println(email);
 		return mailCount;
+	}
+
+	@Override
+	public long selectUserPkByUsername(String username) {
+		System.out.println("member oracle dao : select user pk by username : "+username);
+		return ss.selectOne("selectUserPkByUsername", username);
 	}
 
 }
