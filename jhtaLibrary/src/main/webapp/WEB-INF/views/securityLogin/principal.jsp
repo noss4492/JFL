@@ -8,6 +8,7 @@
 </head>
 <body>
 principal : <br>
-${principal }
+${principal }<br><br>
+${principal.getName }
 </body>
 </html>

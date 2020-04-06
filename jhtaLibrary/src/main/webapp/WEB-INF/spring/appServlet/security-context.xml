@@ -23,12 +23,20 @@
 		username-parameter="username" 
 		password-parameter="password" 
 		always-use-default-target="true" 
-		authentication-failure-url="/securityLogin/login?error"/>
+		authentication-success-forward-url="/"
+		authentication-failure-url="/securityLogin/login?error"
+		authentication-success-handler-ref="loginSuccessHandler"/>
 	<security:logout delete-cookies="JSESSIONID" 
 		invalidate-session="true" 
 		logout-url="/securityLogin/logout" 
 		logout-success-url="/"/>
 </security:http>
+
+<bean id="loginSuccessHandler" class="kr.co.jhta.security.LoginSuccessHandler"></bean>
+<bean id="logoutSuccessHandler" class="kr.co.jhta.security.LogoutSuccessHandler"></bean>
+<!-- <property name="defaultUrl" value="/"/> --><!-- 내부 url 변수를 두어 redirect strategy를 사용하여 보낼 경로를 컨트롤하면 더 좋겠으나 시간 관계상 패스함 -->
+
+
 
 <!-- 사용할 인코더 빈 등록 -->
 <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
@@ -63,7 +71,7 @@
 					 WHERE username = ? "
 				 authorities-by-username-query=
 				   "SELECT username, 
-				   		CASE WHEN grade_status='2' THEN 'ROLE_ADMIN' 
+				   		CASE WHEN grade_status='1' THEN 'ROLE_ADMIN' 
 				   		ELSE 'ROLE_USER' 
 				   		END as authority 
 					FROM admin.user_m 

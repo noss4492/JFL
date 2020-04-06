@@ -33,8 +33,7 @@
    </select>
    <insert id="insertOne" parameterType="udto">
       INSERT INTO USER_M(USER_M_ID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP, REGISTER_DATE, PLATFORM_STATUS, RIGHT_STATUS, GRADE_STATUS, ADDRESS) 
-      VALUES (USER_M_SEQ.NEXTVAL, #{username}, #{password}, #{email}, #{name}, 
-      #{nickname}, #{gender}, #{birth}, #{ageGroup}, SYSDATE, #{platformStatus}, #{rightStatus}, #{gradeStatus}, #{address} )
+      VALUES (USER_M_SEQ.NEXTVAL, #{username}, #{password}, #{email}, #{name}, #{nickname}, #{gender}, #{birth}, #{ageGroup}, SYSDATE, #{platformStatus}, #{rightStatus}, #{gradeStatus}, #{address} )
    </insert>
    <update id="updateOne" parameterType="udto">
       UPDATE USER_M 

@@ -4,33 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="kr.co.jhta.book">
-<!-- se #{startNo} #{endNo} -->
- 	
-<!-- 
-GENERAL_BOOK_ID V
-GENRE V
-TITLE V
-DESCRIPTION V
-DETAIL_URL V
-PUBLICATION_DATE V
-PUBLISHER V
-PUBLISHER D
-THUMBNAIL_URL V 
-STATUS C
-RECOMMEND_STATUS C(0~255)
--->
-				  
-<!-- 변수명 다른거는 alias로 처리해도 되고 resultMap을 만들어서 처리해도 된다.
-     resultMap으로 만들고 싶은데 시간이 너무 없어서 패스함. 				  
-<resultMap type="gbdto" id="serachBookResultList" >
-</resultMap>
-<select id="selectSearchPage" resultMap="serachBookResultList" parameterType="hashmap">
- -->
-<!--  	<select id="selectSearchPage" resultType="gbdto" parameterType="hashmap" parameterMap=""> -->
-<!-- ROWNUM DESCRIPTION -->
-<!--  	<select id="selectSearchPage" resultType="serachBookPageList" parameterType="hashmap">
+<!-- 책의 일반적인 속성에 관한 정보들은 general_book 테이블에 의해 관리되며 
+	도서관측에서 관리하고 있는 실제 물리적인 책에 대한 정보들은 library_book 테이블에 의해 관리된다. -->
+	<select id="selectSimepleSearchPage" resultType="gbdto" parameterType="hashmap">
 	<![CDATA[
-	SELECT ROWNUM RNM, GENERAL_BOOK_ID as generalBookId , GENRE, TITLE, DESCRIPTION, DETAIL_URL, PUBLICATION_DATE, PUBLISHER, THUMBNAIL_URL, STATUS, RECOMMEND_STATUS, AUTHOR_NAME 
+	SELECT GENERAL_BOOK_ID as generalBookId , GENRE, TITLE, DESCRIPTION, DETAIL_URL as detailUrl, PUBLICATION_DATE as publicationDate, PUBLISHER, THUMBNAIL_URL as thumbnailUrl, STATUS, RECOMMEND_STATUS as recommendStatus, AUTHOR_NAME authorName 
 	FROM(
 		SELECT ROWNUM RN, GENERAL_BOOK_ID, GENRE, TITLE, DESCRIPTION, DETAIL_URL, PUBLICATION_DATE, PUBLISHER, THUMBNAIL_URL, STATUS, RECOMMEND_STATUS, AUTHOR_NAME 
 		FROM(
@@ -40,17 +18,75 @@ RECOMMEND_STATUS C(0~255)
 			ON G.GENERAL_BOOK_ID = A.GENERAL_BOOK_ID
 			INNER JOIN LIBRARY_BOOK L 
 			ON G.GENERAL_BOOK_ID = L.GENERAL_BOOK_ID
-			WHERE GENERAL_BOOK_ID like '%#{}%' and TITLE like '%#{}%' and AUTHOR_NAME like '%#{}%'
+			WHERE G.GENERAL_BOOK_ID like '%#{generalBookId}%' OR TITLE like '%#{title}%' OR AUTHOR_NAME like '%#{authorName}%'
+			ORDER BY G.GENERAL_BOOK_ID DESC 
 		) 
 		WHERE ROWNUM <= #{endNo} 
 	) 
 	WHERE RN >= #{startNo}
 	]]>
-	</select> -->
+	</select>
+	
+	<!-- resultType은 String인가 list<String>인가 -->
+	<select id="selectAuthorByIsbn" resultType="String" parameterType="String">
+	SELECT A.AUTHOR_NAME 
+	FROM AUTHOR A INNER JOIN GENERAL_BOOK G
+	ON A.GENERAL_BOOK_ID = G.GENERAL_BOOK_ID 
+	WHERE A.GENERAL_BOOK_ID = '#{generalBookId}'
+	</select>
+	
+	<select id="selectTranslatorByIsbn" resultType="String" parameterType="String">
+	SELECT T.TRANSLATOR_NAME 
+	FROM TRANSLATOR T INNER JOIN GENERAL_BOOK G
+	ON T.GENERAL_BOOK_ID = G.GENERAL_BOOK_ID 
+	WHERE A.GENERAL_BOOK_ID = '#{translatorName}'
+	</select>
+	
+	<update id="RecommendBookFlagOn" parameterType="String">
+	UPDATE GENERAL_BOOK 
+	SET RECOMMEND_STATUS = 1 
+	WHERE GENERAL_BOOK_ID = #{generalBookId}
+	</update>
+	
+	<update id="deleteRecommendBookOff" parameterType="String">
+	UPDATE GENERAL_BOOK 
+	SET RECOMMEND_STATUS = 0 
+	WHERE GENERAL_BOOK_ID = #{generalBookId}
+	</update>
+	
+	<insert id="insertUserFavoriteBook" parameterType="hashmap">
+	INSERT INTO FAVORITE_BOOK(FAVORITE_BOOK_ID, GENERAL_BOOK_ID, USER_M_ID) 
+	VALUES (FAVORITE_BOOK_SEQ.NEXTVAL, #{generalBookId}, #{userId} )
+	</insert>
+	
+	<delete id="deleteUserFavoriteBook" parameterType="hashmap">
+	DELETE FAVORITE_BOOK
+	WHERE GENERAL_BOOK_ID = #{generalBookId} and USER_M_ID = #{userId} 
+	</delete>
+	
+	
 	<insert id="insertOne">
 	</insert>
 	<delete id="deleteOne">
 	</delete>
 	<select id="getTotalCount">
 	</select>
+	<!-- se #{startNo} #{endNo} -->
+ 	
+	<!-- 
+	GENERAL_BOOK_ID V
+	GENRE V
+	TITLE V
+	DESCRIPTION V
+	DETAIL_URL V
+	PUBLICATION_DATE V
+	PUBLISHER V
+	PUBLISHER D
+	THUMBNAIL_URL V 
+	STATUS C
+	RECOMMEND_STATUS C(0~255)
+	-->
+				  
+	<!-- 변수명 다른거는 alias로 처리해도 되고 resultMap을 만들어서 처리해도 된다. resultMap으로 만들고 싶은데 시간이 너무 없어서 패스함. 				 -->  
+	<!--  java.util.HashMap, HashMap, hashmap(alias)- -->
 </mapper>

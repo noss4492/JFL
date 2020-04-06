@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1>logout</h1><!-- /common/customLogout 일로 보내야 하는거 아닌감? 저짝 매핑인뎅 -->
+	<c:url value="/securityLogin/logout" />
 	<form action="<c:url value="/securityLogin/logout" />" method="post">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 		<input type="submit" value="로그아웃" />

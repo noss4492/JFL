@@ -16,15 +16,15 @@ public class BookOracleDAO implements BookDAO{
 	private SqlSession ss;
 	
 	@Override
-	public List<GeneralBookDTO> selectSearchPage(int startNo, int endNo, String bookId, String author, String title) {
+	public List<GeneralBookDTO> selectSearchPage(int startNo, int endNo, String generalBookId, String authorName, String title) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startNo", startNo);
 		map.put("endNo", endNo);
-		map.put("bookId", bookId);
-		map.put("author",author);
+		map.put("bookId", generalBookId);
+		map.put("author",authorName);
 		map.put("title", title);
 		// int startNo, int endNo, String gBookId, String author, String title -> 한개만 받을 수 있으므로 Hashmap으로 사용함.
-		return ss.selectList("kr.co.jhta.book.selectSearchPage", map);
+		return ss.selectList("kr.co.jhta.book.selectSimepleSearchPage", map);
 	}
 
 	@Override

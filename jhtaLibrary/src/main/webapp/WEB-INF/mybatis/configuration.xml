@@ -5,6 +5,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
 <configuration>
+	<settings>
+        <setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
 	<!-- 매퍼에서 쿼리할대 파라메터로 사용하기 위해서 등록함. -->
 	<typeAliases>
 		<typeAlias type="kr.co.jhta.dto.ArticleDTO" alias="adto" />

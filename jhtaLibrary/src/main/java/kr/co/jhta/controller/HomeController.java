@@ -67,7 +67,7 @@ public class HomeController {
 //		String pName = principal.getName();
 //		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 //		System.out.println(pName+"|");
-		
+		model.addAttribute("principal", principal);
 		return "home";
 	}
 	

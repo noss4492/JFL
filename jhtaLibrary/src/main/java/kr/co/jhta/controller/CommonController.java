@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Controller;
@@ -39,7 +41,7 @@ public class CommonController {
 		System.out.println(">>>> info of principal : "+principal); 
 //		return "redirect:"+principal;
 		model.addAttribute("principal", principal);
-		System.out.println("아 좀 빨리 바뀌지 그래 ㅡㅡ");
+//		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return "securityLogin/principal";
 	}
 	
@@ -53,6 +55,9 @@ public class CommonController {
 	public String signUpUser(@ModelAttribute UserDTO dto) {
 		System.out.println("디비에올리면되는데1");
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
+		dto.setPlatformStatus((byte)1);
+		dto.setRightStatus((byte)1);
+		//dto.setGradeStatus((byte)2);
 		ms.wrtieOneMember(dto);
 //		return "/";
 		System.out.println("디비에올리면되는데");
@@ -62,11 +67,12 @@ public class CommonController {
 	
 	@RequestMapping(value="/securityLogin/login")
 	public String sli() {
+		System.out.println("go to login form");
 		return "/securityLogin/login";
 	}
 	@RequestMapping(value="/securityLogin/logout")
 	public String slo() {
-		return "/securityLogin/logout";
+		return "/securityLogin/logout";//securityLogin/logout
 	}
 	
 	@RequestMapping(value="/login")
@@ -75,7 +81,7 @@ public class CommonController {
 			model.addAttribute("error", "log : error");
 		else if(logout != null)
 			model.addAttribute("logout", "log : logout");
-		System.out.println("왜왜왜애ㅗ애ㅗ애ㅐ");
+		System.out.println("숨겨진 로그인");
 //		System.out.println("username : "+map.get("username")+" password : "+map.get("password"));
 //		System.out.println("err/logout : "+error+"/"+logout);
 	}
@@ -83,5 +89,6 @@ public class CommonController {
 	@RequestMapping(value="/logout")
 	public void logoutGet() {
 		logger.info("logout");
+		System.out.println("숨겨진 로그아웃");
 	}
 }

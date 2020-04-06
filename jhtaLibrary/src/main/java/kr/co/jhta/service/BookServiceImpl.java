@@ -16,6 +16,7 @@ public class BookServiceImpl implements BookService{
 	@Setter(onMethod=@__({@Autowired}))
 	BookDAO dao;
 	
+//	dao <-> service Naming rule : select/insert/delete <-> read/write/remove
 	
 	@Override
 	public List<GeneralBookDTO> readBookSearchPage(int startNo, int endNo, String gBookId, String author,
