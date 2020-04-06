@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- csrf토큰 -->
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" /> 
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
 </head>
@@ -18,43 +24,57 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
+   
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet"
+   href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+   <link rel="stylesheet"
+   href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script
+   src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="../js/httpRequest.js"></script>
+<link rel="stylesheet" href="css/header.css">
+<script src="js/viewjs/header.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 	/////////////////////이메일 수정 선택 가능 셀렉터 드롭박스////////////////////////////
-	$(function() {
+	
+	
+	$(function() {	
+		
 		$('#sbox').change(function() {
 			$("#sbox option:selected").each(function() {
 				if ($(this).val() == '1') {
 					$("#em2").val('');
-					$("#em2").attr("disabled", false);
+					$("#em2").attr("readonly", false);
 				} else {
 					$("#em2").val($(this).val());
-					$("#em2").attr("disabled", true);
+					$("#em2").attr("readonly", true);
 				}
 			});
 		});
-		//------------------------------------------------------------------
-		////이메일 인증키///
-		$('#chCo').keyup(function() {
-			chCo = document.getElementById("chCo").value;
-			if (chCo == key) {
-				$('.keyCh').html("일치합니다");
-				emailflag = 1;
 
-			} else {
-				$('.keyCh').html("인증키가 일치하지 않습니다");
-				emailflag = 0;
-			}
-		});
 	});
 	//-------------------------------------------------------------------------
 </script>
 <style>
+#mainWrapper {
+   width: 1200px;
+   margin: auto;
+   display: flex;
+}
+
+.all_contents {
+   width: 880px;
+   padding: 20px 0;
+   margin-left: 50px;
+   word-break: keep-all;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -85,7 +105,7 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 
 .btnfield {
 	margin-top: 80px;
-	text-align: center;
+	text-align: center; 
 }
 
 #agree {
@@ -112,9 +132,9 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 
 ul li {
 	float: left;
-	margin-left: 6px;
-	margin-right: 6px;
-	border-radius: 10px;
+/* 	margin-left: 6px; */
+/* 	margin-right: 6px; */
+ 	border-radius: 10px; 
 }
 
 .agree {
@@ -156,18 +176,25 @@ ul li {
 }
 </style>
 <body>
+   <%@include file="../../header.jsp"%>
+   <div id="mainWrapper">
+      <%@include file="../../sideBar.jsp"%>
+      <div class="all_contents">
+         <%@include file="../../contentTitle.jsp"%>
+
+
 	<div id="wrap" class="wrap">
 		<div id="container" class="sub">
 			<div class="contentGroup">
 				<div class="terms">
 					<div class="contentcore">
-						<h3>회원가입</h3>
-						<hr class="one">
-						<div>네비게이션</div>
-						<hr class="one">
+<!-- 						<h3>회원가입</h3> -->
+<!-- 						<hr class="one"> -->
+<!-- 						<div>네비게이션</div> -->
+<!-- 						<hr class="one"> -->
 						<div class="joinStep">
 							<ul class="list-group list-group-horizontal">
-								<li class="list-group-item">가입확인</li>
+<!-- 								<li class="list-group-item">가입확인</li> -->
 								<li class="list-group-item active" id="active">본인확인</li>
 								<li class="list-group-item">약관동의</li>
 								<li class="list-group-item">정보입력</li>
@@ -192,7 +219,7 @@ ul li {
 
 						<!-- <div class="checkmail" style="border: 4px inset  #46B7D9 "> 아래에 아이디로 주기. 보더 속성 변경때문에-->
 						<div class="certifyBox">
-	
+							
 							<div class="temp">
 								메일 인증
 								<form action="auth.do" method="post">
@@ -204,7 +231,10 @@ ul li {
 										<option value="naver.com">네이버</option>
 										<option value="daum.com">다음</option>
 										<option value="gmail.com">구글</option>
-									</select> <input type="submit" value="인증코드요청" name="submit" /><div>${sendKey }</div>
+									</select> 
+									<input type="submit" value="인증코드요청" name="submit" />
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									<div>${sendKey }</div>
 								</div>
 								</form>
 							</div>
@@ -213,8 +243,7 @@ ul li {
 							<div class="code">
 								<div class="fieldText">인증코드 :</div>
 								<form action="join_injeung.do" method="post">
-							
-								
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <!-- 								<div class="input"> -->
 <!-- 								<progress id="progress"> -->
 									<input type="text" name="email_injeung" id="chCo" size="10" />
@@ -224,7 +253,6 @@ ul li {
 								<div class="btnfield">								
 								<button type="submit" id="agree" class="btn btn-primary" name="submit">본인확인</button>
 								<button type="button" id="noagree" class="btn btn-warning">취소</button>
-
 								</div>
 								</form>
 							</div>
@@ -236,5 +264,9 @@ ul li {
 			</div>
 		</div>
 	</div>
+	 </div>
+   </div>
+   <%@include file="../../footer.jsp"%>
+	
 </body>
 </html>

@@ -1,16 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+#mainWrapper {
+   width: 1200px;
+   margin: auto;
+   display: flex;
+}
+
+.all_contents {
+   width: 880px;
+   padding: 20px 0;
+   margin-left: 50px;
+   word-break: keep-all;
+}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
-	<sec:authentication property="principal.username" var="username"/>
-	principal : <br>
-	${username }
-	
+
 </body>
 </html>
