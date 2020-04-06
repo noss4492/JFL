@@ -27,7 +27,7 @@
 		authentication-failure-url="/securityLogin/login?error"
 		authentication-success-handler-ref="loginSuccessHandler"/>
 	<security:logout delete-cookies="JSESSIONID" 
-		invalidate-session="true" 
+		invalidate-session="true"
 		logout-url="/securityLogin/logout" 
 		logout-success-url="/"/>
 </security:http>
@@ -66,7 +66,7 @@
 		 <!-- right_status to_num('1') enable to_num('0') disabled -->
 		<security:jdbc-user-service data-source-ref="dataSource" 
 				users-by-username-query=
-					"SELECT username , password , to_number(right_status) as enabled 
+					"SELECT username , password, to_number(right_status) as enabled 
 					 FROM admin.user_m 
 					 WHERE username = ? "
 				 authorities-by-username-query=

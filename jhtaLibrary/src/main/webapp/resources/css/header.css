@@ -7,6 +7,12 @@
 		'sans-serif';
 }
 
+#header{
+	width: 100%;
+	margin: 0 auto;
+	z-index: 500 !important;
+}
+
 header h3 {
 	font-size: 25px;
 	color: #46B7D9;
@@ -29,10 +35,7 @@ header a:hover {
 /* 	z-index: absolute; */
 }
 
-#header {
-	width: 100%;
-	margin: 0 auto;
-}
+
 
 #headerTopWrapper {
 	margin: 0 auto;
@@ -49,6 +52,7 @@ header a:hover {
 
 #siteMenu {
 	text-align: right;
+	padding-top: 10px;	
 }
 
 #siteMenu li {
@@ -56,7 +60,13 @@ header a:hover {
 	font-weight: bold;
 	font-size: 18px;
 }
-
+.login form{
+	display: inline;
+}
+.headerlogout{
+	border: none !important;
+	background: none !important;
+}
 #libraryShortcut {
 	text-align: left;
 	float: left;
@@ -169,6 +179,7 @@ header a:hover {
 	/* overflow: hidden; */
 }
 
+
 #navBar1 {
 	height: 40px;
 	width: 1200px;
@@ -249,9 +260,9 @@ header a:hover {
 /* 	top: 7px; */
 /* 	border-top: 1px solid rgba(0, 0, 0, 0.3); */
  font-size: 16px;
-            font-weight: lighter;
-            top: 4px;
-            border-top: 1px solid  rgba(0, 0, 0, 0.3);
+font-weight: lighter;
+top: 4px;
+border-top: 1px solid  rgba(0, 0, 0, 0.3);
 }
 
 .navBar2 {
@@ -274,8 +285,9 @@ header a:hover {
 	height: 40px;
 	/* padding-bottom: 10px; */
 	margin-top: 0px;
-	border-bottom: 1px solid gray;
-	
+	border-bottom: none !important;
+	/* border-bottom: 1px solid gray; */
+	z-index: 500 !important;
 }
 
 .jbOffset2 {
@@ -285,7 +297,7 @@ header a:hover {
 	height: 40px;
 	/* padding-bottom: 10px; */
 	margin-top: 0px;
-/* 	border-bottom: 1px solid gray; */
+	
 }
 
 .navBarLi:hover {
@@ -296,3 +308,154 @@ header a:hover {
 .navBarLiSub:hover {
 	font-weight: 900;
 }
+
+/* 컨텐츠타이틀 */
+.content_core {
+	width: 880px;
+	position: relative;
+	margin-bottom:30px;
+	right: 0px;
+	z-index: 200px !important;
+}
+
+.content_title {
+	overflow: hidden;
+	position: relative;
+	min-height: 160px;
+	width: 880px;
+	height: 161px;
+	padding: 0;
+	
+}
+/*로그인 아이콘 감싸주는 폼 CSS*/
+
+.content_title h3::before {
+	content: "";
+	position: absolute;
+	top: 30px;
+	width: 25px;
+	height: 4px;
+	background: #333;
+}
+/*로그인 위에 선 CSS */
+.content_title h3 {
+	font-size: 30px;
+	width: 880px;
+	height: 50px;
+	margin: 30px 0px 0px;
+	margin-bottom: 20px;
+	padding: 20px 0px 0px;
+}
+/*로그인 텍스트 CSS*/
+.logoPw_nav{
+	font-size: 16px;
+	color: #666;
+	height: 52px;
+	line-height: 52px;
+	border-top: 1px solid #e2e2e2; 
+	border-bottom: 1px solid #e2e2e2; 	
+}
+/* 사이드 */
+body {
+	font-family: 'Noto Sans', '나눔고딕', 'Nanum Gothic', 'Helvetica',
+		sans-serif;
+}
+
+/*전체 폰트 설정*/
+h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
+	margin: 0px;
+	padding: 0px;
+}
+/*margin padding 0 설정*/
+.navArea {
+	width: 270px;
+	float: left;
+}
+/*왼쪽 네비게이션 바 전체*/
+.navArea h2 {
+	font-weight: normal;
+	font-size: 2.188em;
+	line-height: 160px;
+	color: #fff;
+	text-align: center;
+	margin: 0px;
+	background-image: url("../img/mainPage/lnbNav_bg.jpg");
+}
+
+/*네비게이션 상단바*/
+ul.lnb {
+	width: 270px;
+	border: 1px solid #E2E2E2;
+	word-break: keep-all;
+	padding: 0px;
+}
+
+ul.lnb ul, ul.lnb li{
+	list-style: none;
+}
+
+/*li태그 on off*/
+.Nav_li_on {
+	width: 270px;
+	padding: 10px 20px 10px 0;
+	font-size: 20px;
+	background: #46B7D9;
+	border: 1px solid #E2E2E2;
+}
+.Nav_li_on_haveMenu {
+	width: 270px;
+	padding: 10px 20px 0 0;
+	font-size: 20px;
+	background: #46B7D9;
+	border: 1px solid #E2E2E2;
+}
+.Nav_li_off {
+	width: 270px;
+	padding: 10px 20px 10px 0;
+	font-size: 20px;
+	color: #464646;
+	border: 1px solid #E2E2E2;
+}
+/* ///////////////////////////////// */
+/* a태그 on off */
+.Nav_select {
+	width: 270px;
+	font-size: 20px;
+	padding: 10px 20px;
+	text-decoration-color: black;
+	color: white;
+	font-weight: bold;
+}
+
+.Nav_non {
+	width: 270px;
+	font-size: 20px;
+	padding: 10px 20px;
+	text-decoration-color: black;
+	color: #464646;
+}
+
+.submenu{
+	width: 268px;
+	padding: 10px 20px;
+	margin-top: 10px;
+	border-right: 1px solid #d8d8d8;
+	background-color: #f5f5f5;
+}
+.submenu a{
+	font-size: 18px;
+}
+.submenuSelect{
+	font-weight: bold;
+}
+/* ///////////////////////////////// */
+.glyph-m {
+	float: right;
+	color: white;
+}
+
+.glyph-p {
+	float: right;
+	color: #464646;
+}
+/* 사이드 설정 끝 */

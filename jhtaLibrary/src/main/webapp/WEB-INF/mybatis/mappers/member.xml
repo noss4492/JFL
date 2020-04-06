@@ -7,17 +7,17 @@
     <!-- selectAll 관리자 페이지에서 페이징 필요할거 같아서 만들어 둠 -->
     <select id="selectAll" resultType="udto" parameterType="se">
    <![CDATA[
-   		SELECT ROWNUM RNM, USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
-   		FROM(
-   			ROWNUM RN, USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
-   			FROM(
-   				SELECT USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
-   				FROM USER_M 
-   				ORDER BY USER_M_ID 
-   			)
-   			WHERE ROWNUM <= #{endNo} 
-   		) 
-   		WHERE RN >= #{startNo}  
+         SELECT ROWNUM RNM, USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
+         FROM(
+            ROWNUM RN, USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
+            FROM(
+               SELECT USER_M_ID USERID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP AGEGROUP, REGISTER_DATE REGISTERDATE, PLATFORM_STATUS PLATFORMSTATUS, RIGHT_STATUS RIGHTSTATUS, GRADE_STATUS GRADESTATUS, ADDRESS 
+               FROM USER_M 
+               ORDER BY USER_M_ID 
+            )
+            WHERE ROWNUM <= #{endNo} 
+         ) 
+         WHERE RN >= #{startNo}  
    ]]>
    <!-- WHERE USERNAME LIKE '%#{username}%' OR 이거 한줄 order절 위에 추가하면 parameterType="hash"로 바꿔서 hashmap으로 넣어야함 -->
    </select>
@@ -33,7 +33,8 @@
    </select>
    <insert id="insertOne" parameterType="udto">
       INSERT INTO USER_M(USER_M_ID, USERNAME, PASSWORD, EMAIL, NAME, NICKNAME, GENDER, BIRTH, AGE_GROUP, REGISTER_DATE, PLATFORM_STATUS, RIGHT_STATUS, GRADE_STATUS, ADDRESS) 
-      VALUES (USER_M_SEQ.NEXTVAL, #{username}, #{password}, #{email}, #{name}, #{nickname}, #{gender}, #{birth}, #{ageGroup}, SYSDATE, #{platformStatus}, #{rightStatus}, #{gradeStatus}, #{address} )
+      VALUES (USER_M_SEQ.NEXTVAL, #{username}, #{password}, #{email}, #{name}, 
+      #{nickname}, #{gender}, #{birth}, #{ageGroup}, SYSDATE, #{platformStatus}, #{rightStatus}, #{gradeStatus}, #{address} )
    </insert>
    <update id="updateOne" parameterType="udto">
       UPDATE USER_M 
@@ -60,4 +61,14 @@
    <select id="totalCount" resultType="int">
       SELECT count(*) FROM USER_M 
    </select>
+   <!-- 아이디 중복 체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+	SELECT COUNT(*) FROM USER_M WHERE username = #{username}
+	</select>	
+	<!--이메일 체크  -->
+	<select id="emCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM USER_M
+		WHERE EMAIL = #{email}
+</select>
 </mapper>
