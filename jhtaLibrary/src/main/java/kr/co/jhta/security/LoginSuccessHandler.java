@@ -55,12 +55,13 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		System.out.println("위 유저 이름으로 검색하여 나온 user_m_id(pk, seq)값을 세션에 등록함");
 		
 //		session.setAttribute("userId", ms.readOneMember(username).getUserId());
+		/*
 		UserDTO udtoX =  ms.readOneMember(username);
 		System.out.println("이거 왜 안잡혀? 아 아직 readOneMemberByName이 없구나 "+udtoX);
 		System.out.println("userId : "+udtoX.getUserId());
 		System.out.println("session에 userId를 저장 :"+udtoX.getUserId());	
 		session.setAttribute("userId", udtoX.getUserId());
-
+		 */
 		response.sendRedirect("/jhta/main");
 	}
 }
