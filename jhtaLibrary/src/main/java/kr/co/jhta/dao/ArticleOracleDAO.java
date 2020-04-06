@@ -22,7 +22,7 @@ public class ArticleOracleDAO implements ArticleDAO {
 	
 	@Override
 	public List<ArticleDTO> selectAll(int startNo, int endNo) {
-		PageStartEnd se = new PageStartEnd(startNo, endNo); 
+		PageStartEnd se = new PageStartEnd(startNo, endNo);
 		return ss.selectList("kr.co.jhta.board.selectAll", se);
 	}
 
@@ -49,12 +49,13 @@ public class ArticleOracleDAO implements ArticleDAO {
 	@Override
 	public void raiseHits(int bno) {
 		ss.update("kr.co.jhta.board.raiseHits", bno);
-		
 	}
 
 	@Override
-	public int getTotal() {
-		return ss.selectOne("kr.co.jhta.board.totalCount");
+	public int getTotal(int category) {
+		int temp = ss.selectOne("kr.co.jhta.board.totalCount", category);
+		System.out.println(temp);
+		return temp;
 	}
 	
 	

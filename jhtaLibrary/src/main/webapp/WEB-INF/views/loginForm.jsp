@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +60,8 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 .login_Wrap {
 	width: 880px;
 	height: 422px;
-	padding: 7px; text-align : center;
+	padding: 7px;
+	text-align: center;
 	background-image: url(./resources/img/bg_pattern.png);
 	text-align: center;
 }
@@ -186,8 +187,9 @@ div.loginDesc {
 	margin: 3px 0;
 	padding-left: 10px;
 }
-.login_contents h4{
-	font-size:25px;
+
+.login_contents h4 {
+	font-size: 25px;
 	color: #46B7D9;
 	margin-bottom: 20px;
 }
@@ -204,45 +206,47 @@ div.loginDesc {
 			<div class="login_Wrap">
 				<div class="login_form">
 					<div class="login_group clearfix">
-						<div class="login_Area">
-							<!--아이디 아이콘,텍스트 감싸주는 폼 -->
-							<div class="inpArea">
-								<div class="input-group input-group-lg">
-									<span class="input-group-addon" id="">
-										<div class="glyphicon glyphicon-user"></div>
+						<form action='<c:url value="/login" />' method="post">
+							<div class="login_Area">
+								<!--아이디 아이콘,텍스트 감싸주는 폼 -->
+								<div class="inpArea">
+									<div class="input-group input-group-lg">
+										<span class="input-group-addon" id="">
+											<div class="glyphicon glyphicon-user"></div>
 
-									</span> <input type="text" id="login_userId" placeholder="아이디"
-										aria-describedby="sizing-addon1">
+										</span> <input type="text" id="login_userId" placeholder="아이디"
+											aria-describedby="sizing-addon1" name="username">
+									</div>
 								</div>
-							</div>
-							<!--아이디 아이콘,텍스트 감싸주는 폼 끝-->
+								<!--아이디 아이콘,텍스트 감싸주는 폼 끝-->
+		
 
-
-							<!--비밀번호 아이콘,텍스트 감싸주는 폼-->
-							<div class="inpArea">
-								<div class="input-group input-group-lg">
-									<span class="input-group-addon" id="">
-										<div class="glyphicon glyphicon-lock"></div>
-									</span> <input type="password" id="login_password" placeholder="비밀번호"
-										aria-describedby="sizing-addon1">
+								<!--비밀번호 아이콘,텍스트 감싸주는 폼-->
+								<div class="inpArea">
+									<div class="input-group input-group-lg">
+										<span class="input-group-addon" id="">
+											<div class="glyphicon glyphicon-lock"></div>
+										</span> <input type="password" id="login_password" placeholder="비밀번호"
+											aria-describedby="sizing-addon1" name="password">
+									</div>
 								</div>
+								<!--비밀번호 아이콘,텍스트 감싸주는 폼 끝-->
+
+
+
+
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+								<button type="submit" class="btn btn-primary btn-block" id="login_btn">로그인</button>
+								<!------------------로그인 버튼 ------------------->
+
+								<!--checkArea 영역-->
+								<div class="checkArea_clearfix">
+									<a href="" class="id_find">아이디 찾기</a> <a href=""
+										class="pwd_rei">비밀번호 재발급</a> <a href="" class="log_register">회원가입</a>
+								</div>
+								<!--checkArea 영역 끝-->
 							</div>
-							<!--비밀번호 아이콘,텍스트 감싸주는 폼 끝-->
-
-
-
-
-							<button type="submit" class="btn btn-primary btn-block"
-								id="login_btn">로그인</button>
-							<!------------------로그인 버튼 ------------------->
-
-							<!--checkArea 영역-->
-							<div class="checkArea_clearfix">
-								<a href="" class="id_find">아이디 찾기</a> <a href="" class="pwd_rei">비밀번호
-									재발급</a> <a href="" class="log_register">회원가입</a>
-							</div>
-							<!--checkArea 영역 끝-->
-						</div>
+						</form>
 						<!----로그인 Area 끝 ---->
 					</div>
 					<!--로그인  group clearfix 끝  -->

@@ -12,5 +12,5 @@ public interface ArticleDAO {
 	public void updateOne(ArticleDTO dto);
 	public void deleteOne(int bno);
 	public void raiseHits(int bno);
-	public int getTotal();
+	public int getTotal(int category);
 }

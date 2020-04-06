@@ -51,8 +51,8 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public int getTotal() {
-		return dao.getTotal();
+	public int getTotal(int category) {
+		return dao.getTotal(category);
 	}
 
 }

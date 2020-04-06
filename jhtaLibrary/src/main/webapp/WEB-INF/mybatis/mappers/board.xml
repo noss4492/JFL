@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.jhta.board">
+	<select id="selectAll" resultType="adto" parameterType="hashmap">
+		<!-- SELECT U.name name, A.ARTICLE_ID articleId, A.USER_M_ID userId, A.TITLE, title, A.CONTENT content, A.HITS hits, to_char(A.CREATED_DATE,'YYYY-MM-DD') createdDate 
+		FROM ARTICLE A
+		INNER JOIN USER_M U ON A.USER_M_ID = U.USER_M_ID
+		WHERE A.CATEGORY_STATUS = 2 -->
+		SELECT RN, name, articleId, userId, title, content, hits, createdDate 
+		from(
+			select ROWNUM RN, name, articleId, userId, title, content, hits, createdDate 
+			from(
+				select U.name name, A.ARTICLE_ID articleId, A.USER_M_ID userId, A.TITLE title, A.CONTENT content, A.HITS hits, to_char(A.CREATED_DATE,'YYYY-MM-DD') createdDate
+				from ARTICLE A
+				INNER JOIN USER_M U ON A.USER_M_ID = U.USER_M_ID
+				where A.CATEGORY_STATUS = 2
+				order by A.ARTICLE_ID desc
+			)
+			where ROWNUM &lt;= #{endNo} 
+		)
+		where rn &gt;= #{startNo}
+		
+	</select>
+
+	<insert id="insertOne" parameterType="adto">
+		insert into ARTICLE(article_id, user_m_id, title, content, hits, created_date, category_status) 
+		values (article_seq.nextval, #{userId}, #{title}, #{content}, 0, sysdate, 2)
+	</insert>
+	
+	<select id="selectOne" resultType="adto" parameterType="int">
+		select U.name name, A.ARTICLE_ID articleId, A.USER_M_ID userId, A.TITLE title, A.CONTENT content, A.HITS hits, to_char(A.CREATED_DATE,'YYYY-MM-DD') createdDate
+		from ARTICLE A
+		INNER JOIN USER_M U ON A.USER_M_ID = U.USER_M_ID
+		where A.ARTICLE_ID = #{bno}	
+	</select>
+	
+	<select id="totalCount" resultType="int" parameterType="int">
+		select count(*) from article where category_status = #{category} 
+	</select>
+	
+	<update id="raiseHits" parameterType="int">
+		UPDATE ARTICLE
+		SET hits = hits+1
+		WHERE ARTICLE_ID = #{bno}
+	</update>
+	<delete id="deleteOne" parameterType="int">
+		DELETE ARTICLE
+		WHERE ARTICLE_ID = #{bno}
+	</delete>
+</mapper>

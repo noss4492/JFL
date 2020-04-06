@@ -254,6 +254,12 @@ a:hover {
 	vertical-align: top;
 }
 
+.nowPage{
+	color: white;
+	background-color: #46B7D9;
+	}
+
+
 .p-first, .p-prev, .p-next, .p-last {
 	width: 30px;
 	height: 30px;
@@ -337,34 +343,56 @@ a:hover {
 							<th>조회수</th>
 							<th>답변</th>
 						</tr>
-						<tr>
-							<td>451</td>
-							<td><a href="#">홈페이지 개편 후 교보문고 전자도서관 이용불가</a></td>
-							<td>심**</td>
-							<td>2020-02-26</td>
-							<td>9</td>
-							<td>완료</td>
-						</tr>
-						<tr>
-							<td>451</td>
-							<td><a href="#">홈페이지 개편 후 교보문고 전자도서관 이용불가</a></td>
-							<td>심**</td>
-							<td>2020-02-26</td>
-							<td>9</td>
-							<td>완료</td>
-						</tr>
+						<c:forEach var="dto" items="${list }">
+							<tr>
+								<td>${dto.articleId }</td>
+								<td><a href="./detail?bno=${dto.articleId}&currentPageNo=${currentPageNo}">${dto.title }</a></td>
+								<td>${dto.name }</td>
+								<td>${dto.createdDate }</td>
+								<td>${dto.hits}</td>
+								<td>완료</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 				<div class="pagingWrapper">
+					<p>${currentPageNo }</p>
 					<p class="paging">
-						<a href="" class="p-first"></a> <a href="" class="p-prev"></a> <span>1</span>
-						<a href="">2</a> <a href="">3</a> <a href="">4</a> <a href="">5</a>
-						<a href="">6</a> <a href="">7</a> <a href="">8</a> <a href="">9</a>
-						<a href="">10</a> <a href="" class="p-next"></a> <a href=""
-							class="p-last"></a>
+						<a href="./list?currentPageNo=1" class="p-first"></a>
+						<c:if test="${currentPageNo-10 lt 0}">
+							<a href="./list?currentPageNo=1" class="p-prev"></a>
+						</c:if> 
+						<c:if test="${currentPageNo-10 gt 1}">
+							<a href="./list?currentPageNo=${currentPageNo-10}" class="p-prev"></a>
+						</c:if> 
+						<c:forEach var="i" begin="${startPageNo}" end="${endPageNo }">
+							<c:if test="${i eq currentPageNo }">
+								<span class="nowPage">${i }</span>
+							</c:if>
+							<c:if test="${i ne currentPageNo }">
+								<a href="./list?currentPageNo=${i }">${i }</a>
+							</c:if>
+						</c:forEach>
+						<!-- <span>1</span>
+						<a href="">2</a> 
+						<a href="">3</a> 
+						<a href="">4</a> 
+						<a href="">5</a>
+						<a href="">6</a> 
+						<a href="">7</a> 
+						<a href="">8</a> 
+						<a href="">9</a>
+						<a href="">10</a>  -->
+						<c:if test="${currentPageNo+10 ge totalPage}">
+							<a href="./list?currentPageNo=${totalPage}" class="p-next"></a>
+						</c:if> 
+						<c:if test="${currentPageNo+10 le totalPage}">
+							<a href="./list?currentPageNo=${currentPageNo+10 }" class="p-next"></a>
+						</c:if> 
+						<a href="./list?currentPageNo=${totalPage}" class="p-last"></a>
 					</p>
 				</div>
-				<a href="" class="write"><span class="xi-pen"></span>글쓰기</a>
+				<a href="./write" class="write"><span class="xi-pen"></span>글쓰기</a>
 			</div>
 		</div>
 	</div>

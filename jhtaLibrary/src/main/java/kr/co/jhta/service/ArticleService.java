@@ -9,5 +9,5 @@ public interface ArticleService {
 	public ArticleDTO readOne(int bno);
 	public void changeOne(ArticleDTO dto);
 	public void removeOne(int bno);
-	public int getTotal();
+	public int getTotal(int category);
 }
