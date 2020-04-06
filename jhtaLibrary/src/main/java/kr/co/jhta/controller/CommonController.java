@@ -71,6 +71,7 @@ public class CommonController {
 	public String sli() {
 		System.out.println("go to login form");
 		return "/securityLogin/login";
+		
 	}
 	
 	@RequestMapping(value="/securityLogin/logout")
@@ -123,4 +124,5 @@ public class CommonController {
 		logger.info("logout");
 		System.out.println("숨겨진 로그아웃");
 	}
+
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-<!--datatimepicker 사용-->
+
 
 	<link rel="stylesheet"
    href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
@@ -272,11 +273,11 @@ ul li {
 
 </head>
 <body>
-<%@include file="../../header.jsp"%>
+<%@include file="header.jsp"%>
    <div id="mainWrapper">
-      <%@include file="../../sideBar.jsp"%>
+      <%@include file="sideBar.jsp"%>
       <div class="all_contents">
-         <%@include file="../../contentTitle.jsp"%>
+         <%@include file="contentTitle.jsp"%>
 	<div id="wrap" class="wrap">
 		<!-- <div id="header">이부분은 헤더</div> -->
 		<!-- <div id="container" class="sub"> -->
@@ -284,18 +285,6 @@ ul li {
 		<div class="contentGroup">
 			<div class="terms">
 				<div class="contentcore">
-
-					<div class="joinStep">
-						<ul class="list-group list-group-horizontal">
-
-<!-- 							<li class="list-group-item">가입확인</li> -->
-							<li class="list-group-item">본인확인</li>
-							<li class="list-group-item">약관동의</li>
-							<li class="list-group-item active" id="active">정보입력</li>
-
-						</ul>
-					</div>
-
 
 					<form name = "f" action="./registerOk" id="registerChk" name="frm" method="post">
 
@@ -306,7 +295,7 @@ ul li {
 									<td>
 										<div class="input">
 											<input type="text" name="name" id="name" max-width="220"
-												maxlength="5">
+												maxlength="5" value=${dto.name } readonly>
 										</div>
 										<span id="name_check"></span>
 									</td>
@@ -315,7 +304,7 @@ ul li {
 									<th>아이디</th>
 									<td>
 										<div class="input">
-											<input type="text" name="username" id="user_m_id" max-width="220" />&nbsp;&nbsp;
+											<input type="text" name="username" id="user_m_id" max-width="220" value=${dto.username } readonly/>&nbsp;&nbsp;
 <!-- 											<input type="button" value="중복확인" id="btn" /> -->
 											 <span id="id_check"></span>
 										</div>
@@ -347,7 +336,7 @@ ul li {
 									<th>닉네임</th>
 									<td>
 										<div class="input">
-											<input type="text" name="nickname" id="nick" max-width="220" />&nbsp;&nbsp;
+											<input type="text" name="nickname" id="nick" max-width="220" value=${dto.nickname }>&nbsp;&nbsp;
 												 <span id="nick_check"></span>
 										</div>
 									</td>
@@ -358,22 +347,17 @@ ul li {
 										<div class="input">
 											<input type="radio" name="gender" id="mail" class="frm_input" value="1">남
 											&nbsp;&nbsp; <input type="radio" name="gender" id="femail" class="frm_input" value="2">여
-					
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<th>생년월일</th>
 									<td>
-										<div class="input-group date" id="datet">
+								
 											<div class="input">
-												<input type="text" name="birth" id="bd" max-width="220" />
+												<input type="text" name="birth" id="bd" max-width="220" value="${dto.birth }" readonly>
 											</div>
-											<div class="input-group-addon" id="gbutton" name="btn">
-												<div class="glyphicon-calendar glyphicon"></div>
-												
-											</div>
-										</div>
+
 										
 									</td>
 								</tr>
@@ -382,24 +366,32 @@ ul li {
 									<td>
 										<div class="input">
 											<input type="text" name="email" id="email" max-width="220"
-												height="5px" value="${tomail}" readonly="readonly">
+												height="5px" value="${dto.email}" readonly="readonly">
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<th rowspan="2">주소</th>
 									<td rowspan="2">
+									<c:forEach items="${fn:split(dto.address, ',')[0] }" var="item1">
+<%-- 									<c:forEach items="${fn:split(dto.address, ',' )" var="item" varStatus="status"> --%>
+									
 										<div class="input">
 											<input type="text" name="addr1" id="addr1" max-width="220"
-												placeholder="우편번호" />&nbsp;&nbsp; <input type="button"
+												value= ${item1 }>&nbsp;&nbsp; <input type="button"
 												onclick="postCode()" value="우편번호 찾기" id="btn" /><br>
 										</div>
+											</c:forEach>
 										<div>
-											<input type="text" name="addr2" id="addr2" placeholder="주소"
-												class="addr1input mv" /> 
-												<input type="text" name="addr3" id="addr3" placeholder="상세주소 " class="mv" />
-										</div>
-									</td>
+										<c:forEach items="${fn:split(dto.address, ',')[1] }" var="item2">
+											<input type="text" name="addr2" id="addr2"
+												class="addr1input mv" value= ${item2 }> 
+												</c:forEach>
+										<c:forEach items="${fn:split(dto.address, ',')[2] }" var="item3">
+												<input type="text" name="addr3" id="addr3"  class="mv" value= ${item3 }>
+										</c:forEach>
+										</div>								
+									</td>								
 								</tr>
 							</table>
 							<div class=btnfield>
@@ -419,21 +411,18 @@ ul li {
 	</div>
 	 </div>
    </div>
-   <%@include file="../../footer.jsp"%>
+   <%@include file="footer.jsp"%>
 	
 <script type="text/javascript">
-	var idflag = 0; // id확인 논리값
+
 	var pwflag = 0; // 비밀번호 재입력 확인 논리값
 	var pwflag2 = 0;
-	var nameflag = 0; //이름 논리값
-	var nickflag= 0;
-	var nickflag22= 333;
-	var idJ = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
+
 	var pwJ = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 	console.log(pwflag);
-	console.log(idflag);
-	console.log(nameflag);
-	console.log(nickflag);
+// 	console.log(idflag);
+// 	console.log(nameflag);
+// 	console.log(nickflag);
 
 	//////////////////////////////////////닉네임 중복 확인 및 아이디 중복 확인 버튼 클릭시//////////////////////////////////
 	$(function() {
@@ -446,60 +435,6 @@ ul li {
 	});
 
 
-
-$(document).ready(function(){
-
-		$("#user_m_id").blur(function() {
-
-			var username=$('#user_m_id').val();
-			
-			
-
-			
-			$.ajax({
-			async : false,
-			type : "POST",
-			url : "idCheck.do",
-			data : username,
-			beforeSend: function(xhr){
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}"); //시큐리티 때문에 필요
-			},
-			success : function(data) {
-				if($('#user_m_id').val()==''){		
-					$('#id_check').text('아이디를 입력하세요.');
-					$('#id_check').css('color', 'red');
-					idflag=2;
-					} 
-					else if(idJ.test($('#user_m_id').val())!=true){
-					$('#id_check').text('4~12자의 영문, 숫자만 사용 가능합니다.');
-					$('#id_check').css('color', 'red');
-					idflag=2;
-					} 
-					else if($('#user_m_id').val()!=''){		
-						$('#id_check').text('');
-						if(data == "S") {
-							$('#id_check').text('사용가능한 아이디입니다.');
-							$('#id_check').css('color', 'red');
-							idflag = 1;
-						} else {
-
-						$('#id_check').text('아이디가 존재합니다. 다른 아이디를 입력해주세요');
-						$('#id_check').css('color', 'red');
-						idflag=2;
-
-						}						
-					}			
-
-			},
-			error: function(req, status, errThrown) {
-
-			}
-			
-			})//ajax///		
-			//else if
-			});//blur			
-			
-});
 	
 	////////////////////////////////////////////비밀번호 체크/////////////////////////////////
 	$(function() {
@@ -556,74 +491,71 @@ $(document).ready(function(){
 
 	///////////////////////////////////////최종검사///////////////////////////////////////////////////////
 window.onload = function() {
-
+		
 		var frm = document.frm;
 		var btn1 = document.getElementById("btn1");
 		var btn2 = document.getElementById("chCosend");
 		var nickname=$('#nick').val();
 	
-
+		if(${dto.gender} == 1){
+		console.log("남")
+		
+		}
+		else(${dto.gender} == 2)
+			console.log("여")
+		
 // 		btn1.disabled = true; //가입신청 버튼 숨기기.  보류
 
 		btn1.onclick = function() {
 		
-			for (var i = 0; i < $("#name").val().length; i++) {
-				var chk = $("#name").val().substring(i, i + 1);
-				if (chk.match(/[0-9]|[a-z]|[A-Z]/)) {
-					$('#name_check').text('이름에는 영문 및 특수문자,숫자를 사용하실 수 없습니다.');
-					$('#name_check').css('color', 'red');
-					nameflag = 0;					
-					return;				
-				}
-				if (chk.match(/([^가-힣\x7])/i)) {
-					$('#name_check').text('이름을 정확히 입력해주세요');
-					$('#name_check').css('color', 'red');
-					nameflag= 0;
-					return;
-				}else if ($("#name").val() == '') {
-					$('#name_check').text('이름을 입력해주세요');
-					$('#name_check').css('color', 'red');
-					nameflag = 0;
-					return;
-				}
-				else {
-					$('#name_check').text('');
-					nameflag = 1;
-					}
-				}			
-				if($("#nick").val() == null || $("#nick").val() == ''){
-					nickflag = 0;
-				}
-				else{
-					nickflag = 1;
-				}
+// 			for (var i = 0; i < $("#name").val().length; i++) {
+// 				var chk = $("#name").val().substring(i, i + 1);
+// 				if (chk.match(/[0-9]|[a-z]|[A-Z]/)) {
+// 					$('#name_check').text('이름에는 영문 및 특수문자,숫자를 사용하실 수 없습니다.');
+// 					$('#name_check').css('color', 'red');
+// 					nameflag = 0;					
+// 					return;				
+// 				}
+// 				if (chk.match(/([^가-힣\x7])/i)) {
+// 					$('#name_check').text('이름을 정확히 입력해주세요');
+// 					$('#name_check').css('color', 'red');
+// 					nameflag= 0;
+// 					return;
+// 				}else if ($("#name").val() == '') {
+// 					$('#name_check').text('이름을 입력해주세요');
+// 					$('#name_check').css('color', 'red');
+// 					nameflag = 0;
+// 					return;
+// 				}
+// 				else {
+// 					$('#name_check').text('');
+// 					nameflag = 1;
+// 					}
+// 				}			
+// 				if($("#nick").val() == null || $("#nick").val() == ''){
+// 					nickflag = 0;
+// 				}
+// 				else{
+// 					nickflag = 1;
+// 				}
 					
 					
-			if ( nameflag == 0 || idflag == 0 || idflag == 2 || pwflag == 0 || pwflag == 2 || nickflag == 0 || pwflag2 == 0 || pwflag2 == 2) {
-
-					 if(nameflag == 0){
-					 alert("이름을 확인해주세요.")
-					 }
-					 else if (idflag == 0 || idflag == 2) {
-					alert("아이디를 확인해주세요.")
-					}
+			if ( pwflag == 0 || pwflag == 2 || pwflag2 == 0 || pwflag2 == 2) {
 				 
-					else if (pwflag == 0 || pwflag == 2 || pwflag2 == 0 || pwflag2 == 2) {
+			 if (pwflag == 0 || pwflag == 2 || pwflag2 == 0 || pwflag2 == 2) {
 					alert("패스워드를 확인해주세요")
-					}else if(nickflag == 0){
-					alert("닉네임 확인");
 					}
 				 
 					}
-				else if (nameflag == 1 && pwflag == 1 && idflag == 1 && nickflag == 1 && pwflag2 == 1) {	
+				else if (pwflag == 1 && pwflag2 == 1) {	
 				document.f.submit();
 				}		
 				
 	}
 	}
 console.log(pwflag);
-console.log(idflag);
-console.log(nameflag);
+// console.log(idflag);
+// console.log(nameflag);
 </script>
 </body>
 </html>
