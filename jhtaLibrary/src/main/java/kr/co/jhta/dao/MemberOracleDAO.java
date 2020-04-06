@@ -57,7 +57,7 @@ public class MemberOracleDAO implements MemberDAO{
 	public int idChk(String username) {		
 		System.out.println("dao insert complete");
 		int idCount = ss.selectOne("idCheck", username.replace("=", ""));
-				return idCount;
+		return idCount;
 	}
 
 	@Override

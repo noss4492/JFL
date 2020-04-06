@@ -74,7 +74,11 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 	overflow: hidden;
 	margin-bottom: 40px;
 	text-align: center;
+	padding-left: 150px;
+	/* 	height: 50px; */
 }
+
+
 
 .joinStep li {
 	margin-left: 80px;
