@@ -27,7 +27,6 @@
 	]]>
 	</select>
 	
-
 	<select id="selectAuthorByIsbn" resultType="String" parameterType="String">
 	SELECT A.AUTHOR_NAME 
 	FROM AUTHOR A INNER JOIN GENERAL_BOOK G
@@ -41,5 +40,340 @@
 	ON T.GENERAL_BOOK_ID = G.GENERAL_BOOK_ID 
 	WHERE A.GENERAL_BOOK_ID = '#{translatorName}'
 	</select>
+	
+	<update id="updateRecommendBookFlagOn" parameterType="String">
+	UPDATE GENERAL_BOOK 
+	SET RECOMMEND_STATUS = 1 
+	WHERE GENERAL_BOOK_ID = #{generalBookId}
+	</update>
+	
+	<update id="updateRecommendBookOff" parameterType="String">
+	UPDATE GENERAL_BOOK 
+	SET RECOMMEND_STATUS = 0 
+	WHERE GENERAL_BOOK_ID = #{generalBookId}
+	</update>
+	
+	<!-- 즐겨찾기도 나중에 페이징 -->
+	<insert id="insertUserFavoriteBook" parameterType="fbdto">
+	INSERT INTO FAVORITE_BOOK(FAVORITE_BOOK_ID, GENERAL_BOOK_ID, USER_M_ID) 
+	VALUES (FAVORITE_BOOK_SEQ.NEXTVAL, #{generalBookId}, #{userId} )
+	</insert>
+	
+	<delete id="deleteUserFavoriteBook" parameterType="String">
+	DELETE FAVORITE_BOOK
+	WHERE GENERAL_BOOK_ID = #{generalBookId}
+	</delete>
+	
+	<!-- 희망도서도 여기 나중에 페이징 -->
+	<insert id="insertWishBookList" parameterType="rwbdto">
+	INSERT INTO REQUEST_WISHBOOK(REQUEST_WISHBOOK_ID, GENERAL_BOOK_ID, USER_M_ID,REQUEST_DATE, STATUS, REASON, REPLY)   
+	VALUES (REQUEST_WISHBOOK.NEXTVAL, #{generalBookId}, #{userId}, sysdate, #{reason}, "") 
+	</insert>
+	
+	<update id="updateWishBookReaction" parameterType="rwbdto">
+	UPDATE REQUEST_WISHBOOK 
+	SET REPLY = #{reply}, STATUS = #{status} 
+	WHERE REQUEST_WISHBOOK_ID = #{requestWishBookId}
+	</update>
+	
+	<delete id="deleteWishBook" parameterType="String">
+	DELETE REQUEST_WISHBOOK 
+	WHERE REQUEST_WISHBOOK_ID = #{requestWishBookId}
+	</delete>
+	
+	
+	<select id="selectWishBookPageByUser" parameterType="hashmap" resultType="rwbdto"> 
+	<![CDATA[
+	SELECT ROWNUM, REQUEST_WISHBOOK_ID, GENERAL_BOOK_ID, USER_M_ID,REQUEST_DATE, STATUS, REASON, REPLY 
+	FROM( 
+		SELECT ROWNUM RN, REQUEST_WISHBOOK_ID, GENERAL_BOOK_ID, USER_M_ID,REQUEST_DATE, STATUS, REASON, REPLY 
+		FROM( 
+			SELECT REQUEST_WISHBOOK_ID, GENERAL_BOOK_ID, USER_M_ID, REQUEST_DATE, STATUS, REASON, REPLY 
+			FROM REQUEST_WISHBOOK 
+			WHERE USER_M_ID = #{userId}
+			ORDER BY REQUEST_WISHBOOK_ID DESC 
+		)
+		WHERE ROWNUM <= #{endNo}
+	)
+	WHERE RN >= #{startNo}
+	]]>
+	</select>
+	
+	<select id="selectWishBookPageByAdmin" parameterType="se" resultType="rwbdto">
+	<![CDATA[
+	SELECT ROWNUM, REQUEST_WISHBOOK_ID, GENERAL_BOOK_ID, USER_M_ID, REQUEST_DATE, STATUS, REASON, REPLY 
+	FROM( 
+		SELECT ROWNUM RN, REQUEST_WISHBOOK_ID, GENERAL_BOOK_ID, USER_M_ID,REQUEST_DATE, STATUS, REASON, REPLY 
+		FROM( 
+			SELECT REQUEST_WISHBOOK_ID, GENERAL_BOOK_ID, USER_M_ID, REQUEST_DATE, STATUS, REASON, REPLY 
+			FROM REQUEST_WISHBOOK 
+			ORDER BY REQUEST_WISHBOOK_ID DESC 
+		)
+		WHERE ROWNUM <= #{endNo}
+	)
+	WHERE RN >= #{startNo}
+	]]>
+	</select>
+	
+	
+	<!-- 도서를 빌리는 행위는 모두 하나로 볼 수 있기에 책 예약/대여를 하나의 스케쥴 단위로 바꿉니다. -->
+	
+	<!-- 
+		대여상태 구분
+		X. start time < 검색하는 시간대 < endtime        : 대여가능 상태, 현재 대여하면 상태 변화함.                                 INSERT(유저가 대여하는 시점에)
+		
+		1. 대여 상태  end time > now  &  start time < now      : , 일일마다 검사하여 미반납상태로 넘어감                                                 UPDATE(매일, 마지막+1일째에->2)
+		2. 연체 상태  end time < now (당근 start time < now)    : , 유저가 반납하는 시점에 상태값 변함                                                      UPDATE(유저가 반납하는 시점에)
+		3. 예약 상태 start time > now & end time > now        : , 일마다 검사하여 대여 상태로 넘어감 또는 유저가 대여하면 상태값 변함              UPDATE(매일, ST=NOW->1)
+		4. 반납 완료 time에 관계 없이 반납 상태로 인정됨. 반납하는 시점에 반납상태로 넘어감.                                                UPDATE(반납시점에 4)
+		5. 분실
+		
+		매일 검사 후 1->2, 3->1
+		1->2 연체
+		3->1 예약인계
+
+		유저가 취할 행동에 따른 상태 변화	
+		2->4 반납
+		1->4 반납
+		5->4 반납(분실서적반납)
+	
+		3. 예약 취소는 그냥 log없이 delete하기로... status를 세분화하여 저장할 수 도 있겠으나 시간상 생략함	       
+		
+		유저의 일반적인 서비스 이용시 행동
+		1. 대여
+		2. 예약
+			조건1. 예약하려면  현재시점>endtime인 해당 책이 있어야한다.
+			조건2. 그 endtime시점부터 책을 빌릴 수 있어야한다.
+			
+		책의 대여 기간은 2주일로 고정한다.                          
+		
+		대여는 library_book 테이블의 실제 도서관 소유의 책들로 하여야 한다.
+	 -->
+	 
+	 <!-- 하루마다 갱신되는 도서관의 대여정보 UPDATE문 -->
+	 <!-- Book Schedule Maintenance Update Per Day -->
+	 <update id="updateReturnToNonreturn">
+	 <![CDATA[
+	 UPDATE BORROW_BOOK   
+	 SET STATUS = 2  
+	 FROM( 
+	 	 SELECT BORROW_BOOK_ID, LIBRARY_BOOK_ID, USER_M_ID, START_DATE, END_DATE, STATUS 
+	 	 FROM BORROW_BOOK 
+	 	 WHERE END_DATE > SYSDATE AND START_DATE < SYSDATE AND STATUS = 1 
+	 ) 
+	 WHERE TO_CHAR(END_DATE, 'YYYY/MM/DD') = TO_CHAR(SYSDATE, 'YYYY/MM/DD') 
+	 ]]>
+	 </update>
+	 
+	 <update id="updateReserveToBorrow">
+	 <![CDATA[
+	 UPDATE BORROW_BOOK   
+	 SET STATUS = 1  
+	 FROM( 
+	 	 SELECT BORROW_BOOK_ID, LIBRARY_BOOK_ID, USER_M_ID, START_DATE, END_DATE, STATUS 
+	 	 FROM BORROW_BOOK 
+	 	 WHERE END_DATE > SYSDATE AND START_DATE < SYSDATE AND STATUS = 3  
+	 ) 
+	 WHERE TO_CHAR(START_DATE, 'YYYY/MM/DD') = TO_CHAR(SYSDATE, 'YYYY/MM/DD') 
+	 ]]>
+	 </update>
+	 
+	 <!-- 책 반환시 상태값 변화 1,2,5->4 / END_DATE = SYSDATE -->
+	 <update id="updateReturnBook" parameterType="long">
+	 UPDATE BORROW_BOOK 
+	 SET END_DATE = SYSDATE, STATUS = 4   
+	 WHERE BORROW_BOOK_ID = #{borrowBookId} and STATUS IN (1, 2, 5)  
+	 </update>
+	 
+	 <delete id="deleteReserveBook" parameterType="long">
+	 DELETE BORROW_BOOK 
+	 WHERE BORROW_BOOK_ID = #{borrowBookId} 
+	 </delete>
+	 
+	 <insert id="insertBorrowBook" parameterType="bbdto">
+	 INSERT INTO BORROW_BOOK(BORROW_BOOK_ID borrowBookId, LIBRARY_BOOK_ID libraryBookId, USER_M_ID userId, START_DATE startDate, END_DATE endDate)   
+	 VALUES (BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId), #{userId), sysdate ,sysdate+14, 1 );
+	 </insert>
+	 
+	 
+	 
+	 <!-- 유저에게 해당 ISBN의 보유중인 책을 보여주고, 각각 대여하고 있는 사람이 있는지?  -->
+	 <!-- 예약하려면 다음의 조건을 만족하여야함. 이미 대여하고 있는 사람이 있는지 -->
+	 <select id="selectLibraryBookByIsbn" parameterType="long" resultType="lbdto">
+	 SELECT LIBRARY_BOOK_ID libraryBookId, GENERAL_BOOK_ID generalBookId, REGISTRATION_DATE registrationDate, RENTAL_CNT rentalCnt, status  
+	 FROM LIBRARY_BOOK 
+	 WHERE GENERAL_BOOK_ID = #{generalBookId} 
+	 </select>
+
+	 <select id="selectIsBorrowedByBookId" parameterType="long" resultType="int">
+	 SELECT COUNT(*)
+	 FROM(
+		 SELECT BORROW_BOOK_ID, LIBRARY_BOOK_ID, USER_M_ID, START_DATE, END_DATE, STATUS 
+		 FROM BORROW_BOOK 
+		 WHERE STATUS = 1 AND BORROW_BOOK_ID = #{borrowBookId}
+	 )
+	 </select>
+
+	<insert id="updateRaiseRentCnt" parameterType="long">
+	UPDATE LIBRARY_BOOK 
+	SET RENT_CNT = RENT_CNT+1 
+	WHERE GENERAL_BOOK_ID = #{generalBookId} 
+	</insert>
+
+	 <!-- 대여종료 시점 부터 가능하도록. 그날 하루는 겹치도록 해도 OK -->
+	 <!-- 아 이거 원래 쿼리 하나로도 가능한데.. 시간 없으니까 그냥 두개로 나눠서 함... -->
+	 <insert id="insertReserveBook" parameterType="bbdto"><!-- 여기서 받는 bbdto는 신청 유저의 정보이다 -->
+	 INSERT INTO BORROW_BOOK 
+	 SELECT BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId}, #{userId}, #{endDate}, #{endDate}+14, 1 
+	 </insert>
+	 
+	 <!-- 위에 따른 쿼리는 진행하면서 만듭시다. 하나로 만들수도 있겠지만.. 빨리빨리 -->
+	 
+	 
+	 
+	 
+	 <!-- 메인페이지용 책 sql문
+	 1. 도서관에 있는 책 join 일반 책 정보 rental_cnt best20 
+	 2. 도서관에 있는 책 join 일반 책 정보 registration_date latest best 20
+	 3. 도서관에 있는 책 join 일반 책 정보 recommend_status = 1 -> random 20-->
+	 
+	<select id="selectRentalBestRandom20" resultType="gbdto">
+	<![CDATA[
+	select library_book_id libraryBookId, general_book_id, TITLE, AUTHOR_NAME authorName, THUMBNAIL_URL thumbnailUrl
+	from(
+	    select library_book_id, L.general_book_id, TITLE, AUTHOR_NAME, THUMBNAIL_URL
+		from library_book L 
+		inner join general_book G 
+		on L.general_book_id = G.general_book_id 
+	    inner join author A
+	    on G.general_book_id = L.general_book_id
+	    WHERE ROWNUM <= 20 
+	    order by rental_cnt desc
+	)
+	order by DBMS_RANDOM.VALUE
+	]]>
+	</select>
+	<select id="selectNewestRandom20" resultType="gbdto">
+	<![CDATA[
+	select library_book_id libraryBookId, general_book_id, TITLE, AUTHOR_NAME authorName, THUMBNAIL_URL thumbnailUrl
+	from(
+	    select library_book_id, L.general_book_id, TITLE, AUTHOR_NAME, THUMBNAIL_URL
+		from library_book L 
+		inner join general_book G 
+		on L.general_book_id = G.general_book_id 
+	    inner join author A
+	    on G.general_book_id = L.general_book_id
+	    WHERE ROWNUM <= 20 
+	    order by REGISTRATION_DATE desc 
+	)
+	order by DBMS_RANDOM.VALUE
+	]]>
+	</select>
+	<select id="selectRecommendRandom20" resultType="gbdto">
+	<![CDATA[
+	select library_book_id libraryBookId, general_book_id, TITLE, AUTHOR_NAME authorName, THUMBNAIL_URL thumbnailUrl
+	from(
+	    select library_book_id, L.general_book_id, TITLE, AUTHOR_NAME, THUMBNAIL_URL
+		from library_book L 
+		inner join general_book G 
+		on L.general_book_id = G.general_book_id 
+	    inner join author A
+	    on G.general_book_id = L.general_book_id
+	    WHERE recommend_status = 1 
+	    AND ROWNUM <= 20 
+	    order by rental_cnt desc
+	)
+	order by DBMS_RANDOM.VALUE 
+	]]>
+	</select>	 
+	
+	
+	<insert id="insertOneGeneralBook" parameterType="gbdto">
+	INSERT INTO GENERAL_BOOK_ID generalBookId, GENRE, TITLE, DESCRIPTION, DETAIL_URL detailUrl, PUBLISHER, THUMBNAIL_URL thumbnailUrl, STATUS, RECOMMEND_STATUS recommendStatus 
+	VALUES (GENERAL_BOOK_SEQ.NEXTVAL, #{genre}, #{title}, #{description}, #{detailUrl}, #{publicationDate}, #{publisher}, #{thumbnailUrl}, 1, 0) 
+	</insert>
+	<update id="updateOneGeneralBook" parameterType="gbdto">
+	UPDATE GENERAL_BOOK 
+	SET GENRE = #{genre}, 
+		TITLE = #{title}, 
+		DESCRIPTION = #{description}, 
+		DETAIL_URL = #{detailUrl}, 
+		PUBLISHER = #{publisher}, 
+		THUMBNAIL_URL = #{thumbnailUrl}, 
+		RECOMMEND_STATUS = #{recommendStatus}
+	WHERE GENERAL_BOOK_ID = #{generalBookId} 
+	</update>
+	<delete id="deleteOneGeneralBook" parameterType="String">
+	DELETE GENERAL_BOOK 
+	WHERE GENERAL_BOOK_ID = #{generalBookId}
+	</delete>
+	<insert id="insertOneLibraryBook" parameterType="lbdto">
+	</insert>
+	<update id="updateOneLibraryBook" parameterType="lbdto">
+	</update>
+	<delete id="deleteOneLibraryBook" parameterType="String">
+	</delete>
+	
+	<select id="getTotalGeneralBook" resultType="int">
+	select count(*) from general_book 
+	</select>
+	<select id="getTotalLibraryBook" resultType="int">
+	select count(*) from library_book 
+	</select>	
+	
+	<select id="selectOneGeneralBookDetail" parameterType="String" resultType="gbdto">
+	SELECT GENERAL_BOOK_ID generalBookId, GENRE, TITLE, DESCRIPTION, DETAIL_URL detailUrl, PUBLISHER, THUMBNAIL_URL thumbnailUrl, STATUS, RECOMMEND_STATUS recommendStatus 
+	FROM GENERAL_BOOK 
+	WHERE GENERAL_BOOK_ID = #{generalBookId} 
+	</select>
+	<select id="selectOneLibraryBookDetail" parameterType="long" resultType="lbdto">
+	SELECT LIBRARY_BOOK_ID libraryBookId, GENERAL_BOOK_ID generalBookId, REGISTRATION_DATE registrationDate, RENTAL_CNT rentalCnt, STATUS 
+	FROM LIBRARY_BOOK 
+	WHERE LIBRARY_BOOK_ID = #{libraryBookId}   
+	</select>
+	<!-- 
+	SELECT G.GENERAL_BOOK_ID generalBookId, G.GENRE, G.TITLE, G.DESCRIPTION, G.DETAIL_URL detailUrl, G.PUBLISHER, G.THUMBNAIL_URL thumbnailUrl, G.STATUS, G.RECOMMEND_STATUS recommendStatus, L.LIBRARY_BOOK_ID libraryBookId, L.REGISTRATION_DATE registrationDate, L.RENTAL_CNT rentalCnt, L.STATUS
+	FROM GENERAL_BOOK G 
+	INNER JOIN LIBRARY_BOOK L 
+	ON G.GENERAL_BOOK_ID = L.GENERAL_BOOK_ID 
+	WHERE LIBRARY_BOOK_ID = #{libraryBookId}
+	 -->  
+
+<!--   CASE
+
+    WHEN mod(val,2) = 1 THEN '홀수'
+
+    WHEN mod(val,2) = 0 THEN '짝수'
+
+  END aa
+
+FROM
+
+  ( SELECT ROUND(DBMS_RANDOM.VALUE(1, 10),0) val FROM dual
+
+  ) -->
+
+	
+	
+	<!-- 관리자 책 등록/수정/삭제 기능 -->
+	
+	<!-- se #{startNo} #{endNo} -->
+ 	
+	<!-- 
+	GENERAL_BOOK_ID V
+	GENRE V
+	TITLE V
+	DESCRIPTION V
+	DETAIL_URL V
+	PUBLICATION_DATE V
+	PUBLISHER V
+	PUBLISHER D
+	THUMBNAIL_URL V 
+	STATUS C
+	RECOMMEND_STATUS C(0~255)
+	-->
+				  
+	<!-- 변수명 다른거는 alias로 처리해도 되고 resultMap을 만들어서 처리해도 된다. resultMap으로 만들고 싶은데 시간이 너무 없어서 패스함. 				 -->  
+	<!--  java.util.HashMap, HashMap, hashmap(alias)- -->
 
 </mapper>
