@@ -14,11 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReadingRoomDTO {
-	long ReserveSeatId;
-	long readingRoomId;
+	long rentSeatId;
+	long seatId;
 	long userId;
-	String reserveDate;
-	String requestDate;
 	String startTime;
 	String endTime;
 	byte status;
