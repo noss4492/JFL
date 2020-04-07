@@ -54,17 +54,17 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		System.out.println("로그인시 성공직후 바로 받아온 유저 이름 : "+username);
 		System.out.println("위 유저 이름으로 검색하여 나온 user_m_id(pk, seq)값을 세션에 등록함");
 		
-//		session.setAttribute("userId", ms.readOneMember(username).getUserId());
-		UserDTO udtoX =  ms.readOneMemberByName(username);
-		System.out.println("이거 왜 안잡혀? 아 아직 readOneMemberByName이 없구나 "+udtoX);
-		System.out.println("userId : "+udtoX.getUserId());
-		System.out.println("session에 userId를 저장 :"+udtoX.getUserId());	
-		session.setAttribute("userId", udtoX.getUserId());
+//		session.setAttribute("userId", udtoX.getUserId()); 안되네요 안되는 이유가 있을텐데
 
 		response.sendRedirect("/jhta/");
 	}
 }
 
+//		session.setAttribute("userId", ms.readOneMember(username).getUserId());
+//		UserDTO udtoX =  ms.readOneMemberByName(username);
+//		System.out.println("이거 왜 안잡혀? 아 아직 readOneMemberByName이 없구나 "+udtoX);
+//		System.out.println("userId : "+udtoX.getUserId());
+//		System.out.println("session에 userId를 저장 :"+udtoX.getUserId());	
 
 //		Principal principal = (Principal) prin;
 //		principal.getName();
