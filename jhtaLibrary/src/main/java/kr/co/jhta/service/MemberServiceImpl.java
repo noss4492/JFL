@@ -52,8 +52,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public int idChk(String username) {
-		
+	public int idChk(String username) {		
 		int idCnt = dao.idChk(username);
 		return idCnt;
 	}
