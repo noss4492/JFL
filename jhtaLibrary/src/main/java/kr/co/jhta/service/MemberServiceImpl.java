@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public UserDTO readOneMemberByName(String username) {
-		return dao.selectOne(username);
+		return dao.selectOneByName(username);
 	}
 	
 	@Override
@@ -62,6 +62,12 @@ public class MemberServiceImpl implements MemberService{
 		int mailCnt = dao.mailChk(email);
 		
 		return mailCnt;
+	}
+
+	@Override
+	public long selectUserPkByUsername(String username) {
+		return 0 ;
+
 	}
 
 

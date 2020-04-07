@@ -38,7 +38,7 @@ public class HomeController {
 	@RequestMapping(value ="/" , method = RequestMethod.GET)
 	public String main(Principal principal, Model model) {
 		if(principal!=null) {
-			UserDTO dto = memberServiceImple.readOneMember(principal.getName());
+			UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
 			model.addAttribute("username", dto.getName());
 			model.addAttribute("userno", dto.getUserId());
 		}
