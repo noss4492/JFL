@@ -200,10 +200,7 @@ ul li {
 					<div class="contentGroup">
 						<div class="terms">
 							<div class="contentcore">
-								<!-- 						<h3>회원가입</h3> -->
-								<!-- 						<hr class="one"> -->
-								<!-- 						<div>네비게이션</div> -->
-								<!-- 						<hr class="one"> -->
+								
 								<div class="joinStep">
 									<ul class="list-group list-group-horizontal">
 										<!-- 								<li class="list-group-item">가입확인</li> -->
@@ -260,11 +257,11 @@ ul li {
 										<form action="join_injeung.do" method="post">
 											<input type="hidden" name="${_csrf.parameterName}"
 												value="${_csrf.token}" />
-											<!-- 								<div class="input"> -->
-											<!-- 								<progress id="progress"> -->
+											<!-- <div class="input"> -->
+											<!-- <progress id="progress"> -->
 											<input type="text" name="email_injeung" id="chCo" size="10" />
-											<!-- 								</progress> -->
-											<!-- 								</div> -->
+											<!-- </progress> -->
+											<!-- </div> -->
 											<div class="keyCh">${keych }</div>
 											<div class="btnfield">
 												<button type="submit" id="agree" class="btn btn-primary"
@@ -274,9 +271,7 @@ ul li {
 										</form>
 									</div>
 								</div>
-
 							</div>
-
 						</div>
 					</div>
 				</div>

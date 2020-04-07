@@ -33,8 +33,7 @@ public class MemberServiceImpl implements MemberService{
 	public void wrtieOneMember(UserDTO dto) {
 		dao.insertOne(dto);
 	}
-
-
+	
 	@Override
 	public void changeOneMember(UserDTO dto) {
 		dao.updateOne(dto);

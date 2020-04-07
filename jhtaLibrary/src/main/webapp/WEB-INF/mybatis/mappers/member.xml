@@ -38,7 +38,8 @@
    </insert>
    <update id="updateOne" parameterType="udto">
       UPDATE USER_M 
-      SET USER_M_ID = #{userId}, 
+      SET 
+<!--     USER_M_ID = #{userId},  -->
          USERNAME = #{username}, 
          PASSWORD = #{password}, 
          EMAIL = #{email},
