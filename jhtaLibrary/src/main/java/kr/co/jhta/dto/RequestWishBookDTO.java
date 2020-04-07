@@ -17,5 +17,6 @@ public class RequestWishBookDTO {
 	long userId;
 	String requestDate;
 	byte status;
+	String reason;
 	String reply;
 }

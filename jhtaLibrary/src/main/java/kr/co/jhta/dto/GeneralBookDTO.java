@@ -22,4 +22,5 @@ public class GeneralBookDTO {
 	String thumbnailUrl;
 	byte status;
 	byte recommendStatus;
+	String authorName;
 }

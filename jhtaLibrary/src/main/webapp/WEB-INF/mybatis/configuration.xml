@@ -5,10 +5,18 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
 <configuration>
+	<settings>
+        <setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
 	<!-- 매퍼에서 쿼리할대 파라메터로 사용하기 위해서 등록함. -->
 	<typeAliases>
 		<typeAlias type="kr.co.jhta.dto.ArticleDTO" alias="adto" />
-		<typeAlias type="kr.co.jhta.dto.UserDTO" alias="udto" />		
+		<typeAlias type="kr.co.jhta.dto.UserDTO" alias="udto" />
+		<typeAlias type="kr.co.jhta.dto.GeneralBookDTO" alias="gbdto" />				
+		<typeAlias type="kr.co.jhta.dto.RequestWishBookDTO" alias="rwbdto"/>
+		<typeAlias type="kr.co.jhta.dto.FavoriteBookDTO" alias="fbdto"/>
+		<typeAlias type="kr.co.jhta.dto.BorrowBookDTO" alias="bbdto"/>
 		<typeAlias type="kr.co.jhta.dto.PageStartEnd" alias="se"/>
 		<!--2020-03-31준영  -->
 		<typeAlias type="kr.co.jhta.dto.ReadingRoomDTO" alias="rdto"/>

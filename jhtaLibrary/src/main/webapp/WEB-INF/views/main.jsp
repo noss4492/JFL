@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/main.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- 부가적인 테마 -->
@@ -17,21 +18,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    
-	
-	
-	
-<%-- 	<link rel="stylesheet" type="text/css" href="<c:url value="css/lib/xeicon.min.css"/>" > --%>
-    <!-- <script src="js/lib/bootstrap.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="css/lib/jquery.bxslider.css" /> -->
-    <!-- <script src="js/lib/jquery.bxslider.min.js"></script> -->
-    
-
-</head>
-<script type="text/javascript">
-        $(document).ready(function () {
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <script src="js/viewjs/header.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
             buildCalendar();
             $(".mainbanner").bxSlider({
                 auto: true,
@@ -42,12 +35,13 @@
                 pager: false,
                 slideHeight: 370,
                 slideWidth: 340,
+                controls: true
             });
             let eventtap = $(".eventtap");
             let eventview = $(".eventmiddle");
             let eventlist = $(".eventlist");
 
-            eventtap.on("click", function () {
+            eventtap.on("click", function() {
                 if (eventtap[0] === this) {
                     this.classList.add("selecttap");
                     eventtap[1].classList.remove("selecttap");
@@ -75,14 +69,14 @@
             console.log(bookgroup[0].classList);
             console.log(bookgroup[1].classList);
             console.log(bookgroup[2].classList);
-
-            bestgroup.on("click", function () {
+            
+            bestgroup.on("click", function() {
                 console.log("실행됨")
-                for (var i = 0; i < 3; i++) {
-                    if (bestgroup[i] === this) {
+                for(var i = 0; i < 3; i++){
+                    if(bestgroup[i]===this){
                         bookli[i].classList.add("on");
                         bookgroup[i].classList.remove("addOn");
-                    } else if (bestgroup[i] != this) {
+                    }else if(bestgroup[i]!=this){
                         bookli[i].classList.remove("on");
                         bookgroup[i].classList.add("addOn");
                     }
@@ -164,47 +158,73 @@
                     row = calendar.insertRow();
                     //토요일 다음에 올 셀을 추가
                 }
-
+                
             }
         }
-
-
-
+        
+        /* var $frm = $("frm[name=logout]");
+        function logout(){
+        	console.log($frm);
+        	 $frm.action = "/securityLogin/logout";
+        	$frm.method = "post"; 
+        	document.frm.submit();
+        } */
+        
     </script>
+    <title>Document</title>
+    
+</head>
+
 <body>
-	<%@ include file="/WEB-INF/views/header.jsp" %>
-	 <div id="main">
-        <div id="topOne">
+	<%@ include file="./header.jsp"%>
+    <div id="main">
+        <div id="topOne" style="background-image: url(img/mainPage/main.jpg)">
             <div class="main_slogan">남양주 시민의 꿈을 펼쳐 갈 미래 유비쿼터스,<br><span>남양주시 도서관</span>입니다.</div>
             <div id="divgroup">
                 <div id="div1">
-                    <form action="#">
+                <sec:authorize access="isAnonymous()">
+                    <form action='<c:url value="/login" />' method="post">
                         <div>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon" id="">
                                     <div class="glyphicon glyphicon-user"></div>
                                 </span>
-                                <input type="text" class="form-control" placeholder="ID"
-                                    aria-describedby="sizing-addon1">
+                                <input type="text" name="username" class="form-control" placeholder="ID" aria-describedby="sizing-addon1">
                             </div>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon" id="">
                                     <div class="glyphicon glyphicon-lock"></div>
                                 </span>
-                                <input type="password" class="form-control" placeholder="PASSWORD"
-                                    aria-describedby="sizing-addon1">
+                                <input type="password" name="password" class="form-control" placeholder="PASSWORD" aria-describedby="sizing-addon1">
                             </div>
-                            <button id="btns" class="btn btn-lg btn-info btn-block" type="submit">로그인</button>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <button id="btns" type="submit" class="btn btn-lg btn-info btn-block" >로그인</button>
                         </div>
                     </form>
-                    <div id="loginMenu">
+                    <div class="loginMenu">
                         <a href="">회원가입</a>
                         <a href="" class="rightA">아이디 찾기</a>
                         <a href="" class="rightA">비밀번호 재발급</a>
                     </div>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                	<p class="user-info-title">회원정보</p>
+                	<div id="logininfo">
+                		<b>${username}</b><span>님 환영합니다!</span>
+                		<p>대출자번호:${userno}</p>
+                	</div>
+                	<div class="loginMenu">
+	                	<form action="<c:url value="/securityLogin/logout" />" name="logout" method="post">
+							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+	                		<input type="submit" class="logoutbtn" value="로그아웃" />
+	                		<a href="" class="rightA">내서재</a>
+	                		<a href="" class="rightA">정보수정</a>
+						</form>
+                	</div>
+                </sec:authorize>
                     <a href="">
                         <div id="lookup">
-                            대출/예약 조회
+                         	대출/예약 조회
                         </div>
                     </a>
                     <div id="roomgroup">
@@ -269,7 +289,7 @@
                             </div>
                             <div class="desc">
                                 <p>
-                                    매월 첫째·셋째 금요일, 법정공휴일<br />(일요일 제외)
+                                    	매월 첫째·셋째 금요일, 법정공휴일<br />(일요일 제외)
                                 </p>
                             </div>
                         </div>
@@ -299,18 +319,18 @@
                     <h4>도서관 달력 <a href="">
                             <div id="plus5" class="glyphicon glyphicon-plus"></div>
                         </a></h4>
-
-
-
+                   
+                        
+                    
                     <div class="cal">
-                        <table id="calendar" align="center">
+                        <table id="calendar" align="center" >
                             <tr>
                                 <!-- label은 마우스로 클릭을 편하게 해줌 -->
                                 <th colspan="2"><i class="xi-angle-left caltitle" onclick="prevCalendar()"></i></th>
-                                <th align="center" id="tbCalendarYM" class="caltitle" colspan="3">
-                                    <div class="topgroup">
-                                        <span>yyyy.mm</span>
-                                    </div>
+                                <th align="center" id="tbCalendarYM" class="caltitle" colspan="3"> 
+                                <div class="topgroup">
+                                <span>yyyy.mm</span>
+                                </div>
                                 </th>
                                 <th colspan="2"><i class="xi-angle-right caltitle" onclick="nextCalendar()"></i></th>
                             </tr>
@@ -323,79 +343,81 @@
                                 <th align="center">금</th>
                                 <th align="center">토</th>
                             </tr>
-	                        </table>
-	                        <p class="cal_info">
-	                            <i class="redcircle"></i>
-	                            휴관일
-	                            <i class="bluesquare"></i>
-	                            행사일
-	                            <i class="greensquare"></i>
-	                            문화행사프로그램
-	
-	                        </p>
-                    </div>    
-                    </div>
-                    <div class="mainevent">
-                        <div class="eventtop">
-                            <a href="#eventtap">
-                                <span class="eventtap selecttap">
-                                    공지사항
-                                </span>
-                            </a>
-                            <a href="#eventtap">
-                                <span class="eventtap">
-                                    문화행사
-                                </span>
-                            </a>
-                            <span>
-                                <div id="plus6" class="glyphicon glyphicon-plus"></div>
-                            </span>
-                        </div>
-                        <!-- ------------------ 아래 둘중 하나만 켜짐-->
-                        <div class="eventmiddle ">
-                            <a href="">
-                                <p>남양주 도서관 북드라이브 스루(도서예약대출시스템)</p>
-                            </a>
-                            <a href="">
-                                <p></p>
-                            </a>
-                        </div>
-                        <div class="eventlist">
-                            <ul>
-                                <li>a</li>
-                                <li>b</li>
-                                <li>c</li>
-                                <li>d</li>
-                                <li>e</li>
-                            </ul>
-                        </div>
-
-                        <div class="eventmiddle addOn">
-                            <a href="">
-                                <p>책 읽어주세요(2월 29일)</p>
-                            </a>
-                            <a href="">
-                                <p>1인 월 2회 신청 가능합니다.</p>
-                            </a>
-                        </div>
-                        <div class="eventlist addOn">
-                            <ul>
-                                <li>1</li>
-                                <li>2</li>
-                                <li>3</li>
-                                <li>4</li>
-                                <li>5</li>
-                            </ul>
-                        </div>
-                        <!-- ------------------ -->
-                    </div>
-                    <div class="mainbanner">
-                        <a href=""><img src="<c:url value="resources/img/mainPage/banner/banner1.jpg"/>" alt=""></a>
-                        <a href=""><img src="<c:url value="resources/img/mainPage/banner/banner2.jpg"/>" alt=""></a>
-                        <a href=""><img src="<c:url value="resources/img/mainPage/banner/banner3.jpg"/>" alt=""></a>
-                        <a href=""><img src="<c:url value="resources/img/mainPage/banner/banner4.jpg"/>" alt=""></a>
-                    </div>
+                        </table>
+                    <p class="cal_info">
+                        <i class="redcircle"></i>
+                        휴관일
+                        <i class="bluesquare"></i>
+                        행사일
+                        <i class="greensquare"></i>
+                        문화행사프로그램
+                        
+                    </p>
                 </div>
+                </div>
+                <div class="mainevent">
+                    <div class="eventtop">
+                        <a href="#eventtap">
+                            <span class="eventtap selecttap">
+                                공지사항
+                            </span>
+                        </a>
+                        <a href="#eventtap">
+                            <span class="eventtap">
+                                문화행사
+                            </span>
+                        </a>
+                        <span>
+                            <div id="plus6" class="glyphicon glyphicon-plus"></div>
+                        </span>
+                    </div>
+                    <!-- ------------------ 아래 둘중 하나만 켜짐-->
+                    <div class="eventmiddle ">
+                        <a href="">
+                            <p>남양주 도서관 북드라이브 스루(도서예약대출시스템)</p>
+                        </a>
+                        <a href="">
+                            <p></p>
+                        </a>
+                    </div>
+                    <div class="eventlist">
+                        <ul>
+                            <li>a</li>
+                            <li>b</li>
+                            <li>c</li>
+                            <li>d</li>
+                            <li>e</li>
+                        </ul>
+                    </div>
+
+                    <div class="eventmiddle addOn">
+                        <a href="">
+                            <p>책 읽어주세요(2월 29일)</p>
+                        </a>
+                        <a href="">
+                            <p>1인 월 2회 신청 가능합니다.</p>
+                        </a>
+                    </div>
+                    <div class="eventlist addOn">
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                        </ul>
+                    </div>
+                    <!-- ------------------ -->
+                </div>
+                <div class="mainbanner" style="margin: 0px;
+            padding: 0px;
+            border: 0px;">
+                    <a href=""><img src='<c:url value="/img/mainPage/banner/banner1.jpg"/>' alt=""></a>
+                    <a href=""><img src='<c:url value="/img/mainPage/banner/banner2.jpg"/>' alt=""></a>
+                    <a href=""><img src='<c:url value="/img/mainPage/banner/banner3.jpg"/>' alt=""></a>
+                    <a href=""><img src='<c:url value="/img/mainPage/banner/banner4.png"/>' alt=""></a>
+                </div>
+            </div>
             </div>
         </div>
         <div id="topthree">
@@ -410,31 +432,31 @@
                 <div id="bookBest">
                     <ul class="booklist">
                         <a href="">
-                            <li><img src="<c:url value="resources/images/imgOne.jpg"/>" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/imgOne.jpg"/>' alt="">
                                 <p class="booktitle">치즈 인 더 트랩</p>
                                 <p class="bookinfo">순끼 글/그림</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="<c:url value="resources/images/imgOne.jpg"/>" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/imgOne.jpg"/>' alt="">
                                 <p class="booktitle">치즈 인 더 트랩</p>
                                 <p class="bookinfo">순끼 글/그림</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="<c:url value="resources/images/imgOne.jpg"/>" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/imgOne.jpg"/>' alt="">
                                 <p class="booktitle">치즈 인 더 트랩</p>
                                 <p class="bookinfo">순끼 글/그림</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="<c:url value="resources/images/imgOne.jpg"/>" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/imgOne.jpg"/>' alt="">
                                 <p class="booktitle">치즈 인 더 트랩</p>
                                 <p class="bookinfo">순끼 글/그림</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="<c:url value="resources/images/imgOne.jpg"/>" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/imgOne.jpg"/>' alt="">
                                 <p class="booktitle">치즈 인 더 트랩</p>
                                 <p class="bookinfo">순끼 글/그림</p>
                             </li>
@@ -444,31 +466,31 @@
                 <div id="newBook" class="addOn">
                     <ul class="booklist">
                         <a href="">
-                            <li><img src="<c:url value="resources/images/noImg.png"/>" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/noImg.png"/>' alt="">
                                 <p class="booktitle">잃어버린 시간을 찾아서. 2</p>
                                 <p class="bookinfo">마르셀 프루스트 저 ; 김창석 역</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="img/banner/noImg.png" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/noImg.png"/>' alt="">
                                 <p class="booktitle">잃어버린 시간을 찾아서. 2</p>
                                 <p class="bookinfo">마르셀 프루스트 저 ; 김창석 역</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="img/banner/noImg.png" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/noImg.png"/>' alt="">
                                 <p class="booktitle">잃어버린 시간을 찾아서. 2</p>
                                 <p class="bookinfo">마르셀 프루스트 저 ; 김창석 역</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="img/banner/noImg.png" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/noImg.png"/>' alt="">
                                 <p class="booktitle">잃어버린 시간을 찾아서. 2</p>
                                 <p class="bookinfo">마르셀 프루스트 저 ; 김창석 역</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="img/banner/noImg.png" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/noImg.png"/>' alt="">
                                 <p class="booktitle">잃어버린 시간을 찾아서. 2</p>
                                 <p class="bookinfo">마르셀 프루스트 저 ; 김창석 역</p>
                             </li>
@@ -478,31 +500,31 @@
                 <div id="publicBook" class="addOn">
                     <ul class="booklist">
                         <a href="">
-                            <li><img src="img/banner/Img2.jpg" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/Img2.jpg"/>' alt="">
                                 <p class="booktitle">바삭바삭 갈매기</p>
                                 <p class="bookinfo">전민걸 글·그림</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="img/banner/Img2.jpg" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/Img2.jpg"/>' alt="">
                                 <p class="booktitle">바삭바삭 갈매기</p>
                                 <p class="bookinfo">전민걸 글·그림</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="img/banner/Img2.jpg" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/Img2.jpg"/>' alt="">
                                 <p class="booktitle">바삭바삭 갈매기</p>
                                 <p class="bookinfo">전민걸 글·그림</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="img/banner/Img2.jpg" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/Img2.jpg"/>' alt="">
                                 <p class="booktitle">바삭바삭 갈매기</p>
                                 <p class="bookinfo">전민걸 글·그림</p>
                             </li>
                         </a>
                         <a href="">
-                            <li><img src="img/banner/Img2.jpg" alt="">
+                            <li><img src='<c:url value="/resources/img/mainPage/Img2.jpg"/>' alt="">
                                 <p class="booktitle">바삭바삭 갈매기</p>
                                 <p class="bookinfo">전민걸 글·그림</p>
                             </li>
@@ -513,5 +535,6 @@
 
         </div>
     </div>
-</body>
-</html>
+	<%@ include file="./footer.jsp"%>
+
+</body></html>

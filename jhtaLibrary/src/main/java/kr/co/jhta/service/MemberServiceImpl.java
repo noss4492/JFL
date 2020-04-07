@@ -25,8 +25,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public UserDTO readOneMember(String username) {
-		return dao.selectOne(username);
+	public UserDTO readOneMemberByName(String username) {
+		return dao.selectOneByUsername(username);
 	}
 	
 	@Override
@@ -49,4 +49,29 @@ public class MemberServiceImpl implements MemberService{
 	public int getTotal() {
 		return dao.getTotal();
 	}
+
+
+	@Override
+	public int idChk(String username) {
+		
+		int idCnt = dao.idChk(username);
+		return idCnt;
+	}
+
+	@Override
+	public int mailChk(String email) {
+		int mailCnt = dao.mailChk(email);
+		
+		return mailCnt;
+	}
+
+	@Override
+	public long selectUserPkByUsername(String username) {
+		System.out.println("[service] : select user pk by username : "+username);
+		return dao.selectUserPkByUsername(username);
+	}
+
+
+	
+	
 }
