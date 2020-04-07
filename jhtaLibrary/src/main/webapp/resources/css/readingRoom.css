@@ -6,10 +6,10 @@
 }
 
 #readingRoomWholeWrapper {
-	width: 1920px;
+	width: 1900px;
 	height: 980px;
 	background: black;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: #DCE3EF;
 	position: relative;
 	/* opacity: 0.2; */
 }
@@ -49,6 +49,8 @@
 	font-size: 30px;
 	width: 33%;
 	text-align: center;
+	padding-top: 20px;
+	font-weight: bold;
 }
 
 #right {
@@ -57,7 +59,11 @@
 	width: 33%;
 	text-align: right;
 }
-
+#userInfo{
+	padding-right: 40px;
+	font-size: 30px;
+	font-weight: bold;
+}
 #currentTime {
 	border-style: none;
 	background-color: #46B7D9;
@@ -72,6 +78,7 @@
 	justify-content: space-between;
 	padding-left: 25px;
 	padding-right: 25px;
+	padding-bottom: 10px;
 }
 
 #seatType {
@@ -83,8 +90,9 @@
 	width: 1350px;
 	height: 700px;
 	padding-top: 70px;
-	background-color: coral;
+	background-color: #e7c2cf;
 	margin: 0 auto;
+	border-radius: 8px;
 	/*             position: relative; */
 }
 
@@ -102,6 +110,7 @@
 	grid-template-columns: repeat(3, 1fr);
 	align-items: center;
 	justify-items: center;
+	border-radius: 8px;
 }
 
 .seatChartGroup {
@@ -122,6 +131,10 @@
 	color: white;
 	background-color: #46B7D9;
 }
+.seatNum:hover {
+	background-color: #2ba8cc;
+	cursor:pointer;
+}
 
 #selectSeatWrapper {
 	position: absolute;
@@ -129,8 +142,9 @@
 	top: 0px;
 	width: 0px;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.7);
 }
+
 
 #selectSeat {
 	position: absolute;
@@ -140,21 +154,21 @@
 	height: 0px;
 	background-color: white;
 	margin: 0 auto;
-	left: 500px;
+	left: 650px;
 	top: 200px;
 	display: none;
 	border-radius: 8px;
 }
 
 #selectSeatTop {
-	width: 100%;
+	width: 600px;
 	height: 50px;
 }
 
 #selectedSeat {
+	width: 500px;
 	height: 50px;
-	width: 650px;
-	padding-left: 250px;
+	
 	float: left;
 	text-align: center;
 	font-size: 30px;
@@ -166,28 +180,95 @@
 	border-style: none;
 	outline: none;
 	font-size: 30px;
+	text-align: center;
 }
 
 #closeIcon {
 	height: 50px;
+	width: 100px;
+	display: inline-block;
+	
 }
 
 .xi-close-square-o {
 	display: block;
 	float: right;
 }
+#userName{
+	display: inline-block;
+}
 
-#timeInfo {
-	height: 0px;
+#selectSeatBody{
+	width: 600px;
+	height: 450px;
+	
+	
+}
+#selectSeatBodyTop{
+	width: 600px;
+	height: 250px;
+	float: left;
+	
+	
+}
+#selectSeatBodyMiddle{
+	width: 600px;
+	height: 100px;
+	float: left;
+	
+}
+#selectSeatBodyBottom{
+	width: 600px;
+	height: 100px;
+	clear: both;
+}
+.hourDiv{
+background-color: red;
+}
+.colonDiv{
+background-color:orange;
+}
+.minuteDiv{
+background-color:yellow;
+}
+.rClockBtnDiv{
+background-color:green;
+}
+.currentTimeDiv{
+background-color:blue;
+
+				
+				}
+.endTimeDiv{grid-area:endT;
+			background-color:violet;
+			}
+.regBtn1Div{grid-area:use;
+background-color:black;
 }
 
 #signOutWrapper {
-	width: 333px;
-	height: 110px;
-	background-color: black;
+	width: 150px;
+	height: 100px;
+	background-color: #708098;
 	color: white;
 	border-radius: 8px;
 	text-align: center;
 	font-size: 40px;
 	padding-top: 30px;
+	margin-bottom: 35px;
+	border: 2px solid #556377;
+}
+#signOutWrapper:hover{
+	background-color: #424d5e;
+	cursor: pointer;
+}
+
+#signOutWrapper a{
+	text-decoration: none;
+	color: inherit;
+	
+}
+#signOutWrapper a:hover {
+	text-decoration: none;
+	color: inherit;
 }

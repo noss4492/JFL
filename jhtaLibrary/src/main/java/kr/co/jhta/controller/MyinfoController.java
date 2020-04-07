@@ -34,7 +34,7 @@ public class MyinfoController {
 
 	@RequestMapping(value = { "/mypage" }, method = RequestMethod.GET)
 	public String mypage(Model model, Principal principal) {
-		UserDTO dto = memberServiceImple.readOneMember(principal.getName());
+		UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
 		model.addAttribute("dto", dto);
 //		System.out.println("getname : " +principal.getName());
 //		System.out.println("dto : "+  dto);
@@ -46,7 +46,7 @@ public class MyinfoController {
 	}	
 	@RequestMapping(value = { "/infochange" }, method = RequestMethod.GET)
 	public String infochange(Model model, Principal principal) {
-		UserDTO dto = memberServiceImple.readOneMember(principal.getName());
+		UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
 		model.addAttribute("dto", dto);
 //		System.out.println("getname : " +principal.getName());
 //		System.out.println("dto : "+  dto);
