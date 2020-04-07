@@ -21,7 +21,7 @@
 					<ul>
 						<sec:authorize access="isAnonymous()">
 							<li class="login"><a href='<c:url value="/login"/>'>로그인</a></li>
-							<li class="register"><a href="">회원가입</a></li>
+							<li class="register"><a href="register1">회원가입</a></li>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
 							<li class="login">

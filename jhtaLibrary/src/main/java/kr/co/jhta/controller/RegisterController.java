@@ -126,7 +126,7 @@ public class RegisterController {
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
 		System.out.println("비밀번호(인코딩 후) : " + dto.getPassword());
 		ms.wrtieOneMember(dto);
-		return "/securityLogin/login";
+		return "/main";
 	}
 
 //	 아이디 중복 체크

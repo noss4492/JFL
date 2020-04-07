@@ -416,7 +416,7 @@ ul li {
 						<div class="btnfield">
 							<button type="button" id="agree" class="btn btn-primary" name="submit">동의합니다.</button>
 
-							<button type="button" id="noagree" class="btn btn-warning" onclick="location.href='register1'">
+							<button type="button" id="noagree" class="btn btn-warning" onclick="location.href='../../jhta/'">
 								동의하지 않습니다.</button>
 
 						</div>

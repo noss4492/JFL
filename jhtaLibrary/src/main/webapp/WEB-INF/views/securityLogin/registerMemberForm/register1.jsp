@@ -269,7 +269,7 @@ ul li {
 											<div class="btnfield">
 												<button type="submit" id="agree" class="btn btn-primary"
 													name="submit">본인확인</button>
-												<button type="button" id="noagree" class="btn btn-warning">취소</button>
+												<button type="button" id="noagree" class="btn btn-warning" onclick="location.href='../../jhta/'">취소</button>
 											</div>
 										</form>
 									</div>
