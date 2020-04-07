@@ -3,19 +3,16 @@ package kr.co.jhta.controller;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.fasterxml.jackson.databind.JsonNode;
 
 import kr.co.jhta.dto.UserDTO;
 import kr.co.jhta.service.MemberService;
@@ -29,6 +26,10 @@ public class CommonController {
 	
 	static HashMap<String, String> map = new HashMap<String, String>();
 	
+
+	
+	
+
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
@@ -37,14 +38,13 @@ public class CommonController {
 	
 	@Setter(onMethod=@__({@Autowired}))
 	MemberService ms;
-   
 	
 	@RequestMapping("/showPrincipal")
 	public String show(Principal principal, Model model) {
 		System.out.println(">>>> info of principal : "+principal); 
 //		return "redirect:"+principal;
 		model.addAttribute("principal", principal);
-//		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("아 좀 빨리 바뀌지 그래 ㅡㅡ");
 		return "securityLogin/principal";
 	}
 	
@@ -58,10 +58,8 @@ public class CommonController {
 	public String signUpUser(@ModelAttribute UserDTO dto) {
 		System.out.println("디비에올리면되는데1");
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
-		dto.setPlatformStatus((byte)1);
-		dto.setRightStatus((byte)1);
-		//dto.setGradeStatus((byte)2);
 		ms.wrtieOneMember(dto);
+//		return "/";
 		System.out.println("디비에올리면되는데");
 		return "redirect:/home";
 	}
@@ -69,26 +67,13 @@ public class CommonController {
 	
 	@RequestMapping(value="/securityLogin/login")
 	public String sli() {
-		System.out.println("go to login form");
 		return "/securityLogin/login";
-		
 	}
-	
 	@RequestMapping(value="/securityLogin/logout")
 	public String slo() {
-		return "/securityLogin/logout";//securityLogin/logout
+		return "/securityLogin/logout";
 	}
-	
 	@RequestMapping(value="/login")
-	public void login(String error, String logout, Model model) {//@RequestParam HashMap map
-		if(error != null)
-			model.addAttribute("error", "log : error");
-		else if(logout != null)
-			model.addAttribute("logout", "log : logout");
-//		System.out.println("username : "+map.get("username")+" password : "+map.get("password"));
-//		System.out.println("err/logout : "+error+"/"+logout);
-	}
-	
 	public String test(Model model, Principal principal) {
 		if(principal!=null) {
 			return "redirect:/";
@@ -97,7 +82,6 @@ public class CommonController {
 		model.addAttribute("title", "로그인");
 		return "/loginForm";
 	}
-	
 	@RequestMapping(value="/map")
 	public String map(Model model) {
 		
@@ -122,7 +106,5 @@ public class CommonController {
 	@RequestMapping(value="/logout")
 	public void logoutGet() {
 		logger.info("logout");
-		System.out.println("숨겨진 로그아웃");
 	}
-
 }
