@@ -214,7 +214,7 @@ a {
       <div class="all_contents">
          <%@include file="contentTitle.jsp"%>
          <div class="board">
-            <form action="./write" method="post">
+            <form action="./modify" method="post">
         <div class="innerDesc">
             <div class="innerBox">
                 <div class="imgBox">
@@ -230,24 +230,24 @@ a {
             </div>
         </div>
         <div class="boardWrap">
-        <input type="hidden" value="${bno}" />
+        <input type="hidden" name="articleId" value="${dto.articleId }" />
             <table class="boardTable">
                 <tr>
                     <th>등록일</th>
-                    <td>${time}</td>
+                    <td>${dto.createdDate}</td>
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td>${name}</td>
+                    <td>${dto.name}</td>
                 </tr>
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" name="title" id="" value=""></td>
+                    <td><input type="text" name="title" id="" value="${dto.title}"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
                     <td>
-                        <textarea name="content" id="" cols="30" rows="10" class="content"></textarea>
+                        <textarea name="content" id="" cols="30" rows="10" class="content">${dto.content}</textarea>
                     </td>
                 </tr>
                 <tr>

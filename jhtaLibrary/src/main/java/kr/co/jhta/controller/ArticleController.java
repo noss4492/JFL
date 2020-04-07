@@ -81,12 +81,14 @@ public class ArticleController {
 	
 	//@RequestMapping(value="/write", method=RequestMethod.GET)
 	@GetMapping("/write")
-	public String toWriteForm(Model model, Principal principal) {
+	public String toWriteForm(Model model, Principal principal,HttpServletRequest req) {
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy.MM.dd");
 		Date time = new Date();
 		UserDTO dto = memberServiceImple.readOneMember(principal.getName());
 		model.addAttribute("name", dto.getName());
 		model.addAttribute("time",format1.format(time));
+		
+		
 		
 		model.addAttribute("category", "도서관소식");
 		model.addAttribute("title", "열린소리함");
@@ -123,14 +125,17 @@ public class ArticleController {
 	}
 	
 	@GetMapping("/modifyForm")
-	public ModelAndView toModifyForm(@RequestParam("bno")int bno) {
-		return	new ModelAndView("modifyForm", "dto", as.readOne(bno));
+	public ModelAndView toModifyForm(@RequestParam("bno")int bno, Model model) {
+		model.addAttribute("category", "도서관소식");
+		model.addAttribute("title", "열린소리함");
+		return	new ModelAndView("boardModifyForm", "dto", as.readOne(bno));
 	}
 	
 	@PostMapping("/modify")
 	public String modifyOk(@ModelAttribute("dto")ArticleDTO dto) {
+		System.out.println(dto.toString());
 		as.changeOne(dto);
-		return "redirect:/board/list";
+		return "redirect:/list";
 	}
 	
 	@GetMapping("/delete")

@@ -22,7 +22,6 @@
 			where ROWNUM &lt;= #{endNo} 
 		)
 		where rn &gt;= #{startNo}
-		
 	</select>
 
 	<insert id="insertOne" parameterType="adto">
@@ -50,4 +49,10 @@
 		DELETE ARTICLE
 		WHERE ARTICLE_ID = #{bno}
 	</delete>
+	<update id="updateOne" parameterType="adto">
+		UPDATE ARTICLE
+		SET TITLE = #{title},
+			CONTENT = #{content}
+		WHERE ARTICLE_ID = #{articleId}
+	</update>
 </mapper>

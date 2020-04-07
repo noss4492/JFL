@@ -182,6 +182,7 @@ body {
         
         .modify, .delete{
         	width: 80px;
+        	border: none;
         }
         .modify{
         	background-color: #4DA5FF;
@@ -191,6 +192,22 @@ body {
         }
         
 </style>
+<script>
+
+	function del(seq){
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if(chk){
+			location.href="./delete?bno="+seq;
+		}
+	}
+	function modify(bno){
+		var chk = confirm("수정하시겠습니까?");
+		if(chk){
+			location.href="./modifyForm?bno="+bno;
+		}
+	}
+
+</script>
 </head>
 <body>
 <%@include file="header.jsp"%>
@@ -242,8 +259,8 @@ body {
         <div class="btn-group">
             <a href="./list?currentPageNo=${currentPageNo }" class="list-btn">목록</a>
             <c:if test="${boardUserId eq userId }">
-	            <a href="" class="list-btn modify">수정</a>
-	            <a href="./delete?bno=${dto.articleId}" class="list-btn delete">삭제</a>
+	            <input type="button" onclick="modify(${dto.articleId})" class="list-btn modify" value="수정"/>
+	            <input type="button" onclick="del(${dto.articleId})" class="list-btn delete" value="삭제"/>
             </c:if>
         </div>
         <!-- <h4>답변</h4>

@@ -192,22 +192,14 @@ a:hover {
 }
 
 .tableWrapper>table tr>th:nth-child(2) {
-	width: 396px;
+	width: 570px;
 }
 
 .tableWrapper>table tr>th:nth-child(3) {
-	width: 114px;
+	width: 180px;
 }
 
 .tableWrapper>table tr>th:nth-child(4) {
-	width: 120px;
-}
-
-.tableWrapper>table tr>th:nth-child(5) {
-	width: 120px;
-}
-
-.tableWrapper>table tr>th:nth-child(6) {
 	width: 70px;
 }
 
@@ -338,19 +330,15 @@ a:hover {
 						<tr>
 							<th>번호</th>
 							<th>제목</th>
-							<th>작성자</th>
 							<th>등록일</th>
 							<th>조회수</th>
-							<th>답변</th>
 						</tr>
 						<c:forEach var="dto" items="${list }">
 							<tr>
 								<td>${dto.articleId }</td>
 								<td><a href="./detail?bno=${dto.articleId}&currentPageNo=${currentPageNo}">${dto.title }</a></td>
-								<td>${dto.name }</td>
 								<td>${dto.createdDate }</td>
 								<td>${dto.hits}</td>
-								<td>완료</td>
 							</tr>
 						</c:forEach>
 					</table>
