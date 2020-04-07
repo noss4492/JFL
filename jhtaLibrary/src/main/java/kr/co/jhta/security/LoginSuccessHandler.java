@@ -61,7 +61,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		System.out.println("session에 userId를 저장 :"+udtoX.getUserId());	
 		session.setAttribute("userId", udtoX.getUserId());
 
-		response.sendRedirect("/jhta/main");
+		response.sendRedirect("/jhta/");
 	}
 }
 
