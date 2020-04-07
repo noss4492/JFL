@@ -41,12 +41,10 @@ public class MyinfoController {
 	public String mypage(Model model, Principal principal) {
 		UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
 		model.addAttribute("dto", dto);
-
 		ModelAndView mv = new ModelAndView();
 		model.addAttribute("category", "회원정보");
 		model.addAttribute("menu", "내정보");		
 		return "/mypage";
-
 	}	
 	
 	@RequestMapping(value = { "/infochange" }, method = RequestMethod.GET)
@@ -66,9 +64,7 @@ public class MyinfoController {
 		String addr1 = request.getParameter("add1");
 		String addr2 = request.getParameter("add1");
 		String addr3 = request.getParameter("add1");
-		String address = addr1 + "," + addr2 +","+addr3;
-		
-		
+		String address = addr1 + "," + addr2 +","+addr3;		
 //		dto.setBirth(dto.getBirth().replace("/", ""));
 		dto.setAddress(address);
 		System.out.println("생년월일(자른 후) :" + dto.getBirth());

@@ -291,6 +291,7 @@ ul li {
 									<th>이름</th>
 									<td>
 										<div class="input">
+										<input type="hidden" name="userId" value="${dto.userId }"/>
 											<input type="text" name="name" id="name" max-width="220"
 												maxlength="5" value=${dto.name } readonly>
 										</div>
@@ -301,6 +302,9 @@ ul li {
 									<th>아이디</th>
 									<td>
 										<div class="input">
+<%-- 										<input type="text" name="" id="" value=${dto.registerDate }/> --%>
+										<input type="hidden" name="registerDate" id="registerDate" value=${dto.registerDate }/>
+											
 											<input type="text" name="username" id="user_m_id" max-width="220" value=${dto.username } readonly/>&nbsp;&nbsp;
 <!-- 											<input type="button" value="중복확인" id="btn" /> -->
 											 <span id="id_check"></span>
@@ -494,12 +498,13 @@ window.onload = function() {
 		var btn2 = document.getElementById("chCosend");
 		var nickname=$('#nick').val();
 	
-		if(${dto.gender} == 1){
-		console.log("남")
+// 		if(${dto.gender} == 1){
+// 		console.log("남")
 		
-		}
-		else(${dto.gender} == 2)
-			console.log("여")
+// 		}
+// 		else(${dto.gender} == 2)
+// 			console.log("여")
+
 		
 // 		btn1.disabled = true; //가입신청 버튼 숨기기.  보류
 
