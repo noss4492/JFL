@@ -6,39 +6,46 @@
 <mapper namespace="kr.co.jhta.book">
 <!-- 책의 일반적인 속성에 관한 정보들은 general_book 테이블에 의해 관리되며 
 	도서관측에서 관리하고 있는 실제 물리적인 책에 대한 정보들은 library_book 테이블에 의해 관리된다. -->
-	<select id="selectSimepleSearchPage" resultType="gbdto" parameterType="hashmap">
-	<![CDATA[
-	SELECT GENERAL_BOOK_ID as generalBookId , GENRE, TITLE, DESCRIPTION, DETAIL_URL as detailUrl, PUBLICATION_DATE as publicationDate, PUBLISHER, THUMBNAIL_URL as thumbnailUrl, STATUS, RECOMMEND_STATUS as recommendStatus, AUTHOR_NAME authorName 
+	<select id="selectSimepleSearchPage" resultType="hashmap" parameterType="hashmap">
+	<!-- 이렇게 쓰면 안됩니다;; 시간이 없어서 어쩔 수 없음 -->
+	SELECT distinct AUTHOR_NAME authorName, GENERAL_BOOK_ID as generalBookId , GENRE, TITLE, DESCRIPTION, DETAIL_URL as detailUrl, PUBLICATION_DATE as publicationDate, PUBLISHER, THUMBNAIL_URL as thumbnailUrl, STATUS, RECOMMEND_STATUS as recommendStatus  
 	FROM(
 		SELECT ROWNUM RN, GENERAL_BOOK_ID, GENRE, TITLE, DESCRIPTION, DETAIL_URL, PUBLICATION_DATE, PUBLISHER, THUMBNAIL_URL, STATUS, RECOMMEND_STATUS, AUTHOR_NAME 
 		FROM(
-			SELECT G.GENERAL_BOOK_ID GENERAL_BOOK_ID, G.GENRE GENRE, G.TITLE TITLE, G.DESCRIPTION DESCRIPTION, G.DETAIL_URL DETAIL_URL, G.PUBLICATION_DATE PUBLICATION_DATE, G.PUBLISHER PUBLISHER, G.THUMBNAIL_URL THUMBNAIL_URL, G.STATUS STATUS, G.RECOMMEND_STATUS RECOMMEND_STATUS, A.AUTHOR_NAME AUTHOR_NAME 
+			SELECT G.GENERAL_BOOK_ID GENERAL_BOOK_ID, G.GENRE GENRE, G.TITLE TITLE, G.DESCRIPTION DESCRIPTION, G.DETAIL_URL DETAIL_URL, G.PUBLICATION_DATE PUBLICATION_DATE, G.PUBLISHER PUBLISHER, G.THUMBNAIL_URL THUMBNAIL_URL, G.STATUS STATUS, G.RECOMMEND_STATUS RECOMMEND_STATUS, A.AUTHOR_NAME  
 			FROM GENERAL_BOOK G 
 			INNER JOIN AUTHOR A 
 			ON G.GENERAL_BOOK_ID = A.GENERAL_BOOK_ID
 			INNER JOIN LIBRARY_BOOK L 
 			ON G.GENERAL_BOOK_ID = L.GENERAL_BOOK_ID
-			WHERE G.GENERAL_BOOK_ID like '%#{generalBookId}%' OR TITLE like '%#{title}%' OR AUTHOR_NAME like '%#{authorName}%'
+			WHERE G.GENERAL_BOOK_ID like '%'||#{generalBookId, jdbcType=VARCHAR}||'%' OR TITLE like '%'||#{title, jdbcType=VARCHAR}||'%' OR AUTHOR_NAME like '%'||#{authorName, jdbcType=VARCHAR}||'%' 
 			ORDER BY G.GENERAL_BOOK_ID DESC 
 		) 
-		WHERE ROWNUM <= #{endNo} 
+	<![CDATA[
+		WHERE ROWNUM <= #{endNo}
+	]]>
 	) 
+	<![CDATA[
 	WHERE RN >= #{startNo}
 	]]>
+<!-- 왠지 모르겠지만 안먹음;; 
+<if test="generalBookId!=null and title!=null and authorName!=null and generalBookId.equals('') and title.equals('') and authorName.equals('')">
+</if>
+ -->
 	</select>
 	
 	<select id="selectAuthorByIsbn" resultType="String" parameterType="String">
 	SELECT A.AUTHOR_NAME 
 	FROM AUTHOR A INNER JOIN GENERAL_BOOK G
 	ON A.GENERAL_BOOK_ID = G.GENERAL_BOOK_ID 
-	WHERE A.GENERAL_BOOK_ID = '#{generalBookId}'
+	WHERE A.GENERAL_BOOK_ID = #{generalBookId} 
 	</select>
 	
 	<select id="selectTranslatorByIsbn" resultType="String" parameterType="String">
 	SELECT T.TRANSLATOR_NAME 
 	FROM TRANSLATOR T INNER JOIN GENERAL_BOOK G
 	ON T.GENERAL_BOOK_ID = G.GENERAL_BOOK_ID 
-	WHERE A.GENERAL_BOOK_ID = '#{translatorName}'
+	WHERE T.GENERAL_BOOK_ID = #{translatorName}
 	</select>
 	
 	<update id="updateRecommendBookFlagOn" parameterType="String">
@@ -150,15 +157,17 @@
 		대여는 library_book 테이블의 실제 도서관 소유의 책들로 하여야 한다.
 	 -->
 	 
+	 <!-- 여기 status 필요 없고 librarybook status를 바꾸면 되는데... 시간 없으니 그냥 함 -->
+	 
 	 <!-- 하루마다 갱신되는 도서관의 대여정보 UPDATE문 -->
 	 <!-- Book Schedule Maintenance Update Per Day -->
 	 <update id="updateReturnToNonreturn">
 	 <![CDATA[
-	 UPDATE BORROW_BOOK   
+	 UPDATE LIBRARY_BOOK    
 	 SET STATUS = 2  
 	 FROM( 
-	 	 SELECT BORROW_BOOK_ID, LIBRARY_BOOK_ID, USER_M_ID, START_DATE, END_DATE, STATUS 
-	 	 FROM BORROW_BOOK 
+	 	 SELECT BORROW_BOOK_ID, LIBRARY_BOOK_ID, START_DATE, END_DATE 
+	 	 FROM BORROW_BOOK B INNER JOIN LIBRARY_BOOK L ON B.LIBRARY_BOOK_ID = L.LIBRARY_BOOK_ID    
 	 	 WHERE END_DATE > SYSDATE AND START_DATE < SYSDATE AND STATUS = 1 
 	 ) 
 	 WHERE TO_CHAR(END_DATE, 'YYYY/MM/DD') = TO_CHAR(SYSDATE, 'YYYY/MM/DD') 
@@ -170,36 +179,51 @@
 	 UPDATE BORROW_BOOK   
 	 SET STATUS = 1  
 	 FROM( 
-	 	 SELECT BORROW_BOOK_ID, LIBRARY_BOOK_ID, USER_M_ID, START_DATE, END_DATE, STATUS 
-	 	 FROM BORROW_BOOK 
+	 	 SELECT BORROW_BOOK_ID, LIBRARY_BOOK_ID, START_DATE, END_DATE 
+	 	 FROM FROM BORROW_BOOK B INNER JOIN LIBRARY_BOOK L ON B.LIBRARY_BOOK_ID = L.LIBRARY_BOOK_ID 
 	 	 WHERE END_DATE > SYSDATE AND START_DATE < SYSDATE AND STATUS = 3  
 	 ) 
 	 WHERE TO_CHAR(START_DATE, 'YYYY/MM/DD') = TO_CHAR(SYSDATE, 'YYYY/MM/DD') 
 	 ]]>
 	 </update>
 	 
+	 <!-- 각 행동시 도서관에서의 책 상태 변화 -->
 	 <!-- 책 반환시 상태값 변화 1,2,5->4 / END_DATE = SYSDATE -->
-	 <update id="updateReturnBook" parameterType="long">
-	 UPDATE BORROW_BOOK 
-	 SET END_DATE = SYSDATE, STATUS = 4   
-	 WHERE BORROW_BOOK_ID = #{borrowBookId} and STATUS IN (1, 2, 5)  
+	 <!-- and STATUS IN (1,2,5) -->
+	 <!-- 위 둘은 상태값 변화  밑 셋은 스케쥴 등록-->
+	 <update id="updateIsReturnedBook" parameterType="long">
+	 UPDATE LIBRARY_BOOK 
+	 SET STATUS = 4 
+	 WHERE LIBRARY_BOOK_ID = #{libraryBookId}  
 	 </update>
 	 
-	 <delete id="deleteReserveBook" parameterType="long">
+	 <update id="updateIsBorrowedBook" parameterType="long">
+	 UPDATE LIBRARY_BOOK 
+	 SET STATUS = 1, RENTAL_CNT = RENTAL_CNT+1   
+	 WHERE LIBRARY_BOOK_ID = #{libraryBookId} 
+	 </update>
+	 
+	 <!-- 반납 -->
+	 <update id="updateBorrowReturnBook" parameterType="long">
+	 UPDATE BORROW_BOOK 
+	 SET END_DATE = SYSDATE 
+	 WHERE BORROW_BOOK_ID = #{borrowBookId}  
+	 </update>
+	 <!-- 예약취소 -->
+	 <delete id="deleteBorrowReserveBook" parameterType="long">
 	 DELETE BORROW_BOOK 
 	 WHERE BORROW_BOOK_ID = #{borrowBookId} 
 	 </delete>
-	 
-	 <insert id="insertBorrowBook" parameterType="bbdto">
+	 <!-- 대여 -->
+	 <insert id="insertBorrowBorrowBook" parameterType="bbdto">
 	 INSERT INTO BORROW_BOOK(BORROW_BOOK_ID borrowBookId, LIBRARY_BOOK_ID libraryBookId, USER_M_ID userId, START_DATE startDate, END_DATE endDate)   
-	 VALUES (BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId), #{userId), sysdate ,sysdate+14, 1 );
+	 VALUES (BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId), #{userId), sysdate ,sysdate+14, 0 );
 	 </insert>
-	 
 	 
 	 
 	 <!-- 유저에게 해당 ISBN의 보유중인 책을 보여주고, 각각 대여하고 있는 사람이 있는지?  -->
 	 <!-- 예약하려면 다음의 조건을 만족하여야함. 이미 대여하고 있는 사람이 있는지 -->
-	 <select id="selectLibraryBookByIsbn" parameterType="long" resultType="lbdto">
+	 <select id="selectLibraryBookByIsbn" parameterType="String" resultType="lbdto">
 	 SELECT LIBRARY_BOOK_ID libraryBookId, GENERAL_BOOK_ID generalBookId, REGISTRATION_DATE registrationDate, RENTAL_CNT rentalCnt, status  
 	 FROM LIBRARY_BOOK 
 	 WHERE GENERAL_BOOK_ID = #{generalBookId} 
@@ -322,7 +346,7 @@
 	</select>	
 	
 	<select id="selectOneGeneralBookDetail" parameterType="String" resultType="gbdto">
-	SELECT GENERAL_BOOK_ID generalBookId, GENRE, TITLE, DESCRIPTION, DETAIL_URL detailUrl, PUBLISHER, THUMBNAIL_URL thumbnailUrl, STATUS, RECOMMEND_STATUS recommendStatus 
+	SELECT GENERAL_BOOK_ID generalBookId, GENRE, TITLE, DESCRIPTION, DETAIL_URL detailUrl, PUBLICATION_DATE publicationDate, PUBLISHER, THUMBNAIL_URL thumbnailUrl, STATUS, RECOMMEND_STATUS recommendStatus  
 	FROM GENERAL_BOOK 
 	WHERE GENERAL_BOOK_ID = #{generalBookId} 
 	</select>
@@ -330,6 +354,25 @@
 	SELECT LIBRARY_BOOK_ID libraryBookId, GENERAL_BOOK_ID generalBookId, REGISTRATION_DATE registrationDate, RENTAL_CNT rentalCnt, STATUS 
 	FROM LIBRARY_BOOK 
 	WHERE LIBRARY_BOOK_ID = #{libraryBookId}   
+	</select>
+	<select id="selectBorrowBookAll" resultType="bbdto" parameterType="se">
+	<![CDATA[
+	SELECT BORROW_BOOK_ID borrowBookId, LIBRARY_BOOK_ID libraryBookId, USER_M_ID userId, START_DATE startDate, END_DATE endDate 
+	FROM(
+		 SELECT ROWNUM RN, BORROW_BOOK_ID , LIBRARY_BOOK_ID , USER_M_ID , START_DATE , END_DATE 
+		 FROM(
+		 	  SELECT BORROW_BOOK_ID , LIBRARY_BOOK_ID , USER_M_ID , START_DATE , END_DATE  
+		 	  FROM BORROW_BOOK 
+		 )  
+		 WHERE ROWNUM <= #{endNo}
+	)
+	WHERE RN >= #{startNo}
+	]]>
+	</select>
+	<select id="selectBorrowBookByLid" resultType="bbdto" parameterType="long">
+	SELECT BORROW_BOOK_ID borrowBookId, LIBRARY_BOOK_ID libraryBookId, USER_M_ID userId, START_DATE startDate, END_DATE endDate 
+	FROM BORROW_BOOK 
+	WHERE LIBRARY_BOOK_ID = #{libraryBookId} 
 	</select>
 	<!-- 
 	SELECT G.GENERAL_BOOK_ID generalBookId, G.GENRE, G.TITLE, G.DESCRIPTION, G.DETAIL_URL detailUrl, G.PUBLISHER, G.THUMBNAIL_URL thumbnailUrl, G.STATUS, G.RECOMMEND_STATUS recommendStatus, L.LIBRARY_BOOK_ID libraryBookId, L.REGISTRATION_DATE registrationDate, L.RENTAL_CNT rentalCnt, L.STATUS
