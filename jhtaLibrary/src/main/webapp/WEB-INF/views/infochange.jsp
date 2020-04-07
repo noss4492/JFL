@@ -293,7 +293,7 @@ ul li {
 										<div class="input">
 										<input type="hidden" name="userId" value="${dto.userId }"/>
 											<input type="text" name="name" id="name" max-width="220"
-												maxlength="5" value=${dto.name } readonly>
+												maxlength="5" value=${dto.name } readonly/>
 										</div>
 										<span id="name_check"></span>
 									</td>
@@ -353,13 +353,10 @@ ul li {
 								</tr>
 								<tr>
 									<th>생년월일</th>
-									<td>
-								
+									<td>							
 											<div class="input">
 												<input type="text" name="birth" id="bd" max-width="220" value="${dto.birth }" readonly>
-											</div>
-
-										
+											</div>										
 									</td>
 								</tr>
 										<tr>
@@ -372,17 +369,30 @@ ul li {
 									</td>
 								</tr>
 								<tr>
+									
 									<th rowspan="2">주소</th>
 									<td rowspan="2">
-									<c:forEach items="${fn:split(dto.address, ',')[0] }" var="item1">
-<%-- 									<c:forEach items="${fn:split(dto.address, ',' )" var="item" varStatus="status"> --%>
-									
+									<c:choose>
+									<c:when test="${dto.address} eq null or ${dto.address} eq ">		
+										<div class="input">
+											<input type="text" name="addr1" id="addr1" max-width="220"
+												value= ${item1 }>&nbsp;&nbsp; <input type="button"
+												onclick="postCode()" value="우편번호 찾기" id="btn" /><br>
+										</div>						
+										<div>										
+											<input type="text" name="addr2" id="addr2"
+												class="addr1input mv" >										
+												<input type="text" name="addr3" id="addr3"  class="mv" >									
+										</div>
+										</c:when>
+										<c:otherwise>								
+										<c:forEach items="${fn:split(dto.address, ',')[0] }" var="item1">									
 										<div class="input">
 											<input type="text" name="addr1" id="addr1" max-width="220"
 												value= ${item1 }>&nbsp;&nbsp; <input type="button"
 												onclick="postCode()" value="우편번호 찾기" id="btn" /><br>
 										</div>
-											</c:forEach>
+										</c:forEach>
 										<div>
 										<c:forEach items="${fn:split(dto.address, ',')[1] }" var="item2">
 											<input type="text" name="addr2" id="addr2"
@@ -391,7 +401,9 @@ ul li {
 										<c:forEach items="${fn:split(dto.address, ',')[2] }" var="item3">
 												<input type="text" name="addr3" id="addr3"  class="mv" value= ${item3 }>
 										</c:forEach>
-										</div>								
+										</div>	
+										</c:otherwise>
+										</c:choose>							
 									</td>								
 								</tr>
 							</table>
@@ -509,37 +521,7 @@ window.onload = function() {
 // 		btn1.disabled = true; //가입신청 버튼 숨기기.  보류
 
 		btn1.onclick = function() {
-		
-// 			for (var i = 0; i < $("#name").val().length; i++) {
-// 				var chk = $("#name").val().substring(i, i + 1);
-// 				if (chk.match(/[0-9]|[a-z]|[A-Z]/)) {
-// 					$('#name_check').text('이름에는 영문 및 특수문자,숫자를 사용하실 수 없습니다.');
-// 					$('#name_check').css('color', 'red');
-// 					nameflag = 0;					
-// 					return;				
-// 				}
-// 				if (chk.match(/([^가-힣\x7])/i)) {
-// 					$('#name_check').text('이름을 정확히 입력해주세요');
-// 					$('#name_check').css('color', 'red');
-// 					nameflag= 0;
-// 					return;
-// 				}else if ($("#name").val() == '') {
-// 					$('#name_check').text('이름을 입력해주세요');
-// 					$('#name_check').css('color', 'red');
-// 					nameflag = 0;
-// 					return;
-// 				}
-// 				else {
-// 					$('#name_check').text('');
-// 					nameflag = 1;
-// 					}
-// 				}			
-// 				if($("#nick").val() == null || $("#nick").val() == ''){
-// 					nickflag = 0;
-// 				}
-// 				else{
-// 					nickflag = 1;
-// 				}
+
 					
 					
 			if ( pwflag == 0 || pwflag == 2 || pwflag2 == 0 || pwflag2 == 2) {
