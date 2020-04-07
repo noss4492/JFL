@@ -46,15 +46,22 @@ public class RegisterController {
 	@Setter(onMethod = @__({ @Autowired }))
 	MemberService ms;
 
+
 	@RequestMapping(value = { "/register1" }, method = RequestMethod.GET)
 	public String register1(Model model) {
-
+		model.addAttribute("category", "회원정보");
+//	      model.addAttribute("title", "로그인");
+		model.addAttribute("menu", "회원가입");
 		return "/securityLogin/registerMemberForm/register1";
 
 	}
 
 	@RequestMapping(value = { "/register2" }, method = RequestMethod.GET)
 	public String register2(Model model) {
+
+		model.addAttribute("category", "회원정보");
+
+		model.addAttribute("menu", "회원가입");
 
 		return "/securityLogin/registerMemberForm/register2";
 
@@ -63,7 +70,11 @@ public class RegisterController {
 	@RequestMapping(value = { "/register3" }, method = RequestMethod.GET)
 	public String register3(Model model) {
 		System.out.println("들어갑니다");
+		model.addAttribute("category", "회원정보");
+//	      model.addAttribute("title", "로그인");
+		model.addAttribute("menu", "회원가입");
 		return "/securityLogin/registerMemberForm/register3";
+
 	}
 
 //	@RequestMapping(value="/registerOk", method = RequestMethod.POST)
@@ -115,7 +126,7 @@ public class RegisterController {
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
 		System.out.println("비밀번호(인코딩 후) : " + dto.getPassword());
 		ms.wrtieOneMember(dto);
-		return "/";
+		return "/securityLogin/login";
 	}
 
 //	 아이디 중복 체크
@@ -147,6 +158,9 @@ public class RegisterController {
 	@RequestMapping(value = "/auth.do", method = RequestMethod.POST)
 	public ModelAndView mailSending(HttpServletRequest request, String e_mail, HttpServletResponse response_email,
 			String email, Model model, HttpSession session) throws IOException {
+		model.addAttribute("category", "회원정보");
+
+		model.addAttribute("menu", "회원가입");
 
 		Random r = new Random();
 		int dice = r.nextInt(4589362) + 49311; // 이메일로 받는 인증코드 부분 (난수)
@@ -155,19 +169,19 @@ public class RegisterController {
 		String regExp = "[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z] {2,6}$";
 		String em1 = request.getParameter("em1");
 		String em2 = request.getParameter("em2");
+		
 		String tomail = em1 + "@" + em2; // 받는 사람 이메일
 		
 		
 		
-		if(tomail.matches(regExp)) {
 		
+		if (tomail.matches(regExp)) {
+
 			System.out.println("맞음");
-		}else {
+		} else {
 			System.out.println("안맞음");
 		}
-		
-		
-		
+
 		System.out.println(tomail);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/securityLogin/registerMemberForm/register1");
@@ -179,7 +193,7 @@ public class RegisterController {
 			System.out.println("메일있음");
 			String sendKey = "가입된 이메일 주소입니다.";
 			request.setAttribute("sendKey", sendKey);
-		
+
 //			return mv;
 		} else {
 			System.out.println("메일없음");
@@ -254,6 +268,7 @@ public class RegisterController {
 	// 이메일 인증 페이지 맵핑 메소드
 	@RequestMapping("/register1.do")
 	public String redirect() {
+
 		return "redirect:/securityLogin/registerMemberForm/register1";
 	}
 
@@ -267,8 +282,11 @@ public class RegisterController {
 	// 내가 입력한 인증번호와 메일로 입력한 인증번호가 맞는지 확인해서 맞으면 회원가입 페이지로 넘어가고,
 	// 틀리면 다시 원래 페이지로 돌아오는 메소드
 	@RequestMapping(value = "/join_injeung.do", method = RequestMethod.POST)
-	public ModelAndView join_injeung(HttpServletRequest request, HttpServletResponse response_equals)
+	public ModelAndView join_injeung(HttpServletRequest request, HttpServletResponse response_equals, Model model)
 			throws IOException {
+		model.addAttribute("category", "회원정보");
+
+		model.addAttribute("menu", "회원가입");
 		String dice = dicetemp;
 
 		String email_injeung = request.getParameter("email_injeung");
@@ -306,9 +324,7 @@ public class RegisterController {
 		} else if (email_injeung != dice) {
 
 			ModelAndView mv2 = new ModelAndView();
-
 			mv2.setViewName("/securityLogin/registerMemberForm/register1");
-
 			response_equals.setContentType("text/html; charset=UTF-8");
 			PrintWriter out_equals = response_equals.getWriter();
 			String keych = "일치하지 않습니다. 다시 확인해주세요";

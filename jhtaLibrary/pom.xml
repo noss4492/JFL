@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kr.co</groupId>
@@ -14,18 +15,36 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
-	<!-- Mail sender 기능을 위해 추가 됨. -->
-	<dependency>
-	   <groupId>org.springframework</groupId>
-	   <artifactId>spring-context-support</artifactId>
-	   <version>${org.springframework-version}</version>
-	</dependency>
-	<dependency>
-	   <groupId>com.sun.mail</groupId>
-	   <artifactId>javax.mail</artifactId>
-	   <version>1.6.1</version>
-	</dependency>    
-<!-- Spring_security -->
+		<!-- 잭-슨 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+		<!-- httpcore(카카오) -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.6</version>
+		</dependency>
+		<!-- httpclient(카카오) -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+		<!-- Mail sender 기능을 위해 추가 됨. -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!-- Spring_security -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
@@ -124,7 +143,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

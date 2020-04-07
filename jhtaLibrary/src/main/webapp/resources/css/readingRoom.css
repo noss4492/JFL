@@ -1,0 +1,193 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#readingRoomWholeWrapper {
+	width: 1920px;
+	height: 980px;
+	background: black;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: relative;
+	/* opacity: 0.2; */
+}
+
+#readingRoomWrapper {
+	background-color: #46B7D9;
+	/* display: inline-block; */
+	width: 1400px;
+	height: 950px;
+	margin: auto;
+}
+
+#readingRoomHeadWrapper {
+	width: 1400px;
+	height: 110px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-top: 10px;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+#libLogo {
+	/* display: inline; */
+	width: 33%;
+}
+
+#libLogo img {
+	width: 168px;
+	height: 90px;
+	vertical-align: middle;
+}
+
+#readingRoomTitle {
+	/* display: inline; */
+	font-size: 30px;
+	width: 33%;
+	text-align: center;
+}
+
+#right {
+	/* float: right; */
+	padding-right: 25px;
+	width: 33%;
+	text-align: right;
+}
+
+#currentTime {
+	border-style: none;
+	background-color: #46B7D9;
+}
+
+#currentTime:focus {
+	outline: none;
+}
+
+#seatInfo {
+	display: flex;
+	justify-content: space-between;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+#seatType {
+	/* float: right; */
+	
+}
+
+#readingRoomBodyWrapper {
+	width: 1350px;
+	height: 700px;
+	padding-top: 70px;
+	background-color: coral;
+	margin: 0 auto;
+	/*             position: relative; */
+}
+
+#seatChart {
+	display: grid;
+	width: 1000px;
+	height: 90%;
+	margin: 0 auto;
+	/*             position: relative; */
+	/*             top: 35px; */
+	/*             left: 35px; */
+	background-color: white;
+	align-content: space-around;
+	grid-template-rows: 157.5px 157.5px 157.5px 157.5px;
+	grid-template-columns: repeat(3, 1fr);
+	align-items: center;
+	justify-items: center;
+}
+
+.seatChartGroup {
+	width: 120px;
+	height: 90px;
+	/* justify-content: space-around; */
+	display: flex;
+	flex-wrap: wrap;
+	/* grid-template-columns: repeat(2,1fr);
+            grid-template-rows: repeat(3,1fr); */
+}
+
+.seatNum {
+	border: 1px solid rgb(36, 154, 190);
+	width: 58px;
+	border-radius: 8px;
+	text-align: center;
+	color: white;
+	background-color: #46B7D9;
+}
+
+#selectSeatWrapper {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 0px;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+#selectSeat {
+	position: absolute;
+	/* 	width:500px; */
+	/* 	height: 500px; */
+	width: 0px;
+	height: 0px;
+	background-color: white;
+	margin: 0 auto;
+	left: 500px;
+	top: 200px;
+	display: none;
+	border-radius: 8px;
+}
+
+#selectSeatTop {
+	width: 100%;
+	height: 50px;
+}
+
+#selectedSeat {
+	height: 50px;
+	width: 650px;
+	padding-left: 250px;
+	float: left;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	float: left;
+}
+
+#selectedSeat input, input:focus {
+	border-style: none;
+	outline: none;
+	font-size: 30px;
+}
+
+#closeIcon {
+	height: 50px;
+}
+
+.xi-close-square-o {
+	display: block;
+	float: right;
+}
+
+#timeInfo {
+	height: 0px;
+}
+
+#signOutWrapper {
+	width: 333px;
+	height: 110px;
+	background-color: black;
+	color: white;
+	border-radius: 8px;
+	text-align: center;
+	font-size: 40px;
+	padding-top: 30px;
+}

@@ -31,7 +31,7 @@ public class MemberOracleDAO implements MemberDAO{
 	}
 	
 	@Override
-	public UserDTO selectOne(String username) {
+	public UserDTO selectOnebyUsername(String username) {
 		System.out.println("적어도 여기까진옴");
 		return ss.selectOne("kr.co.jhta.member.selectOnebyUsername", username);
 	}	
@@ -62,7 +62,7 @@ public class MemberOracleDAO implements MemberDAO{
 	public int idChk(String username) {		
 		System.out.println("dao insert complete");
 		int idCount = ss.selectOne("idCheck", username.replace("=", ""));
-				return idCount;
+		return idCount;
 	}
 
 	@Override

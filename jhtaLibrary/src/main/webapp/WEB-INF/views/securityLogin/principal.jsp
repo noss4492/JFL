@@ -8,9 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<sec:authentication property="principal.username" var="username"/>
-	principal : <br>
-	${username }
-	
+principal : <br>
+${principal }<br><br>
+${principal.getName }
+<sec:authentication property="principal.username" var="username"/>
+principal : <br>
+${username }
 </body>
 </html>

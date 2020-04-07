@@ -64,8 +64,7 @@
    <!-- 아이디 중복 체크 -->
 	<select id="idCheck" parameterType="String" resultType="int">
 	SELECT COUNT(*) FROM USER_M WHERE username = #{username}
-	</select>
-	
+	</select>	
 	<!--이메일 체크  -->
 	<select id="emCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*)
