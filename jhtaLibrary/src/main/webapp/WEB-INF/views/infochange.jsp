@@ -90,12 +90,9 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 	display: inline;
 	text-align: right;
 	position: relative;
-	/* padding-bottom: 10px; */
-	/* border-radius: 0ex; */
-	/* margin-left: 100px; */
-	/* left: 100px; */
+
 	border: none;
-	/* border:0px 0px 0px 90px; */
+
 }
 
 .joinStep {
@@ -286,7 +283,7 @@ ul li {
 			<div class="terms">
 				<div class="contentcore">
 
-					<form name = "f" action="./registerOk" id="registerChk" name="frm" method="post">
+					<form name = "f" action="./changeOk" id="changeOk" name="frm" method="post">
 
 						<div id="rcontainer">
 							<table>
@@ -294,6 +291,7 @@ ul li {
 									<th>이름</th>
 									<td>
 										<div class="input">
+										<input type="hidden" name="userId" value="${dto.userId }"/>
 											<input type="text" name="name" id="name" max-width="220"
 												maxlength="5" value=${dto.name } readonly>
 										</div>
@@ -304,6 +302,9 @@ ul li {
 									<th>아이디</th>
 									<td>
 										<div class="input">
+<%-- 										<input type="text" name="" id="" value=${dto.registerDate }/> --%>
+										<input type="hidden" name="registerDate" id="registerDate" value=${dto.registerDate }/>
+											
 											<input type="text" name="username" id="user_m_id" max-width="220" value=${dto.username } readonly/>&nbsp;&nbsp;
 <!-- 											<input type="button" value="중복확인" id="btn" /> -->
 											 <span id="id_check"></span>
@@ -396,7 +397,7 @@ ul li {
 							</table>
 							<div class=btnfield>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-								<input type="button" id="btn1" class="btn btn-primary" value="가입신청" >								
+								<input type="button" id="btn1" class="btn btn-primary" value="수정" >								
 								 <input type="button" id="btn2"	class="btn btn-warning" value="취소"	onclick="window.location='main.jsp'">
 							</div>
 
@@ -497,12 +498,13 @@ window.onload = function() {
 		var btn2 = document.getElementById("chCosend");
 		var nickname=$('#nick').val();
 	
-		if(${dto.gender} == 1){
-		console.log("남")
+// 		if(${dto.gender} == 1){
+// 		console.log("남")
 		
-		}
-		else(${dto.gender} == 2)
-			console.log("여")
+// 		}
+// 		else(${dto.gender} == 2)
+// 			console.log("여")
+
 		
 // 		btn1.disabled = true; //가입신청 버튼 숨기기.  보류
 

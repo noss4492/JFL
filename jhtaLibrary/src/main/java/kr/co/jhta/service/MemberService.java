@@ -13,8 +13,8 @@ public interface MemberService {
 	public void removeOneMember(int uno);
 	public int getTotal();
 	public int idChk(String username);
-	public int mailChk(String email);
-	public long selectUserPkByUsername(String username);
+	public int mailChk(String email);	
+	public long selectUserPkByUsername(String username);;
 
 
 

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.aspectj.lang.annotation.After;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,19 +16,15 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.jhta.dto.UserDTO;
 import kr.co.jhta.service.MemberService;
-import kr.co.jhta.service.MemberServiceImpl;
 import lombok.Setter;
 
 // 로그인이 성공하고나서 바로 직후의 시점에 동작할 것들을 이곳에 작성.
 // kakaoLogin User의 경우에는 디비에서의 조건 판별 필요. (이미 있는 유저인지 없는 유저인지)
 // 일반 유저의 경우 로그인 하면 user_m_id의 값을 다른 컨트롤러와 매퍼에서 사용하기 편하도록 session에 userId로 추가해두자.
 // 사실 테이블을 user_m_id를 그냥 uk로 두거나 user_m_id와 username을 둘 다 pk로 써서 테이블 설계를 했어야한다.
-@Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	private String defaultUrl; // redirect stratgy를 세워 보낼 url을 결정할 수 있다.
 	private String filedir;
@@ -47,32 +42,24 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 			Authentication authentication) throws IOException, ServletException {
 		System.out.println("로그인 성공 후 부가 작업");
 		
-		HttpSession session = request.getSession();
-//		if(session == null) {
-//			System.out.println("session null");
-//			return;
-//		}
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			return;
+		}
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
 		User user = (User) auth.getPrincipal();
 		String username = user.getUsername();
 
 		System.out.println("로그인시 성공직후 바로 받아온 유저 이름 : "+username);
-		System.out.println("위 유저 이름으로 검색하여 나온 user_m_id(pk, seq)값을 세션에 등록할 것인데 서비스가 안되네");
+		System.out.println("위 유저 이름으로 검색하여 나온 user_m_id(pk, seq)값을 세션에 등록함");
 		
-//		System.out.println("66666"+ms.readOneMember(6).getNickname());
-//		
-//		System.out.println(ms.selectUserPkByUsername(username));
-//		System.out.println("long : "+ms.selectUserPkByUsername(username));
-//		
-//		System.out.println("-----------------++++++++++++++++++");
-		//session.setAttribute("userId", ms.readOneMemberByName(username).getUserId());
-		//System.out.println("msimpl"+ms.readOneMemberByName(username).getUserId());
-//		UserDTO udtoX =  ms.readOneMemberByName(username);
-//		System.out.println("이거 왜 안잡혀? 아 아직 readOneMemberByName이 없구나 "+udtoX);
-//		System.out.println("userId : "+udtoX.getUserId());
-//		System.out.println("session에 userId를 저장 :"+udtoX.getUserId());	
-//		session.setAttribute("userId", udtoX.getUserId());
+//		session.setAttribute("userId", ms.readOneMember(username).getUserId());
+		UserDTO udtoX =  ms.readOneMemberByName(username);
+		System.out.println("이거 왜 안잡혀? 아 아직 readOneMemberByName이 없구나 "+udtoX);
+		System.out.println("userId : "+udtoX.getUserId());
+		System.out.println("session에 userId를 저장 :"+udtoX.getUserId());	
+		session.setAttribute("userId", udtoX.getUserId());
 
 		response.sendRedirect("/jhta/main");
 	}

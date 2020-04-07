@@ -19,6 +19,7 @@ public class LogoutSuccessHandler implements AuthenticationSuccessHandler {
 		HttpSession session = request.getSession(false);
 		
 		session.removeAttribute("userId");
-		System.out.println("removed attr : \"userId\"");
 	}
+
+
 }

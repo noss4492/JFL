@@ -126,7 +126,7 @@ public class RegisterController {
 		dto.setPassword(this.bcryptPasswordEncoder.encode(dto.getPassword()));
 		System.out.println("비밀번호(인코딩 후) : " + dto.getPassword());
 		ms.wrtieOneMember(dto);
-		return "/securityLogin/login";
+		return "/main";
 	}
 
 //	 아이디 중복 체크
@@ -170,13 +170,8 @@ public class RegisterController {
 		String em1 = request.getParameter("em1");
 		String em2 = request.getParameter("em2");
 		
-		String tomail = em1 + "@" + em2; // 받는 사람 이메일
-		
-		
-		
-		
+		String tomail = em1 + "@" + em2; // 받는 사람 이메일		
 		if (tomail.matches(regExp)) {
-
 			System.out.println("맞음");
 		} else {
 			System.out.println("안맞음");

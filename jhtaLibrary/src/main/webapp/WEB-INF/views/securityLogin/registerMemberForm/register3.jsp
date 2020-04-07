@@ -404,8 +404,11 @@ ul li {
 							</table>
 							<div class=btnfield>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<input type="hidden" name="platformStatus" value="1">
+							<input type="hidden" name="rightStatus" value="1">
+							<input type="hidden" name="gradeStatus" value="1">
 								<input type="button" id="btn1" class="btn btn-primary" value="가입신청" >								
-								 <input type="button" id="btn2"	class="btn btn-warning" value="취소"	onclick="window.location='main.jsp'">
+								 <input type="button" id="btn2"	class="btn btn-warning" value="취소"	onclick="location.href='../../jhta/''">
 							</div>
 
 						</div>
