@@ -15,6 +15,8 @@
 		<typeAlias type="kr.co.jhta.dto.UserDTO" alias="udto" />
 		<typeAlias type="kr.co.jhta.dto.GeneralBookDTO" alias="gbdto" />				
 		<typeAlias type="kr.co.jhta.dto.PageStartEnd" alias="se"/>
+		<!--2020-03-31준영  -->
+		<typeAlias type="kr.co.jhta.dto.ReadingRoomDTO" alias="rdto"/>
 	</typeAliases>
 	<!-- <mappers> 어떻게 해도 web-inf 경로가 안먹네... 이쪽에서는 접근 불가능인가봄-->
 <!-- 		<mapper resource="/mybatis/mappers/member.xml"/> -->
