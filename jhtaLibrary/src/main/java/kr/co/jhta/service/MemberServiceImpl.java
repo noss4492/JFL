@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public UserDTO readOneMemberByName(String username) {
-		return dao.selectOneByName(username);
+		return dao.selectOnebyUsername(username);
 	}
 	
 	@Override
