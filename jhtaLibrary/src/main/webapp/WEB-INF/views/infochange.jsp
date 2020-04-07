@@ -90,12 +90,9 @@ h1, h2, h3, h4, h5, p, div, span, ul, li, ol, img, a, a:visited {
 	display: inline;
 	text-align: right;
 	position: relative;
-	/* padding-bottom: 10px; */
-	/* border-radius: 0ex; */
-	/* margin-left: 100px; */
-	/* left: 100px; */
+
 	border: none;
-	/* border:0px 0px 0px 90px; */
+
 }
 
 .joinStep {
@@ -286,7 +283,7 @@ ul li {
 			<div class="terms">
 				<div class="contentcore">
 
-					<form name = "f" action="./registerOk" id="registerChk" name="frm" method="post">
+					<form name = "f" action="./changeOk" id="changeOk" name="frm" method="post">
 
 						<div id="rcontainer">
 							<table>
@@ -396,7 +393,7 @@ ul li {
 							</table>
 							<div class=btnfield>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-								<input type="button" id="btn1" class="btn btn-primary" value="가입신청" >								
+								<input type="button" id="btn1" class="btn btn-primary" value="수정" >								
 								 <input type="button" id="btn2"	class="btn btn-warning" value="취소"	onclick="window.location='main.jsp'">
 							</div>
 

@@ -202,7 +202,7 @@
                         </div>
                     </form>
                     <div class="loginMenu">
-                        <a href="">회원가입</a>
+                        <a href="register1">회원가입</a>
                         <a href="" class="rightA">아이디 찾기</a>
                         <a href="" class="rightA">비밀번호 재발급</a>
                     </div>
@@ -217,8 +217,8 @@
 	                	<form action="<c:url value="/securityLogin/logout" />" name="logout" method="post">
 							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 	                		<input type="submit" class="logoutbtn" value="로그아웃" />
-	                		<a href="" class="rightA">내서재</a>
-	                		<a href="" class="rightA">정보수정</a>
+	                		<a href="mypage" class="rightA">내서재</a>
+	                		<a href="infochange" class="rightA">정보수정</a>
 						</form>
                 	</div>
                 </sec:authorize>
