@@ -18,7 +18,6 @@
 		<typeAlias type="kr.co.jhta.dto.FavoriteBookDTO" alias="fbdto"/>
 		<typeAlias type="kr.co.jhta.dto.BorrowBookDTO" alias="bbdto"/>
 		<typeAlias type="kr.co.jhta.dto.LibraryBookDTO" alias="lbdto"/>
-		<typeAlias type="kr.co.jhta.dto.LibraryBookDetailDTO" alias="lbddto"/>
 		<typeAlias type="kr.co.jhta.dto.PageStartEnd" alias="se"/>
 		<!--2020-03-31준영  -->
 		<typeAlias type="kr.co.jhta.dto.ReadingRoomDTO" alias="rdto"/>
