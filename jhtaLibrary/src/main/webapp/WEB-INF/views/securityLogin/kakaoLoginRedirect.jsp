@@ -31,6 +31,7 @@
 						<th>password</th>
 						<td><input type="hidden" name="password" value="${udto.password }" id="" /></td>
 					</tr>
+				
 					<tr>
 						<td colspan="2">
 							<input type="submit" value="안보이는 등록버튼"/> 
