@@ -90,7 +90,7 @@
 	width: 1350px;
 	height: 700px;
 	padding-top: 70px;
-	background-color: #e7c2cf;
+	background-color: #ff8989;
 	margin: 0 auto;
 	border-radius: 8px;
 	/*             position: relative; */
@@ -163,30 +163,39 @@
 #selectSeatTop {
 	width: 600px;
 	height: 50px;
+	border-bottom: 2px solid black;
 }
 
 #selectedSeat {
-	width: 500px;
+	width: 530px;
 	height: 50px;
-	
-	float: left;
 	text-align: center;
 	font-size: 30px;
 	font-weight: bold;
 	float: left;
 }
-
-#selectedSeat input, input:focus {
+#selectedSeat input{
 	border-style: none;
+	font-size: 25px;
+	outline: none;
+	text-align: center;
+	font-weight: bold;
+	width: 100px;
+}
+
+
+
+#selectSeatBodyTop input {
 	outline: none;
 	font-size: 30px;
-	text-align: center;
+	
 }
 
 #closeIcon {
 	height: 50px;
-	width: 100px;
+	width: 50px;
 	display: inline-block;
+	float: right;
 	
 }
 
@@ -196,8 +205,11 @@
 }
 #userName{
 	display: inline-block;
+	
 }
-
+#userName::after{
+	ontent: " | ";
+}
 #selectSeatBody{
 	width: 600px;
 	height: 450px;
@@ -206,44 +218,165 @@
 }
 #selectSeatBodyTop{
 	width: 600px;
+	height: 200px;
+	float: left;
+	display: flex;
+	justify-content: space-around;
+	position: relative;
+}
+
+#selectSeatBodySETime{
+	width: 400px;
 	height: 250px;
-	float: left;
-	
-	
-}
-#selectSeatBodyMiddle{
-	width: 600px;
-	height: 100px;
-	float: left;
+	display: inline-block;
+	float: left
 	
 }
-#selectSeatBodyBottom{
-	width: 600px;
-	height: 100px;
-	clear: both;
-}
+
 .hourDiv{
-background-color: red;
+position: relative;
+
+display: inline-block;
+width: 150px;
+height: 180px;
+top: 20px;
+
+}
+.hour{
+	width: 100px;
+	height: 120px;
+	position: absolute;
+	top: 25px;
+	right: 0px;
+	border: 2px solid black;
+	border-radius: 10px;
+	text-align: center;
+	
+	
 }
 .colonDiv{
-background-color:orange;
+	position: relative;
+
+display: inline-block;
+width: 150px;
+height: 180px;
+top: 20px;
+}
+.colon{
+	width: 100px;
+	height: 120px;
+	font-size: 150px;
+	font-weight: bold;
+	top: 25px;
+	position: absolute;
+	left: 23px;
+	text-align: center;
+	border-style: none;
 }
 .minuteDiv{
-background-color:yellow;
+	position: relative;
+display: inline-block;
+width: 150px;
+height: 180px;
+top: 20px;
+
+
+}
+.minute{
+	position: absolute;
+	width: 100px;
+	height: 120px;
+	top: 25px;
+	border: 1px solid black;
+    right: 90px;
+    text-align: center;
+    border: 2px solid black;
+	border-radius: 10px;
 }
 .rClockBtnDiv{
-background-color:green;
+position: relative;
+
+width: 150px;
+height: 180px;
+top: 20px;
+
+}
+.rClockBtn1{
+	width: 120px;
+	height: 50px;
+	position: absolute;
+	top: 20px;
+	border-radius: 10px;
+	right: 70px;
+	
+}
+.rClockBtn2{
+	width: 120px;
+	height: 50px;
+	position: absolute;
+	top: 90px;
+	border-radius: 10px;
+	right: 70px;
 }
 .currentTimeDiv{
-background-color:blue;
 
-				
-				}
-.endTimeDiv{grid-area:endT;
-			background-color:violet;
+height: 125px;
+position: relative;
+
+}
+#selectSeatCurrentTime{
+	display: block;
+	width: 300px;
+	text-align: center;
+	height: 50px;
+	font-size: 20px;
+	position: absolute;
+	top: 60px;
+	left: 50px;
+	border: 2px solid black;
+	border-radius: 10px;
+	
+}
+.endTimeDiv{
+			
+			
+	height: 125px;
+	position: relative;
+	
+	
+	
 			}
-.regBtn1Div{grid-area:use;
-background-color:black;
+#selectSeatEndTime{
+	display: block;
+	margin: 0 auto;
+	width: 300px;
+	text-align: center;
+	height: 50px;
+	font-size: 30px;
+	margin: 0 auto;
+	font-size: 20px;
+	position: absolute;
+	top: 30px;
+	left: 50px;
+	border: 2px solid black;
+	border-radius: 10px;
+}
+.regBtn1Div{
+
+	display: inline-block;;
+	    width: 200px;
+    height: 250px;
+    position: relative;
+	
+}
+.regBtn1{
+	width: 150px;
+    height: 100px;
+    border-radius: 10px;
+    position: absolute;
+    top: 75px;
+        font-size: 30px;
+    font-weight: bold;
 }
 
 #signOutWrapper {

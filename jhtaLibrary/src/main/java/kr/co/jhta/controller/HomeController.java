@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import kr.co.jhta.service.MemberService;
@@ -98,28 +99,38 @@ public class HomeController {
 		return "header2";
 	}
 	@RequestMapping(value ="/facilityRentForm1" , method = RequestMethod.GET)
-	public String facilityRentForm1() {
-		return "applicationService/facilityRentForm/facilityRentForm1";
+	public String facilityRentForm1(Model model) {
+		  model.addAttribute("category", "신청서비스");
+	      model.addAttribute("title", "시설대관신청");
+	      model.addAttribute("menu", "대관안내");
+
+		return "libApplicationService/facilityRentForm/facilityRentForm1";
 	}
 	@RequestMapping(value ="/facilityRentForm2" , method = RequestMethod.GET)
-	public String facilityRentForm2() {
-		return "/applicationService/facilityRentForm/facilityRentForm2";
+	public String facilityRentForm2(Model model) {
+		model.addAttribute("category", "신청서비스");
+	      model.addAttribute("title", "시설대관신청");
+	      model.addAttribute("menu", "시설안내");
+		return "/libApplicationService/facilityRentForm/facilityRentForm2";
 	}
 	@RequestMapping(value ="/facilityRentForm3" , method = RequestMethod.GET)
-	public String facilityRentForm3() {
-		return "/applicationService/facilityRentForm/facilityRentForm3";
+	public String facilityRentForm3(Model model) {
+		model.addAttribute("category", "신청서비스");
+	      model.addAttribute("title", "시설대관신청");
+	      model.addAttribute("menu", "신청현황/신청하기");
+		return "/libApplicationService/facilityRentForm/facilityRentForm3";
 	}
 	@RequestMapping(value ="/tourApplication1" , method = RequestMethod.GET)
-	public String tourApplication1() {
-		return "/applicationService/tourApplication/tourApplication1";
+	public String tourApplication1(Model model) {
+		return "/libApplicationService/tourApplication/tourApplication1";
 	}
 	@RequestMapping(value ="/tourApplication2" , method = RequestMethod.GET)
-	public String tourApplication2() {
-		return "/applicationService/tourApplication/tourApplication2";
+	public String tourApplication2(Model model) {
+		return "/libApplicationService/tourApplication/tourApplication2";
 	}
 	@RequestMapping(value ="/volunteerApplication1" , method = RequestMethod.GET)
 	public String volunteerApplication() {
-		return "/applicationService/volunteerApplication/volunteerApplication1";
+		return "/libApplicationService/volunteerApplication/volunteerApplication1";
 	}
 	@RequestMapping(value ="/basicForm" , method = RequestMethod.GET)
 	public String basicForm() {

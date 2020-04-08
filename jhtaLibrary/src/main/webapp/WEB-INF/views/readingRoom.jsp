@@ -59,13 +59,14 @@
 			}
 			$(".hour").val(Math.floor(cntMin / 60) + "시간");
 			$(".minute").val(cntMin % 60 + "분")
+			$(".endTime").val("사용시간 : "+addTime(Math.floor(cntMin / 60), cntMin % 60));
 		});
 
 		$(".regBtn1").on("click", function() {
 			console.log(cntMin);
 			nowT = moment().format('YYYY-MM-DD HH:mm:ss');
 			alert(nowT);
-			$(".currentTime").val(nowT);
+			$(".currentTime2").val(nowT);
 			$(".endTime").val(addTime(Math.floor(cntMin / 60), cntMin % 60));
 			if(cntMin<30){
 				console.log("시간을 설정해 주세요");
@@ -97,7 +98,8 @@
 		
 		nowT = moment().format('YYYY-MM-DD HH:mm:ss');
 		$(".dateView1").val(currentTime);
-		$(".currentTime").val(nowT);
+		$(".currentTime1").val("현재시간 : "+nowT);
+		$(".currentTime2").val("현재시간 : "+nowT);
 		
 		// 사용중인 좌석 색깔 표시
 		var data = "";
@@ -139,7 +141,7 @@
  			$("#selectSeat").animate({
  				width : 600,
  				height : 500
- 			}, 0);
+ 			},0);
  			$("#selectSeat").css("display", "block");
 		})
 	});
@@ -152,10 +154,12 @@
 			}, 250);
 			$("#selectSeat").animate({
 				width : 0
-			}, 250);
+			}, 500);
 			$("#selectSeat").css("display", "none");
 			$('.dateView1').html("");
 			cntMin = 0;
+			$(".hour").val("0시간");
+			$("minute").val("0분");
 		})
 	})
 	
@@ -164,7 +168,7 @@
 		var userId="";
 		$(".seatNum").on("click", function() {
 			var seatNum = $(this).text();
-			$("#selectedSeatNum").val("선택 자리 : "+seatNum);
+			$("#selectedSeatNum").val(+seatNum);
 						 
 		});
 		$("#signOutWrapper").on("click",function(){
@@ -184,35 +188,39 @@
 				<div id="selectSeat">
 					<div id="selectSeatTop">
 						<div id="selectedSeat">
-							 <input type="text"
-								id="selectedSeatNum" name="seatId" readonly="readonly" />
+						<label for="userName"> 사용자 : </label>
+						<input type="text" id="userName" class="userName" name="userName"
+							value="${principal.username}" /> 
+						<label for="selectedSeatNum">자리 번호 : </label>
+						<input type="text" id="selectedSeatNum" name="seatId" readonly="readonly" />
 						</div>
 						<div id="closeIcon">
 							<i class="xi-close-square-o xi-3x"></i>
 						</div>
 					</div>
 					<div id="selectSeatBody">
-<!-- 						<input type="text" id="userName" class="userName" name="userName" -->
-<%-- 							value="${principal.username}" />  --%>
 							<div id="selectSeatBodyTop">
-							<div class="hourDiv"><input type="text" class="hour" /></div>
-							<div class="colonDiv"><input type="text" class="colon" value=" : "/></div>
-							<div class="minuteDiv"><input type="text" class="minute" /></div>
+							<div class="hourDiv"><input type="text" class="hour" readonly="readonly" value="0시간"/></div>
+							<div class="colonDiv"><input type="text" class="colon" value=" : " readonly="readonly" /></div>
+							<div class="minuteDiv"><input type="text" class="minute" readonly="readonly" value="0분"/></div>
 							<div class="rClockBtnDiv">
 								<input type="button" class="rClockBtn1" value="up" />
 								<input type="button" class="rClockBtn2" value="down" /> 
 							</div>
 							</div>
 							
-							<div id="selectSeatBodyMiddle">
-							<div class="currentTimeDiv"> <input type="text" class="currentTime" name="startTime" /></div> 
+							<div id="selectSeatBodySETime">
+							<div class="currentTimeDiv"><input type="text" id="selectSeatCurrentTime" class="currentTime2" name="startTime" readonly="readonly"/></div> 
+							<div class="endTimeDiv"><input type="text" id="selectSeatEndTime" class="endTime" name="endTime" readonly="readonly" value="사용시간 : 2020-00-00 00:00:00"/></div>
 							</div>
-							<div id="selectSeatBodyBottom">
-							<div class="endTimeDiv"><input type="text" class="endTime" name="endTime" /></div>
+							
+							<div class="regBtn1Div">
+							<input type="button" class="regBtn1" value="사용하기" />
 							</div>
+							
+							
 							<input type="hidden" name="status" value="1" />
 							<input type="hidden" name="rentSeatId" value="1" />
-							<div class="regBtn1Div"><input type="button" class="regBtn1" value="사용하기" /></div>
 
 					</div>
 				</div>
@@ -227,13 +235,13 @@
 				<div id="right">
 					<div id="userInfo">${principal.username}님</div>
 					<div id="currentTimeWrapper">
-						<input id="currentTime" type="text" class="currentTime" />
+						<input id="currentTime" type="text" class="currentTime1" />
 					</div>
 				</div>
 			</div>
 			<div id="seatInfo">
 				<div id="seatStatus">"총좌석 : 66 || 사용 가능좌석: "</div>
-				<div id="seatType">배정가능좌석사용중장애인석수리중</div>
+				<div id="seatType">사용 가능 : || 사용 중 : </div>
 			</div>
 
 

@@ -6,51 +6,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="<c:url value="resources/css/applicationService/facilityRentForm/facilityRentForm1.css"/>" />
     
+    
+    <link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script
+   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+   href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+<link rel="stylesheet"
+   href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script
+   src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+<link
+   href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap"
+   rel="stylesheet">
+<link rel="stylesheet" href="css/header.css">
+<script src="js/viewjs/header.js" type="text/javascript"></script>
+
 <title>Insert title here</title>
 <style>
-	 
+	#mainWrapper {
+   width: 1200px;
+   margin: auto;
+   display: flex;
+}
+
+.all_contents {
+   width: 880px;   
+   padding: 20px 0;
+   margin-left: 50px;
+   word-break: keep-all;
+} 
 </style>
 </head>
 <body>
-	 <%@ include file="/WEB-INF/views/header.jsp" %>
-	 <div id="wholeWrapper1">
-        <div id="wholeWrapper2">
+	 <%@include file="../../header.jsp"%>
+   <div id="mainWrapper">
+      <%@include file="../../sideBar.jsp"%>
+      <div class="all_contents">
+         <%@include file="../../contentTitle.jsp"%>
+         
 
-            <div id="sideNav">
-                <tavle>
-                    <tr>
-                        <td>sdfdsfsdf</td>
-                    </tr>
-                    <tr>
-                        <td>sdfsdfsdfdsf</td>
-                    </tr>
-                    <tr>
-                        <td>sdfsdfsdf</td>
-                    </tr>
-                    <tr>
-                        <td>sdfsdfdsf</td>
-                    </tr>
-                </tavle>
+        
 
-            </div>
+            
             <div id="applyFormWrapper">
-                <div id="applyformTitleandNav">
-                    <h3>대관안내</h3>
-                    <div id="applyformNavBar">
-                        <a href="">
-                            <i class="xi-home xi-1x" style="padding-top:5px; line-height: 10px; color:darkgray"></i>
-                        </a>
-                        <span><i class="xi-angle-right-thin"></i>신청서비스 <i class="xi-angle-right-thin"></i>시설대관신청 <i class="xi-angle-right-thin"></i>대관안내</span>
-                    </div>
-                </div><!-- applyformTitleandNav-->
+                
+                
+                
                 <div id="applyformCore">
                     <div id="tabNav">
                         <ul id="tabNavContents">
@@ -126,5 +143,32 @@
             </div><!-- applyFormWrapper -->
         </div><!-- wholeWrapper2-->
     </div><!-- wholeWrapper -->
+   
+         
+     
+   <%@include file="../../footer.jsp"%>
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </body>
 </html>

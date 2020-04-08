@@ -82,4 +82,7 @@ public class ApplicationController {
 		rrs.rCancel(userId);
 		return "redirect:readingRoom";
 	}
+	//////////////////////////////////신청서비스 관련////////////////////////////////////////
+	
+	
 }

@@ -5,9 +5,8 @@
 	padding: 0;
 }
 
-a {
-	text-decoration: none;
-}
+ 
+
 
 #header {
 	width: 100%;
@@ -33,7 +32,7 @@ a {
 
 #applyFormWrapper {
 	width: 880px;
-	height: 1177px;
+	
 	float: right;
 }
 
@@ -69,8 +68,8 @@ a {
 
 #applyformCore {
 	width: 100%;
-	height: 916px;
-	padding-top: 50px;
+	
+	
 	padding-bottom: 50px;
 }
 
@@ -95,12 +94,16 @@ a {
 	padding-bottom: 10px;
 	display: block;
 }
+#tabNavContents a 	{ text-decoration: none;}
+#tabNavContents a:link { color: white; text-decoration: none;}
+#tabNavContents a:hover { color: whiet; text-decoration: none;}
+
 /* #tabNavContents li:nth-child(1){ */
 /* 	background-color: #46B7D9; */
 /* } */
 #tabNavContents li:nth-child(1) {
-            color: white;
-            background-color: olive;
+            
+            background-color: #46B7D9;
         }
 
 #rentPolicy {
@@ -177,7 +180,7 @@ a {
 	margin-top: 20px;
 	padding: 10px 10px 10px 10px;
 	background-color: rgb(221, 227, 233);
-	height: 43px;
+	height: 60px;
 }
 
 #rentLink dt {

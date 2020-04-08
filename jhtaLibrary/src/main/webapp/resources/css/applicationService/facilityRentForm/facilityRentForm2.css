@@ -9,37 +9,13 @@
             font-family: 'Noto Sans', '나눔고딕', 'NanumGothic', 'Helvetica', 'sans-serif';
         }
 
-        a {
-            text-decoration: none;
-        }
+       
 
-        #header {
-            width: 100%;
-            height: 206px;
-            background-color: goldenrod;
-        }
-
-        #wholeWrapper1 {
-            width: 100%;
-
-        }
-
-        #wholeWrapper2 {
-            width: 1200px;
-            margin: 0 auto;
-        }
-
-        #sideNav {
-            float: left;
-            width: 270px;
-            height: 400px;
-            background-color: red;
-            border: 2px solid black;
-        }
+       
 
         #generalWrapper {
             width: 880px;
-            height: 1177px;
+            
             float: right;
         }
 
@@ -76,7 +52,7 @@
 
         #generalCore {
             width: 100%;
-            height: 916px;
+            
             padding-top: 50px;
             padding-bottom: 50px;
         }
@@ -90,6 +66,8 @@
 
         #tabNavContents {
             list-style: none;
+            height: 50px;
+            vertical-align: middle;
 
 
         }
@@ -98,15 +76,18 @@
             float: left;
             width: 33.1%;
             border: 1px solid rgb(226, 214, 214, 0.904);
-            height: 30px;
+            height: 50px;
             padding-top: 10px;
             padding-bottom: 10px;
             display: block;
         }
+        #tabNavContents a 	{ text-decoration: none;}
+		#tabNavContents a:link { color: white; text-decoration: none;}
+		#tabNavContents a:hover { color: whiet; text-decoration: none;}
 
         #tabNavContents li:nth-child(2) {
             color: white;
-            background-color: olive;
+            background-color: #46B7D9;
         }
 
         #tabNavContents {
@@ -115,7 +96,7 @@
         #placeSearchDiv{
             display: inline-block;
             width: 880px;
-            height: 36px;
+            height: 55px;
             padding-top: 10px;
             padding-bottom: 10px;
             margin-bottom: 35px;
@@ -153,6 +134,7 @@
             width: 840px;
             height: 185px;
             padding: 20px 20px 20px 20px;
+            position: relative;
             
         }
         #placeThumnailDiv{
@@ -181,12 +163,16 @@
             height: 25px;
             color: slategrey;
         }
+        #placeInfoDetailWrapper2{
+        width: 713px;
+        display: inline-block;
+        }
         #bookPlace{
             width: 85px;
             height: 32px;
             background-color: olive;
             color: white;
             position: absolute;
-            right: 70px;
+/*             right: 70px; */
             /* bottom: 300px; */
         }

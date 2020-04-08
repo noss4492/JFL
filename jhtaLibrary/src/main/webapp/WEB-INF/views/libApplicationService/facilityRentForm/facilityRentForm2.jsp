@@ -13,48 +13,59 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="<c:url value="resources/css/facilityRentForm2.css"/>" />
-    
+    <link rel="stylesheet" href="<c:url value="resources/css/applicationService/facilityRentForm/facilityRentForm2.css"/>" />
+    <link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script
+   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+   href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+<link rel="stylesheet"
+   href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script
+   src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+<link
+   href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap"
+   rel="stylesheet">
+<link rel="stylesheet" href="css/header.css">
+<script src="js/viewjs/header.js" type="text/javascript"></script>
+<style>
+	#mainWrapper {
+   width: 1200px;
+   margin: auto;
+   display: flex;
+}
+
+.all_contents {
+   width: 880px;   
+   padding: 20px 0;
+   margin-left: 50px;
+   word-break: keep-all;
+} 
+</style>
 </head>
 <body>
-	<div id="header"></div>
-    <div id="wholeWrapper1">
-        <div id="wholeWrapper2">
-
-            <div id="sideNav">
-                <tavle>
-                    <tr>
-                        <td>sdfdsfsdf</td>
-                    </tr>
-                    <tr>
-                        <td>sdfsdfsdfdsf</td>
-                    </tr>
-                    <tr>
-                        <td>sdfsdfsdf</td>
-                    </tr>
-                    <tr>
-                        <td>sdfsdfdsf</td>
-                    </tr>
-                </tavle>
-
-            </div>
+	<%@include file="../../header.jsp"%>
+   <div id="mainWrapper">
+      <%@include file="../../sideBar.jsp"%>
+      <div class="all_contents">
+         <%@include file="../../contentTitle.jsp"%>
+     
             <div id="generalWrapper">
-                <div id="generalTitleandNav">
-                    <h3>대관안내</h3>
-                    <div id="generalNavBar">
-                        <a href="">
-                            <i class="xi-home xi-2x" style="padding-top:5px; line-height: 10px; color:darkgray"></i>
-                        </a>
-                        <span><i class="xi-angle-right-thin"></i>신청서비스 <i class="xi-angle-right-thin"></i>시설대관신청 <i
-                                class="xi-angle-right-thin"></i>시설안내</span>
-                    </div>
-                </div><!-- applyformTitleandNav-->
+              
                 <div id="generalCore">
                     <div id="tabNav">
                         <ul id="tabNavContents">
-                            <li> <strong>대관안내</strong></li>
-                            <li><strong>시설안내</strong></li>
-                            <li><strong>신청현황/신청하기</strong></li>
+                            
+                            <li><a href=""> <strong>대관안내</strong></a></li>
+                            <li><a href=""><strong>시설안내</strong></a></li>   
+                             <li><a href=""><strong>신청현황/신청하기</strong></a></li>
                         </ul>
                     </div>
                     <form action="" id="placeInfo" name="placeInfo">
@@ -79,7 +90,7 @@
                     <form action="신청하기 누르면 선택한 시설 정보 넘겨줘야함">
                         <div id="placeInfoDetailWrapper1">
                             <div id="placeInfoDetailWrapper2">
-                            <div id="placeThumnailDiv"><img id="placeThumnail" src="../image/s4.jpg" alt=""></div>
+                            <div id="placeThumnailDiv"><img id="placeThumnail" src="" alt=""></div>
                             <div id="placeDetail">
                                 <h4>시설명</h4>
                                 <ul>
@@ -90,13 +101,15 @@
                                     <li>이용가능장비</li>
                                 </ul>
                             </div>
-                            <input id="bookPlace" type="submit" value="신청하기">
                         </div>
+                            <input id="bookPlace" type="submit" value="신청하기">
                     </div>
                 </form>
                 </div><!-- applyformCore-->
             </div><!-- applyFormWrapper -->
-        </div><!-- wholeWrapper2-->
-    </div><!-- wholeWrapper -->
+        </div>
+            </div>
+            <%@include file="../../footer.jsp"%>
+        
 </body>
 </html>
