@@ -175,12 +175,10 @@
 	<style>
 	#btns1, #btns2{
 	width:50%;
-
+	border-radius: 0px !important;
 	}
 	#btns1{
-	
 	float:left;
-	
 	}
 
 	
