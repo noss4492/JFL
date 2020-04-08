@@ -292,8 +292,7 @@ ul li {
 									<td>
 										<div class="input">
 										<input type="hidden" name="userId" value="${dto.userId }"/>
-											<input type="text" name="name" id="name" max-width="220"
-												maxlength="5" value=${dto.name } readonly/>
+											<input type="text" name="name" id="name" max-width="220"maxlength="5" value="${dto.name }" readonly="readonly"/>
 										</div>
 										<span id="name_check"></span>
 									</td>
@@ -305,13 +304,13 @@ ul li {
 <%-- 										<input type="text" name="" id="" value=${dto.registerDate }/> --%>
 										<input type="hidden" name="registerDate" id="registerDate" value=${dto.registerDate }/>
 											
-											<input type="text" name="username" id="user_m_id" max-width="220" value=${dto.username } readonly/>&nbsp;&nbsp;
+											<input type="text" name="username" id="user_m_id" max-width="220" value="${dto.username }" readonly="readonly"/>&nbsp;&nbsp;
 <!-- 											<input type="button" value="중복확인" id="btn" /> -->
 											 <span id="id_check"></span>
 										</div>
 									</td>
 								</tr>
-											<tr>
+								<tr>
 									<th>비밀번호</th>
 									<td>
 										<div class="input">
@@ -330,7 +329,6 @@ ul li {
 											<input type="password" id="uPwch" max-width="220"> 
 											<span class="pwCh"></span>
 										</div>
-
 									</td>
 								</tr>
 								<tr>
@@ -357,7 +355,7 @@ ul li {
 											<div class="input">
 												<input type="text" name="birth" id="bd" max-width="220" value="${dto.birth }" readonly>
 											</div>										
-									</td>
+								</td>
 								</tr>
 										<tr>
 									<th>이메일</th>
@@ -368,24 +366,24 @@ ul li {
 										</div>
 									</td>
 								</tr>
-								<tr>
-									
+								<tr>									
 									<th rowspan="2">주소</th>
 									<td rowspan="2">
-									<c:choose>
-									<c:when test="${dto.address} eq null or ${dto.address} eq ">		
+								<c:choose>
+<%-- 									<c:when test="${dto.address} eq null or ${dto.address} eq ">		 --%>
+										<c:when test="${dto.address eq null || dto.address eq ''}">	
 										<div class="input">
 											<input type="text" name="addr1" id="addr1" max-width="220"
-												value= ${item1 }>&nbsp;&nbsp; <input type="button"
-												onclick="postCode()" value="우편번호 찾기" id="btn" /><br>
+												value= ${item1 }>&nbsp;&nbsp; 
+												<input type="button" onclick="postCode()" value="우편번호 찾기" id="btn" /><br>
 										</div>						
 										<div>										
 											<input type="text" name="addr2" id="addr2"
 												class="addr1input mv" >										
 												<input type="text" name="addr3" id="addr3"  class="mv" >									
 										</div>
-										</c:when>
-										<c:otherwise>								
+									</c:when>
+									<c:otherwise>								
 										<c:forEach items="${fn:split(dto.address, ',')[0] }" var="item1">									
 										<div class="input">
 											<input type="text" name="addr1" id="addr1" max-width="220"
@@ -402,8 +400,8 @@ ul li {
 												<input type="text" name="addr3" id="addr3"  class="mv" value= ${item3 }>
 										</c:forEach>
 										</div>	
-										</c:otherwise>
-										</c:choose>							
+									</c:otherwise>
+								</c:choose>							
 									</td>								
 								</tr>
 							</table>
@@ -412,10 +410,7 @@ ul li {
 								<input type="button" id="btn1" class="btn btn-primary" value="수정" >								
 								 <input type="button" id="btn2"	class="btn btn-warning" value="취소"	onclick="window.location='main.jsp'">
 							</div>
-
 						</div>
-
-
 					</form>
 				</div>
 			</div>
