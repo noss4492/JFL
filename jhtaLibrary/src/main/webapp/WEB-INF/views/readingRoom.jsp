@@ -103,9 +103,13 @@
 		var data = "";
 		<c:forEach var="rdto" items="${list}">
 		data = ${rdto.seatId};
+		
 		$("#seat" + data).css("background", "red");
+			
+		
 		</c:forEach>
 		
+		//사용가능 좌석수 
 		var list = ${fn:length(list)};
 		$("#seatStatus").html("총 좌석 : 66석 || 사용가능 좌석 : "+(66-list));
 	});
@@ -133,7 +137,7 @@
  				width : 1900
  			}, 250);
  			$("#selectSeat").animate({
- 				width : 1000,
+ 				width : 600,
  				height : 500
  			}, 0);
  			$("#selectSeat").css("display", "block");
@@ -160,7 +164,7 @@
 		var userId="";
 		$(".seatNum").on("click", function() {
 			var seatNum = $(this).text();
-			$("#selectedSeatNum").val(seatNum);
+			$("#selectedSeatNum").val("선택 자리 : "+seatNum);
 						 
 		});
 		$("#signOutWrapper").on("click",function(){
@@ -168,6 +172,7 @@
 		})
 	});
 </script>
+
 
 </head>
 <body>
@@ -179,33 +184,35 @@
 				<div id="selectSeat">
 					<div id="selectSeatTop">
 						<div id="selectedSeat">
-							<label for="selectedSeatNum">선택 자리</label> <input type="text"
+							 <input type="text"
 								id="selectedSeatNum" name="seatId" readonly="readonly" />
 						</div>
 						<div id="closeIcon">
 							<i class="xi-close-square-o xi-3x"></i>
 						</div>
-
 					</div>
-					<div id="timeInfo">
-						<input type="text" id="userName" class="userName" name="userName"
-							value="${principal.username}" /> 
-							현재시간 <input type="text" class="currentTime" name="startTime" /><br /> 
-							<input type="text" class="hour" /> 
-							<input type="text" class="minute" />
-							<input type="text" class="endTime" name="endTime" /> 
-							<input type="hidden" name="status" value="1" /> 
+					<div id="selectSeatBody">
+<!-- 						<input type="text" id="userName" class="userName" name="userName" -->
+<%-- 							value="${principal.username}" />  --%>
+							<div id="selectSeatBodyTop">
+							<div class="hourDiv"><input type="text" class="hour" /></div>
+							<div class="colonDiv"><input type="text" class="colon" value=" : "/></div>
+							<div class="minuteDiv"><input type="text" class="minute" /></div>
+							<div class="rClockBtnDiv">
+								<input type="button" class="rClockBtn1" value="up" />
+								<input type="button" class="rClockBtn2" value="down" /> 
+							</div>
+							</div>
+							
+							<div id="selectSeatBodyMiddle">
+							<div class="currentTimeDiv"> <input type="text" class="currentTime" name="startTime" /></div> 
+							</div>
+							<div id="selectSeatBodyBottom">
+							<div class="endTimeDiv"><input type="text" class="endTime" name="endTime" /></div>
+							</div>
+							<input type="hidden" name="status" value="1" />
 							<input type="hidden" name="rentSeatId" value="1" />
-
-
-
-						<!-- 					현재시간<p class="dateView1"></p><br /> -->
-						<!-- 					시간단위<p class="dateView2"></p><br /> -->
-						<!-- 					분단위<p class="dateView3"></p><br /> -->
-						<!-- 					db로 가는 최종적인 date값<p class="dateView4"></p><br /> -->
-						<input type="button" class="rClockBtn1" value="up" /> 
-						<input type="button" class="rClockBtn2" value="down" /> 
-						<input type="button" class="regBtn1" value="사용하기" />
+							<div class="regBtn1Div"><input type="button" class="regBtn1" value="사용하기" /></div>
 
 					</div>
 				</div>
@@ -214,7 +221,7 @@
 		<div id="readingRoomWrapper">
 			<div id="readingRoomHeadWrapper">
 				<div id="libLogo">
-					<img src="resources/img/mainPage/sungso/s1.jpg" alt="errrr">
+					<img src="img/phoenix.jpg" alt="errrr">
 				</div>
 				<div id="readingRoomTitle">피닉스 도서관 제1열람실</div>
 				<div id="right">

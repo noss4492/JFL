@@ -259,7 +259,7 @@ ul li {
 							<textarea class="noct" readonly="readonly">
  제1장 총칙
                 제1조 목적
-                이 약관은 남양주도서관(이하 "도서관"이라 한다) 홈페이지가 제공하는 모든 서비스(이하 "서비스"라 한다)의 이용조건 및 절차에 관한 사항을 규정함을 목적으로 합니다.
+                이 약관은 佛社趙도서관(이하 "도서관"이라 한다) 홈페이지가 제공하는 모든 서비스(이하 "서비스"라 한다)의 이용조건 및 절차에 관한 사항을 규정함을 목적으로 합니다.
 
                 제2조 정의
                 이용자 : 서비스에 접속하여 남양주도서관이 제공하는 서비스를 이용하는 회원 및 비회원
@@ -416,7 +416,7 @@ ul li {
 						<div class="btnfield">
 							<button type="button" id="agree" class="btn btn-primary" name="submit">동의합니다.</button>
 
-							<button type="button" id="noagree" class="btn btn-warning" onclick="location.href='register1'">
+							<button type="button" id="noagree" class="btn btn-warning" onclick="location.href='../../jhta/'">
 								동의하지 않습니다.</button>
 
 						</div>

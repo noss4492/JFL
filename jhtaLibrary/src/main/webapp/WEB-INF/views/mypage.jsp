@@ -49,13 +49,13 @@
 .myInner{
 width:880px;
 height: 300px;
-border:1px solid black;
+border:1px dotted #44bbff;
 padding-bottom: 50px;
 margin-bottom : 30px;
 }
 .myState{
 padding-top: 20px;
-border:1px solid red;
+/* border:1px solid red; */
 /* height:300px; */
 }
 .myState li{
@@ -66,16 +66,57 @@ margin-bottom : 5px;
 .myState li div{
 position : relative;
 padding: 20px;
-border:1px solid blue;
+border:1px dotted #44bbff;
 margin-left: 5px;
 }
 .myTop{
 padding: 20px 140px 20px 20px;
-background-color: 
+background-color: #f2f2f2;  
 }
 .dot-list > li{
-margin : 10px 0;
+/* margin : 10px 0; */
+padding: 10px;
 }
+.myState li a{
+position: absolute;
+right: 20px;
+margin-top: -15px;
+font-weight: 700;
+font-size: 1.750em;
+line-height: 30px;
+}
+ .myTop .name{
+ font-size: 1.300em;
+ font-weight: 700;
+ }
+ .myInfo{
+ clear: both;
+ position: relative;
+ min-height: 130px;
+/*  padding: 30px 20px; */
+ padding-left: 160px;
+}
+ 
+  .myInner .myInfo .memType{ 
+  overflow: hidden; 
+  position: absolute; 
+  top: 30px; 
+  left: 8px; 
+  border-radius: 50%; 
+  } 
+  .myInner .myInfo .memType strong{ 
+  background-color : #46B7D9;
+ display: table-cell; 
+width: 130px; 
+ height: 130px; 
+  font-weight: normal; 
+  font-size: 1.438em; 
+  line-height: 1.4; 
+  color: #fff; 
+  text-align: center; 
+  vertical-align: middle;   
+  color : white;
+  } 
 </style>
 <title>Insert title here</title>
 </head>
@@ -86,31 +127,36 @@ margin : 10px 0;
       <div class="all_contents">
          <%@include file="contentTitle.jsp"%>   
          <div class=myInner>
-         	<div class=myTop>${dto.name }님, 안녕하세요</div>
+         	<div class=myTop><strong class="name">${dto.name }</strong> 님, 안녕하세요</div>
          	<div class=myInfo>
+         	<div class=memType>
+         	<strong class="member typeA themeColor"> 정회원</strong>
+         	</div>
          	<div class=myInfoList>
          	<ul class="dot-list">
+         		<li>회원번호 : ${dto.userId }</li>
          		<li>아이디 :  ${dto.username } </li>
+         		<li>닉네임 : ${dto.nickname }</li>
          		<li>회원가입일 : ${dto.registerDate }</li>
          		<li>이메일 주소 : ${dto.email }</li>
          		<li></li>
          	</ul>
          	</div>
-         	
+       
          	</div>
          </div>
          
          <div class=myState>
-         	<h4>아래부분</h4>
+         	<h4>서비스 이용현황</h4>
          	<ul class="myState clearfix">
-         	<li><div><strong class="tit">대출중인 <br>도서</strong></div></li>
-         	<li><div><strong class="tit">연체중인<br> 도서</strong></div></li>
-         	<li><div><strong class="tit">예약중인<br> 도서</strong></div></li>
-         	<li><div><strong class="tit">반납완료<br> 도서</strong></div></li>
-         	<li><div><strong class="tit">열람실 <br>예약현황</strong></div></li>
-         	<li><div><strong class="tit">대관실<br> 예약현황</strong></div></li>
-         	<li><div><strong class="tit">희망신청<br> 도서</strong></div></li>
-         	<li><div><strong class="tit">등록한 <br>관심자료</strong></div></li>
+         	<li><div><strong class="tit">대출중인 <br>도서 <a>2</a></strong></div></li>
+         	<li><div><strong class="tit">연체중인<br> 도서 <a>0</a></strong></div></li>
+         	<li><div><strong class="tit">예약중인<br> 도서 <a>1</a></strong></div></li>
+         	<li><div><strong class="tit">반납완료<br> 도서 <a>5</a></strong></div></li>
+         	<li><div><strong class="tit">열람실 <br>예약현황 <a>0</a></strong></div></li>
+         	<li><div><strong class="tit">대관실<br> 예약현황 <a>0</a></strong></div></li>
+         	<li><div><strong class="tit">희망신청<br> 도서 <a>0</a></strong></div></li>
+         	<li><div><strong class="tit">등록한 <br>관심자료 <a>2</a></strong></div></li>
 
          	</ul>
          </div>

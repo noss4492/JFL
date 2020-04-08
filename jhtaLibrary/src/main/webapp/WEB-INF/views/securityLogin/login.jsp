@@ -37,11 +37,11 @@
 		<table>
 			<tr>
 				<th>ID</th>
-				<td><input type="text" name="username" value="admin" id="" /></td>
+				<td><input type="text" name="username" value="" id="" /></td>
 			</tr>
 			<tr>
 				<th>password</th>
-				<td><input type="text" name="password" value="1234" id="" /></td>
+				<td><input type="text" name="password" value="" id="" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" name="로그인" id="" /> <input
