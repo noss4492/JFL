@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,8 +30,8 @@
 <link
    href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap"
    rel="stylesheet">
-<link rel="stylesheet" href="css/header.css">
-<script src="js/viewjs/header.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/header.css">
+<script src="../js/viewjs/header.js" type="text/javascript"></script>
 <style>
     #mainWrapper {
    width: 1200px;
@@ -177,13 +178,13 @@
                         도서
                     </span>
                     <h4>
-                        물건을 사고파는 곳 시장(우리 알고 세계 보고 3)(양장본 HardCover)
+                        ${gbdto.title }
                     </h4>
                 </div>
                 <div class="book_detail">
                     <div class="thumb">
                         <span>
-                            <img src="https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F546190%3Ftimestamp%3D20200324133440" alt="">
+                            <img src="${gbdto.thumbnailUrl}" alt="">
                         </span>
                     </div>
                     <div class="bookData">
@@ -191,31 +192,36 @@
                             <tbody>
                                 <tr>
                                     <th>장르</th>
-                                    <td>어린이(초등)</td>
+                                    <td>${gbdto.genre }</td>
                                 </tr>
                                 <tr>
                                     <th>제목</th>
-                                    <td>물건을 사고파는 곳 시장(우리 알고 세계 보고 3)(양장본 HardCover)</td>
+                                    <td>${gbdto.title }</td>
                                 </tr>
                                 <tr>
                                     <th>상세사이트</th>
-                                    <td><a href="https://search.daum.net/search?w=bookpage&bookId=546190&q=%EB%AC%BC%EA%B1%B4%EC%9D%84+%EC%82%AC%EA%B3%A0%ED%8C%8C%EB%8A%94+%EA%B3%B3+%EC%8B%9C%EC%9E%A5%28%EC%9A%B0%EB%A6%AC+%EC%95%8C%EA%B3%A0+%EC%84%B8%EA%B3%84+%EB%B3%B4%EA%B3%A0+3%29%28%EC%96%91%EC%9E%A5%EB%B3%B8+HardCover%29">이동</a></td>
+                                    <td><a href="${gbdto.detailUrl }">이동</a></td>
                                 </tr>
                                 <tr>
                                     <th>출간일</th>
-                                    <td>12/01/15</td>
+                                    <td>${gbdto.publicationDate }</td>
                                 </tr>
                                 <tr>
                                     <th>출판사</th>
-                                    <td>아이세움</td>
+                                    <td>${gbdto.publisher }</td>
                                 </tr>
                                 <tr>
                                     <th>저자명</th>
-                                    <td>강범석</td>
+                                    <td>
+							        <c:forEach items="${aList }" var="authorName" varStatus="ix">
+										${authorName } 
+										<%-- <c:if test="${ix+1} != ${fn:length(aList)}">, </c:if> --%>
+									</c:forEach>
+									</td>
                                 </tr>
                                 <tr>
                                     <th>표준번호</th>
-                                    <td>9788937845529</td>
+                                    <td>${gbdto.generalBookId }</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -224,34 +230,79 @@
                 </div>
             </div>
             <div class="bookDesc">
-                <h4 calss="descTitle">상세 정보</h4>
+                <h4 class="descTitle">상세 정보</h4>
                 <div class="desc">
-                    우리 역사와 문화를 알아 현대사회를 이해할 수 있도록 도움을 주는 「우리알고 세계보고」 시리즈 제3권 『시장(물건을 사고파는 곳)』. 이 책은 물건을 사고 파는 시장이 어떻게 생겨났을지, 시장에서는 어떤 일들이 일어나는지, 시장의 모습은 어떻게 바뀌어 왔는지 소개한다. 왁자지껄한 사람 냄새가 풍기고, 시끌벅적한 시장의 문화를 어린이들에게 친근한 구어체로 들려주고 있다.
+                    ${gbdto.description }
                 </div>
             </div>
             <h4 class="descTitle">소장정보</h4>
-            <div class="tblWrap">
-                <table>
+            <div class="tblWrap">       
+             <table>
                     <thead>
                         <tr>
                             <th>선택</th>
                             <th class="tth">대출상태</th>
-                            <th class="tth">청구기호</th>
                             <th class="tth">등록번호</th>
                             <th class="tth">반납예정일</th>
+                            <th class="tth">등록일</th>
+                            <th>대여하기</th>                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><input type="checkbox" name="" id=""></td>
-                            <td class="tth">대출가능</td>
-                            <td class="tth">594.54-김64수 </td>
-                            <td class="tth">HM0000070277</td>
-                            <td class="tth">-</td>
+                    <!-- 요 폼 액션은 즐겨찾기로 보내야하고 바로 대여 버튼은 링크로 보내야하겠음. 밥먹고 수정 ㄱㄱ -->
+                    	<form action="<c:url value="/book/borrow"/>" onsubmit="call();" name="frm">
+						<c:forEach items="${lbdtoList }" var="lbdto" varStatus="idx" begin="0" step="1">
+                    	<tr>
+						<input type="hidden" name="isbn" value="${gbdto.generalBookId }" />
+							<th class="tth">  <input type="checkbox" name="libraryBookId" value="${lbdto.libraryBookId }" /> </th>
+		                    <td class="tth">
+		                    <c:choose>
+								<c:when test="${lbdto.status == 1 }">
+								대여중
+								</c:when>
+								<c:when test="${lbdto.status == 2 }">
+								대여중(연체)
+								</c:when>
+								<c:when test="${lbdto.status == 3 }">
+								대여중(예약)
+								</c:when>
+								<c:when test="${lbdto.status == 4 }">
+								분실
+								</c:when>
+								<c:otherwise>
+								대여가능
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<th class="tth"> ${lbdto.libraryBookId } </th>	 
+							<th class="tth"> - </th>	
+							<!-- 
+							<c:choose>
+								<c:when test="${borrowedBookEndDate eq null }">
+									<th class="tth"> 보유중 </th>							
+								</c:when>
+								<c:otherwise>
+									<th class="tth"> <c:out value="${borrowedBookEndDate.get(idx)}"/> }</th>															
+								</c:otherwise>
+							</c:choose>			
+							 -->
+							<th class="tth"> ${lbdto.registrationDate } </th>							
+							<th class="tth"> <input type="submit" value="책 대여하기" /> </th>
                         </tr>
+		            </c:forEach>
+					</form>
                     </tbody>
                 </table>
             </div>
+                            
+		
+		
+			
+
+		
+               
+                          
+                            
             <div class="btngroup">
                <input type="button" class="list-btn modify" value="관심자료담기"/>
                 <a class="list-btn delete">관심자료보기</a>

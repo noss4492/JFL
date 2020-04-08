@@ -217,7 +217,7 @@
 	 <!-- 대여 -->
 	 <insert id="insertBorrowBorrowBook" parameterType="bbdto">
 	 INSERT INTO BORROW_BOOK(BORROW_BOOK_ID borrowBookId, LIBRARY_BOOK_ID libraryBookId, USER_M_ID userId, START_DATE startDate, END_DATE endDate)   
-	 VALUES (BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId), #{userId), sysdate ,sysdate+14, 0 );
+	 VALUES (BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId}, #{userId}, sysdate ,sysdate+14, 0 );
 	 </insert>
 	 
 	 
@@ -374,6 +374,7 @@
 	FROM BORROW_BOOK 
 	WHERE LIBRARY_BOOK_ID = #{libraryBookId} 
 	</select>
+	
 	<!-- 
 	SELECT G.GENERAL_BOOK_ID generalBookId, G.GENRE, G.TITLE, G.DESCRIPTION, G.DETAIL_URL detailUrl, G.PUBLISHER, G.THUMBNAIL_URL thumbnailUrl, G.STATUS, G.RECOMMEND_STATUS recommendStatus, L.LIBRARY_BOOK_ID libraryBookId, L.REGISTRATION_DATE registrationDate, L.RENTAL_CNT rentalCnt, L.STATUS
 	FROM GENERAL_BOOK G 

@@ -117,6 +117,7 @@ public class KakaoController {
 			udto.setPassword(this.bcryptPasswordEncoder.encode(modId));
 			udto.setEmail(email);
 			udto.setNickname(nickname);
+			udto.setName(nickname);
 			udto.setPlatformStatus((byte)2);
 			udto.setRightStatus((byte)1);
 			udto.setGradeStatus((byte)2);

@@ -21,9 +21,6 @@
 	byte status;
 	byte recommendStatus;   -->
 <c:choose>
-	<c:when test="${gbdto} eq null">
-		조회된 결과가 없음
-	</c:when>
 	<c:otherwise>
 	<h2>조회된 값이 있음</h2><br>
 		${gbdto.generalBookId }<br>
@@ -79,7 +76,7 @@
 </c:choose>
 <script>
 	function call(){
-		if(${lbdto.status}>0){
+		if(${lbdto.status!=0}){
 			alert("대여할 수 없는 상태입니다.");
 		}
 	}

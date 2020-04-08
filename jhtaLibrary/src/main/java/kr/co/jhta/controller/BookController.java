@@ -26,7 +26,6 @@ import kr.co.jhta.service.MemberService;
 import lombok.Setter;
 
 @Controller
-@RequestMapping(value="/book")
 public class BookController {
 	
 	//private static final Logger logger = LoggerFactory.getLogger(BookController.class);
@@ -37,7 +36,7 @@ public class BookController {
 	@Setter(onMethod=@__({@Autowired}))
 	MemberService ms;
 	
-	@RequestMapping("/simpleSearch")
+	@RequestMapping("/book/simpleSearch")
 	public String simpleSearchBook(
 			@RequestParam(name = "currentPageNo", defaultValue = "1")int currentPageNo,
 			@RequestParam(name = "keyword", defaultValue = "")String keyword,
@@ -50,7 +49,7 @@ public class BookController {
 		return "libBookSearch/test-bookSimpleSearch";
 	}
 	
-	@RequestMapping("/detail")
+	@RequestMapping("/book/detail")
 	public String bookDetail(
 			@RequestParam(name = "isbn", defaultValue = "")long isbn,
 			Model model) {
@@ -60,7 +59,20 @@ public class BookController {
 		List<String> aList = bs.readAuthorByIsbn(generalBookId);
 		List<String> tList = bs.readTranslatorByIsbn(generalBookId);
 		List<LibraryBookDTO> lbdtoList = bs.readLibraryBookByIsbn(generalBookId);
-
+		/*
+		List<String> borrowedBookEndDate = new ArrayList<String>();
+		System.out.println("오냐오냐?:"+lbdtoList);
+		for(LibraryBookDTO lbX : lbdtoList) {
+			if(bs.readBorrowBookByLid(lbX.getLibraryBookId()) != null) {
+				System.out.println("lbX : "+lbX);
+				System.out.println("lbid : "+lbX.getLibraryBookId());
+				System.out.println("lid : "+bs.readBorrowBookByLid(lbX.getLibraryBookId()));
+				System.out.println("lidEndTime : "+bs.readBorrowBookByLid(lbX.getLibraryBookId()).getEndDate());				
+				borrowedBookEndDate.add(bs.readBorrowBookByLid(lbX.getLibraryBookId()).getEndDate());
+			}
+			model.addAttribute("borrowedBookEndDate", borrowedBookEndDate);
+		}
+		*/
 		// lbid length = lbdtoList length
 //		Map<String, Object> statusAndLbook = new HashMap<String, Object>();
 //		int cnt = 0;
@@ -84,10 +96,16 @@ public class BookController {
 		model.addAttribute("tList", tList);
 		model.addAttribute("lbdtoList", lbdtoList);
 		
+		model.addAttribute("category", "자료검색");
+		model.addAttribute("title", "통합검색");
+		model.addAttribute("menu", "간략검색");
+		
+		
+		
 		return "libBookSearch/bookDetail";
 	}
 	
-	@RequestMapping("/borrow")
+	@RequestMapping("/book/borrow")
 	public String bookBorrow(
 			@RequestParam("libraryBookId")String libraryBookId,
 			@RequestParam("isbn")String isbn,
@@ -105,8 +123,12 @@ public class BookController {
 		bs.writeBorrowBorrowBook(bbdto);
 		bs.modifyIsBorrowedBook(Long.parseLong(libraryBookId));
 		System.out.println(" 책 대여됨 : "+bbdto.getUserId()+" | "+bbdto.getLibraryBookId());
+
+//		List<String> bbdtoEndDate = new ArrayList<String>();
+//		bbdtoEndDate.add(bs.readBorrowBookByLid(Long.parseLong(libraryBookId)).getEndDate());
+//		model.addAttribute("bbdtoEndDate", bbdtoEndDate);
 		
-		return "redirect:detail?isbn="+isbn+"";
+		return "redirect:book/detail?isbn="+isbn+"";
 		
 	}
 	
