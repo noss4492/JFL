@@ -71,9 +71,9 @@
                 <div id="applyformCore">
                     <div id="tabNav">
                         <ul id="tabNavContents">
-                            <li><a href=""> <strong>대관안내</strong></a></li>
-                            <li><a href=""><strong>시설안내</strong></a></li>   
-                             <li><a href=""><strong>신청현황/신청하기</strong></a></li>
+                            <li><a href="#"> <strong>대관안내</strong></a></li>
+                            <li><a href="./facilityRentForm2"><strong>시설안내</strong></a></li>   
+                             <li><a href="./facilityRentForm3"><strong>신청현황/신청하기</strong></a></li>
                         </ul>
                     </div>
                     <h3 id="rentPolicy">대관 규정 안내</h3>

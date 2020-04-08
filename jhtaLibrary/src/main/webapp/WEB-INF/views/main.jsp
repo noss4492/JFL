@@ -251,7 +251,7 @@
                                 <div id="plus1" class="glyphicon glyphicon-plus"></div>
                             </div>
                         </a>
-                        <a href="">
+                        <a href="./readingRoom">
                             <div class="roomicon">
                                 <div id="roomicon2" class="glyphicon glyphicon-pencil"></div>
                                 <div class="roomdiv">열람실좌석현황</div>

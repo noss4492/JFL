@@ -115,17 +115,23 @@ public class HomeController {
 	}
 	@RequestMapping(value ="/facilityRentForm3" , method = RequestMethod.GET)
 	public String facilityRentForm3(Model model) {
-		model.addAttribute("category", "신청서비스");
+			model.addAttribute("category", "신청서비스");
 	      model.addAttribute("title", "시설대관신청");
 	      model.addAttribute("menu", "신청현황/신청하기");
 		return "/libApplicationService/facilityRentForm/facilityRentForm3";
 	}
 	@RequestMapping(value ="/tourApplication1" , method = RequestMethod.GET)
 	public String tourApplication1(Model model) {
+			model.addAttribute("category", "신청서비스");
+	      model.addAttribute("title", "도서관견학신청");
+	      model.addAttribute("menu", "신청안내");
 		return "/libApplicationService/tourApplication/tourApplication1";
 	}
 	@RequestMapping(value ="/tourApplication2" , method = RequestMethod.GET)
 	public String tourApplication2(Model model) {
+		model.addAttribute("category", "신청서비스");
+	      model.addAttribute("title", "도서관견학신청");
+	      model.addAttribute("menu", "신청현황/신청하기");
 		return "/libApplicationService/tourApplication/tourApplication2";
 	}
 	@RequestMapping(value ="/volunteerApplication1" , method = RequestMethod.GET)

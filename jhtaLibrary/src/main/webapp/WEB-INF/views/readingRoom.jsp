@@ -65,7 +65,6 @@
 		$(".regBtn1").on("click", function() {
 			console.log(cntMin);
 			nowT = moment().format('YYYY-MM-DD HH:mm:ss');
-			alert(nowT);
 			$(".currentTime2").val(nowT);
 			$(".endTime").val(addTime(Math.floor(cntMin / 60), cntMin % 60));
 			if(cntMin<30){
@@ -77,6 +76,7 @@
 				document.frm.method = "get";
 				document.frm.submit();
 			}
+			alert(addTime(Math.floor(cntMin / 60), cntMin % 60)+" 까지 사용 하실 수 있습니다.");
 		})
 	});
 
