@@ -1,9 +1,12 @@
 package kr.co.jhta.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,9 @@ public class BookController {
 	
 	@Setter(onMethod=@__({@Autowired}))
 	BookService bs;
+	
+	@Setter(onMethod=@__({@Autowired}))
+	MemberService ms;
 	
 	@RequestMapping("/simpleSearch")
 	public String simpleSearchBook(
@@ -82,9 +88,27 @@ public class BookController {
 		return "libBookSearch/test-detail";
 	}
 	
-	
-	@RequestMapping("simsim")
-	public String simsim() {
-		return "/";
+	@RequestMapping("/borrow")
+	public String bookBorrow(
+			@RequestParam("libraryBookId")String libraryBookId,
+			@RequestParam("isbn")String isbn,
+			Model model, Principal principal, HttpSession session ) {
+		
+		System.out.println("#lid:"+libraryBookId);
+		System.out.println("#isbn:"+isbn);
+		System.out.println("#prin:"+principal.getName());
+		
+		BorrowBookDTO bbdto = new BorrowBookDTO();
+		bbdto.setLibraryBookId(Long.parseLong(libraryBookId));
+		bbdto.setUserId(ms.readOneMemberByName(principal.getName()).getUserId());
+//		bbdto.setUserId(Long.parseLong((String)session.getAttribute("userId"))); //이렇게도 될텐데 바빠서 걍 딴거씀
+		
+		bs.writeBorrowBorrowBook(bbdto);
+		bs.modifyIsBorrowedBook(Long.parseLong(libraryBookId));
+		System.out.println(" 책 대여됨 : "+bbdto.getUserId()+" | "+bbdto.getLibraryBookId());
+		
+		return "redirect:detail?isbn="+isbn+"";
+		
 	}
+	
 }

@@ -46,7 +46,9 @@
 		</c:forEach>
 		<br><br>
 		<h2>도서관 소장 도서</h2><br>
-		<c:forEach items="${lbdtoList }" var="lbdto">
+		<form action="<c:url value="/book/borrow"/>" onsubmit="call();" name="frm">
+		<c:forEach items="${lbdtoList }" var="lbdto" varStatus="">
+		<input type="checkbox" name="libraryBookId" value="${lbdto.libraryBookId }" />
 			libraryBookId : ${lbdto.libraryBookId } <br>
 			generalBookId : ${lbdto.generalBookId } <br>
 			registrationDate : ${lbdto.registrationDate } <br>
@@ -70,8 +72,17 @@
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
+			<input type="hidden" name="isbn" value="${gbdto.generalBookId }" />
+			<input type="submit" value="책 대여하기" />
+		</form>
 	</c:otherwise>
 </c:choose>
-
+<script>
+	function call(){
+		if(${lbdto.status}>0){
+			alert("대여할 수 없는 상태입니다.");
+		}
+	}
+</script>
 </body>
 </html>
