@@ -111,9 +111,4 @@ public class BookController {
 		
 	}
 	
-	
-	@RequestMapping("simsim")
-	public String simsim() {
-		return "/";
-	}
 }
