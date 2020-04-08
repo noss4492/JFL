@@ -251,9 +251,9 @@
                     <tbody>
                     <!-- 요 폼 액션은 즐겨찾기로 보내야하고 바로 대여 버튼은 링크로 보내야하겠음. 밥먹고 수정 ㄱㄱ -->
                     	<form action="<c:url value="/book/borrow"/>" onsubmit="call();" name="frm">
+						<input type="hidden" name="isbn" value="${gbdto.generalBookId }" />
 						<c:forEach items="${lbdtoList }" var="lbdto" varStatus="idx" begin="0" step="1">
                     	<tr>
-						<input type="hidden" name="isbn" value="${gbdto.generalBookId }" />
 							<th class="tth">  <input type="checkbox" name="libraryBookId" value="${lbdto.libraryBookId }" /> </th>
 		                    <td class="tth">
 		                    <c:choose>

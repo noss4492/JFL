@@ -128,7 +128,7 @@ public class BookController {
 //		bbdtoEndDate.add(bs.readBorrowBookByLid(Long.parseLong(libraryBookId)).getEndDate());
 //		model.addAttribute("bbdtoEndDate", bbdtoEndDate);
 		
-		return "redirect:book/detail?isbn="+isbn+"";
+		return "redirect:detail?isbn="+isbn+"";
 		
 	}
 	
