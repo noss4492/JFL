@@ -216,7 +216,7 @@
 	 </delete>
 	 <!-- 대여 -->
 	 <insert id="insertBorrowBorrowBook" parameterType="bbdto">
-	 INSERT INTO BORROW_BOOK(BORROW_BOOK_ID borrowBookId, LIBRARY_BOOK_ID libraryBookId, USER_M_ID userId, START_DATE startDate, END_DATE endDate)   
+	 INSERT INTO BORROW_BOOK(BORROW_BOOK_ID, LIBRARY_BOOK_ID, USER_M_ID, START_DATE, END_DATE, STATUS)   
 	 VALUES (BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId}, #{userId}, sysdate ,sysdate+14, 0 );
 	 </insert>
 	 
@@ -247,7 +247,7 @@
 	 <!-- 대여종료 시점 부터 가능하도록. 그날 하루는 겹치도록 해도 OK -->
 	 <!-- 아 이거 원래 쿼리 하나로도 가능한데.. 시간 없으니까 그냥 두개로 나눠서 함... -->
 	 <insert id="insertReserveBook" parameterType="bbdto"><!-- 여기서 받는 bbdto는 신청 유저의 정보이다 -->
-	 INSERT INTO BORROW_BOOK 
+	 INSERT INTO BORROW_BOOKK(BORROW_BOOK_ID borrowBookId, LIBRARY_BOOK_ID libraryBookId, USER_M_ID userId, START_DATE startDate, END_DATE endDate, status)
 	 SELECT BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId}, #{userId}, #{endDate}, #{endDate}+14, 1 
 	 </insert>
 	 

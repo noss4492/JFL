@@ -42,7 +42,7 @@ public class BookController {
 			@RequestParam(name = "keyword", defaultValue = "")String keyword,
 			Model model) { // default = null
 		
-		List<HashMap<String, Object>> gbMapList = bs.readBookSearchPage(1, 999, keyword, keyword, keyword);
+		List<HashMap<String, Object>> gbMapList = bs.readBookSearchPage(1, 20, keyword, keyword, keyword);
 		System.out.println("keyword : "+keyword);
 		model.addAttribute("gbMapList", gbMapList);
 		
