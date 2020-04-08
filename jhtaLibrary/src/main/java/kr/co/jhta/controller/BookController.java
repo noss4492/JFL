@@ -84,8 +84,7 @@ public class BookController {
 		model.addAttribute("tList", tList);
 		model.addAttribute("lbdtoList", lbdtoList);
 		
-		
-		return "libBookSearch/test-detail";
+		return "libBookSearch/bookDetail";
 	}
 	
 	@RequestMapping("/borrow")

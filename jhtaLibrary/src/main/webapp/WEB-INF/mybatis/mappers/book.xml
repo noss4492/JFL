@@ -216,8 +216,8 @@
 	 </delete>
 	 <!-- 대여 -->
 	 <insert id="insertBorrowBorrowBook" parameterType="bbdto">
-	 INSERT INTO BORROW_BOOK(BORROW_BOOK_ID, LIBRARY_BOOK_ID, USER_M_ID, START_DATE, END_DATE, STATUS)   
-	 VALUES (BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId}, #{userId}, sysdate, sysdate+14, 0 )
+	 INSERT INTO BORROW_BOOK(BORROW_BOOK_ID borrowBookId, LIBRARY_BOOK_ID libraryBookId, USER_M_ID userId, START_DATE startDate, END_DATE endDate)   
+	 VALUES (BORROW_BOOK_SEQ.NEXTVAL, #{libraryBookId), #{userId), sysdate ,sysdate+14, 0 );
 	 </insert>
 	 
 	 
