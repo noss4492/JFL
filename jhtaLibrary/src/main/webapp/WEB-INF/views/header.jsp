@@ -87,7 +87,7 @@
 				<li class="navBarLi"><a href="">도서관소식</a>
 
 					<ul class="navBarSub">
-						<li class="navBarLiSub"><a href="">공지사항</a></li>
+						<li class="navBarLiSub"><a href='<c:url value="/notice"/>'>공지사항</a></li>
 						<li class="navBarLiSub"><a href='<c:url value="/list"/>'>열린소리함</a></li>
 						<li class="navBarLiSub"><a href="">자주하는질문</a></li>
 						<li class="navBarLiSub"><a href="">기증도서알림</a></li>

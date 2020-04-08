@@ -103,12 +103,12 @@
 		<c:if test="${category eq '도서관소식' }">
 			<li class="Nav_li_off"><span class="glyph-p">
 					<div class="glyphicon glyphicon-plus"></div>
-			</span> <a href=""
+			</span> <a href='<c:url value="/notice"/>'
 				class="Nav_non">공지사항</a></li>
 
 			<li class="Nav_li_off"><span class="glyph-p">
 					<div class="glyphicon glyphicon-plus"></div>
-			</span> <a href=""
+			</span> <a href='<c:url value="/list"/>'
 				class="Nav_non">열린소리함</a></li>
 				
 			<li class="Nav_li_off"><span class="glyph-p">

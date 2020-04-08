@@ -16,7 +16,7 @@
 				select U.name name, A.ARTICLE_ID articleId, A.USER_M_ID userId, A.TITLE title, A.CONTENT content, A.HITS hits, to_char(A.CREATED_DATE,'YYYY-MM-DD') createdDate
 				from ARTICLE A
 				INNER JOIN USER_M U ON A.USER_M_ID = U.USER_M_ID
-				where A.CATEGORY_STATUS = 2
+				where A.CATEGORY_STATUS = #{category}
 				order by A.ARTICLE_ID desc
 			)
 			where ROWNUM &lt;= #{endNo} 

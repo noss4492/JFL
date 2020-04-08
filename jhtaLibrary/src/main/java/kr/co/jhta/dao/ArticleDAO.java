@@ -6,7 +6,7 @@ import kr.co.jhta.dto.ArticleDTO;
 
 public interface ArticleDAO {
 
-	public List<ArticleDTO> selectAll(int startNo, int endNo);
+	public List<ArticleDTO> selectAll(int startNo, int endNo, int category);
 	public void insertOne(ArticleDTO dto);
 	public ArticleDTO selectOne(int bno);
 	public void updateOne(ArticleDTO dto);
