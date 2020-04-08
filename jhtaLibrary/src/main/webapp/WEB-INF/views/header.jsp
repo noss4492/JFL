@@ -51,7 +51,7 @@
 		<div id="topSearchBarDiv">
 			<input type="text" name="topSearchBar" id="topSearchBarInput"
 				placeholder="도서명 또는 저자명 입력"> <a href="" id="topSearchBtn"><img
-				id="searchBtn" src='<c:url value="img/searchImg.png"/>' alt=""></a>
+				id="searchBtn" src='<c:url value="/img/searchImg.png"/>' alt=""></a>
 		</div>
 	</div>
 	<div id="navBarWrapper">
@@ -68,7 +68,7 @@
 
 
 					<ul class="navBarSub">
-						<li class="navBarLiSub"><a href="">통합검색</a></li>
+						<li class="navBarLiSub"><a href="<c:url value='book/simpleSearch'/>">통합검색</a></li>
 						<li class="navBarLiSub"><a href="">주제별검색</a></li>
 						<li class="navBarLiSub"><a href="">신착자료검색</a></li>
 						<li class="navBarLiSub"><a href="">대출베스트</a></li>
@@ -87,7 +87,7 @@
 				<li class="navBarLi"><a href="">도서관소식</a>
 
 					<ul class="navBarSub">
-						<li class="navBarLiSub"><a href="">공지사항</a></li>
+						<li class="navBarLiSub"><a href='<c:url value="/notice"/>'>공지사항</a></li>
 						<li class="navBarLiSub"><a href='<c:url value="/list"/>'>열린소리함</a></li>
 						<li class="navBarLiSub"><a href="">자주하는질문</a></li>
 						<li class="navBarLiSub"><a href="">기증도서알림</a></li>

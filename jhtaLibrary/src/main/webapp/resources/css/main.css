@@ -190,10 +190,14 @@
             margin-right: 20px
         }
 
-        #plus1,
-        #plus2,
         #plus3 {
             margin-left: 20px;
+        }
+        #plus1{
+        	margin-left: 8px;
+        }
+        #plus2{
+        	margin-left: 28px;
         }
 
         /* 로그인쪽 종료*/

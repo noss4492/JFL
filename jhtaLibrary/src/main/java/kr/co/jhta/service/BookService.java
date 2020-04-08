@@ -1,5 +1,6 @@
 package kr.co.jhta.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import kr.co.jhta.dto.BorrowBookDTO;
@@ -10,7 +11,7 @@ import kr.co.jhta.dto.PageStartEnd;
 import kr.co.jhta.dto.RequestWishBookDTO;
 
 public interface BookService {
-	public List<GeneralBookDTO> readBookSearchPage(int startNo, int endNo, String gBookId, String author, String title );
+	public List<HashMap<String, Object>> readBookSearchPage(int startNo, int endNo, String gBookId, String author, String title );
 	public void writeOneGeneralBook(GeneralBookDTO gbdto);
 	public void modifyOneGeneralBook(GeneralBookDTO gbdto);
 	public void removeOneGeneralBook(long generalBookId);
@@ -34,9 +35,13 @@ public interface BookService {
 	public List<RequestWishBookDTO> readWishBookPageByAdmin(PageStartEnd se);
 	public void modifyReturnToNonreturn();
 	public void modifyReserveToBorrow();
-	public void modifyReturnBook(long borrowBookId);
-	public void removeReserveBook(long borrowBookId);
-	public void writeBorrowBook(BorrowBookDTO bbdto);
+	
+	public void modifyIsReturnedBook(long libraryBookId);
+	public void modifyIsBorrowedBook(long libraryBookId);
+	public void modifyBorrowReturnBook(long borrowBookId);
+	public void removeBorrowReserveBook(long borrowBookId);
+	public void writeBorrowBorrowBook(BorrowBookDTO bbdto);
+	
 	public List<LibraryBookDTO> readLibraryBookByIsbn(String generalBookId);
 	public int readIsBorrowedByBookId(long borrowBookId);
 	public void modifyRaiseRentCnt(String generalBookId);
@@ -44,4 +49,7 @@ public interface BookService {
 	public List<GeneralBookDTO> readRentalBestRandom20();
 	public List<GeneralBookDTO> readNewestRandom20();
 	public List<GeneralBookDTO> readRecommendRandom20();
+	
+	public List<BorrowBookDTO> readBorrowBookAll(PageStartEnd se);
+	public BorrowBookDTO readBorrowBookByLid(long libraryBookId);
 }

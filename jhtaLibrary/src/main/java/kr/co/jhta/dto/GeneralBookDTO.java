@@ -22,5 +22,4 @@ public class GeneralBookDTO {
 	String thumbnailUrl;
 	byte status;
 	byte recommendStatus;
-	String authorName;// 가상의 컬럼임. 자주 쓰여서 그냥 추가해놓은 것일뿐임.
 }

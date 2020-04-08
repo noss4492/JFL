@@ -19,4 +19,6 @@ public class ArticleDTO {
 	int hits;
 	String createdDate;
 	char categoryStatus;
+	
+	String name;
 }

@@ -24,8 +24,8 @@ public class ArticleServiceImpl implements ArticleService{
 	ArticleDAO dao;
 	
 	@Override
-	public List<ArticleDTO> readAll(int startNo, int endNo) {		
-		return dao.selectAll(startNo, endNo);
+	public List<ArticleDTO> readAll(int startNo, int endNo, int category) {		
+		return dao.selectAll(startNo, endNo, category);
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public int getTotal() {
-		return dao.getTotal();
+	public int getTotal(int category) {
+		return dao.getTotal(category);
 	}
 
 }

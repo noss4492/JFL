@@ -4,10 +4,10 @@ import java.util.List;
 import kr.co.jhta.dto.ArticleDTO;
 
 public interface ArticleService {
-	public List<ArticleDTO> readAll(int startNo, int endNo);
+	public List<ArticleDTO> readAll(int startNo, int endNo, int category);
 	public void writeOne(ArticleDTO dto);
 	public ArticleDTO readOne(int bno);
 	public void changeOne(ArticleDTO dto);
 	public void removeOne(int bno);
-	public int getTotal();
+	public int getTotal(int category);
 }

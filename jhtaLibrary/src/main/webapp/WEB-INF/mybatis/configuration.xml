@@ -19,6 +19,7 @@
 		<typeAlias type="kr.co.jhta.dto.BorrowBookDTO" alias="bbdto"/>
 		<typeAlias type="kr.co.jhta.dto.LibraryBookDTO" alias="lbdto"/>
 		<typeAlias type="kr.co.jhta.dto.PageStartEnd" alias="se"/>
+		<typeAlias type="kr.co.jhta.dto.GeneralBookDTO" alias="gbdto"/>
 		<!--2020-03-31준영  -->
 		<typeAlias type="kr.co.jhta.dto.ReadingRoomDTO" alias="rdto"/>
 	</typeAliases>

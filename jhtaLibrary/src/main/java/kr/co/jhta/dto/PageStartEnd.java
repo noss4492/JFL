@@ -14,4 +14,5 @@ import lombok.Setter;
 public class PageStartEnd {
 	private int startNo;
 	private int endNo;
+	private int category;
 }

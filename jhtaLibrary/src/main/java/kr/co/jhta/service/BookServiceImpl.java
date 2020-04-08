@@ -1,5 +1,6 @@
 package kr.co.jhta.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class BookServiceImpl implements BookService{
 	BookDAO dao;
 
 	@Override
-	public List<GeneralBookDTO> readBookSearchPage(int startNo, int endNo, String gBookId, String author,
+	public List<HashMap<String, Object>> readBookSearchPage(int startNo, int endNo, String gBookId, String author,
 			String title) {
 		return dao.selectSearchPage(startNo, endNo, gBookId, author, title);
 	}
@@ -143,21 +144,6 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public void modifyReturnBook(long borrowBookId) {
-		dao.updateReturnBook(borrowBookId);
-	}
-
-	@Override
-	public void removeReserveBook(long borrowBookId) {
-		dao.deleteReserveBook(borrowBookId);
-	}
-
-	@Override
-	public void writeBorrowBook(BorrowBookDTO bbdto) {
-		dao.insertBorrowBook(bbdto);
-	}
-
-	@Override
 	public List<LibraryBookDTO> readLibraryBookByIsbn(String generalBookId) {
 		return dao.selectLibraryBookByIsbn(generalBookId);
 	}
@@ -190,6 +176,41 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public List<GeneralBookDTO> readRecommendRandom20() {
 		return dao.selectRecommendRandom20();
+	}
+
+	@Override
+	public List<BorrowBookDTO> readBorrowBookAll(PageStartEnd se) {
+		return dao.selectBorrowBookAll(se);
+	}
+
+	@Override
+	public BorrowBookDTO readBorrowBookByLid(long libraryBookId) {
+		return dao.selectBorrowBookByLid(libraryBookId);
+	}
+
+	@Override
+	public void modifyIsReturnedBook(long libraryBookId) {
+		dao.updateIsReturnedBook(libraryBookId);
+	}
+
+	@Override
+	public void modifyIsBorrowedBook(long libraryBookId) {
+		dao.updateIsBorrowedBook(libraryBookId);
+	}
+
+	@Override
+	public void modifyBorrowReturnBook(long borrowBookId) {
+		dao.updateBorrowReturnBook(borrowBookId);
+	}
+
+	@Override
+	public void removeBorrowReserveBook(long borrowBookId) {
+		dao.deleteBorrowReserveBook(borrowBookId);
+	}
+
+	@Override
+	public void writeBorrowBorrowBook(BorrowBookDTO bbdto) {
+		dao.insertBorrowBorrowBook(bbdto);
 	}
 }
 	

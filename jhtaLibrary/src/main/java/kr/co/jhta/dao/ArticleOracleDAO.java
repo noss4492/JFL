@@ -3,10 +3,9 @@ package kr.co.jhta.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import kr.co.jhta.dto.ArticleDTO;
 import kr.co.jhta.dto.PageStartEnd;
 import lombok.Setter;
@@ -21,8 +20,8 @@ public class ArticleOracleDAO implements ArticleDAO {
 
 	
 	@Override
-	public List<ArticleDTO> selectAll(int startNo, int endNo) {
-		PageStartEnd se = new PageStartEnd(startNo, endNo); 
+	public List<ArticleDTO> selectAll(int startNo, int endNo, int category) {
+		PageStartEnd se = new PageStartEnd(startNo, endNo, category);
 		return ss.selectList("kr.co.jhta.board.selectAll", se);
 	}
 
@@ -49,12 +48,13 @@ public class ArticleOracleDAO implements ArticleDAO {
 	@Override
 	public void raiseHits(int bno) {
 		ss.update("kr.co.jhta.board.raiseHits", bno);
-		
 	}
 
 	@Override
-	public int getTotal() {
-		return ss.selectOne("kr.co.jhta.board.totalCount");
+	public int getTotal(int category) {
+		int temp = ss.selectOne("kr.co.jhta.board.totalCount", category);
+		System.out.println(temp);
+		return temp;
 	}
 	
 	

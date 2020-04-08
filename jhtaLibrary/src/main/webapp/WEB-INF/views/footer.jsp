@@ -444,7 +444,7 @@ auto
 						<div class="footer_Add">
 							<div class="footer_logo">
 								<img
-									src="https://lib.nyj.go.kr/include/image/common/footer_logo.png">
+									src='<c:url value="/img/footerLogo.jpg"/>'>
 							</div>
 							<ul>
 								<li class="footer_ovh"><p class="footer_lib">화도도서관

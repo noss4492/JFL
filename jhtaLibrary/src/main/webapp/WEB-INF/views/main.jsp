@@ -7,6 +7,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -171,6 +172,17 @@
         } */
         
     </script>
+	<style>
+	#btns1, #btns2{
+	width:50%;
+	border-radius: 0px !important;
+	}
+	#btns1{
+	float:left;
+	}
+
+	
+	</style>
     <title>Document</title>
     
 </head>
@@ -189,7 +201,7 @@
                                 <span class="input-group-addon" id="">
                                     <div class="glyphicon glyphicon-user"></div>
                                 </span>
-                                <input type="text" name="username" class="form-control" placeholder="ID" aria-describedby="sizing-addon1">
+                                <input type="text" name="username" class="form-control" placeholder="ID" aria-describedby="sizing-addon1" >
                             </div>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon" id="">
@@ -197,8 +209,12 @@
                                 </span>
                                 <input type="password" name="password" class="form-control" placeholder="PASSWORD" aria-describedby="sizing-addon1">
                             </div>
+                            <div class="buttonfield">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <button id="btns" type="submit" class="btn btn-lg btn-info btn-block" >로그인</button>
+                            <button id="btns1" type="submit" class="btn btn-lg btn-info btn-block" >일반로그인</button>
+              				  <button id="btns2" type="button" class="btn btn-lg btn-info btn-block" 
+              				  onClick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=788b6c819d4b6c6e2e83afa567cfd156&redirect_uri=http://localhost:8080/jhta/kakaoOauth&response_type=code'">카카오로그인</button>
+        				 </div>
                         </div>
                     </form>
                     <div class="loginMenu">

@@ -325,8 +325,7 @@ ul li {
 									<th>비밀번호</th>
 									<td>
 										<div class="input">
-											<input type="password" name="password" id="uPw" max-width="220"
-												height="5px" >
+											<input type="password" name="password" id="uPw" max-width="220"	height="5px" >
 										</div>
 										<span class="pwjCh"></span>
 									
