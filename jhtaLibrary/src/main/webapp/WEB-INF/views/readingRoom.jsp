@@ -97,7 +97,7 @@
 				+ seconds;
 		
 		nowT = moment().format('YYYY-MM-DD HH:mm:ss');
-		$(".dateView1").val(currentTime);
+		
 		$(".currentTime1").val("현재시간 : "+nowT);
 		$(".currentTime2").val("현재시간 : "+nowT);
 		
@@ -106,7 +106,7 @@
 		<c:forEach var="rdto" items="${list}">
 		data = ${rdto.seatId};
 		
-		$("#seat" + data).css("background", "red");
+		$("#seat" + data).css("background", "#bb0000");
 			
 		
 		</c:forEach>
@@ -128,7 +128,7 @@
 
 			seatId = ${rdto.seatId};
 			if(parseInt(seatNum) == seatId){
- 				alert("이미 자리에 사람 있으니 안됨");
+ 				alert("다른 회원이 좌석을 사용중입니다");
  				return;
 			}else if(rCount>=1){
 				alert("이미 자리를 사용중입니다")
@@ -156,7 +156,7 @@
 				width : 0
 			}, 500);
 			$("#selectSeat").css("display", "none");
-			$('.dateView1').html("");
+			
 			cntMin = 0;
 			$(".hour").val("0시간");
 			$("minute").val("0분");
@@ -229,9 +229,9 @@
 		<div id="readingRoomWrapper">
 			<div id="readingRoomHeadWrapper">
 				<div id="libLogo">
-					<img src="img/phoenix.jpg" alt="errrr">
+					<img src="img/mainPage/logo1.png" alt="errrr">
 				</div>
-				<div id="readingRoomTitle">피닉스 도서관 제1열람실</div>
+				<div id="readingRoomTitle">중앙 도서관 제1열람실</div>
 				<div id="right">
 					<div id="userInfo">${principal.username}님</div>
 					<div id="currentTimeWrapper">
@@ -240,8 +240,8 @@
 				</div>
 			</div>
 			<div id="seatInfo">
-				<div id="seatStatus">"총좌석 : 66 || 사용 가능좌석: "</div>
-				<div id="seatType">사용 가능 : || 사용 중 : </div>
+				<div id="seatStatus">"총좌석 : 66 &nbsp;|| 사용 가능좌석: "</div>
+				<div id="seatType">사용 가능 : <input type="text" id="seatAvail"/>&nbsp;&nbsp;|| 사용 중 : <input type="text" id="seatNotAvail"/></div>
 			</div>
 
 

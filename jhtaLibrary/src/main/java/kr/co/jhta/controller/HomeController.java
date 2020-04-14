@@ -45,6 +45,16 @@ public class HomeController {
 		}
 		return "main";
 	}
+		@RequestMapping(value ="/main2" , method = RequestMethod.GET)
+		public String main2(Principal principal, Model model) {
+			if(principal!=null) {
+				UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
+				model.addAttribute("username", dto.getName());
+				model.addAttribute("userno", dto.getUserId());
+			}
+			return "main2";
+		
+	}
 	@RequestMapping(value ="/content/loginForm" , method = RequestMethod.GET)
 	public String loginForm(Model model) {
 			model.addAttribute("content","");

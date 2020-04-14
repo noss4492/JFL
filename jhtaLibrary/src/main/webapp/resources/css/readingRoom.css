@@ -8,14 +8,13 @@
 #readingRoomWholeWrapper {
 	width: 1900px;
 	height: 980px;
-	background: black;
-	background-color: #DCE3EF;
+	
 	position: relative;
 	/* opacity: 0.2; */
 }
 
 #readingRoomWrapper {
-	background-color: #46B7D9;
+	background-color: #f9f9f9;
 	/* display: inline-block; */
 	width: 1400px;
 	height: 950px;
@@ -36,12 +35,12 @@
 #libLogo {
 	/* display: inline; */
 	width: 33%;
+	padding-top: 10px;
 }
 
 #libLogo img {
-	width: 168px;
-	height: 90px;
 	vertical-align: middle;
+	width: 400px;
 }
 
 #readingRoomTitle {
@@ -58,15 +57,18 @@
 	padding-right: 25px;
 	width: 33%;
 	text-align: right;
+	padding-top: 10px;
 }
 #userInfo{
-	padding-right: 40px;
+	padding-right: 30px;
 	font-size: 30px;
 	font-weight: bold;
 }
 #currentTime {
 	border-style: none;
-	background-color: #46B7D9;
+	width: 190px;
+	background-color: #f9f9f9;
+	padding-right: 30px;
 }
 
 #currentTime:focus {
@@ -90,7 +92,7 @@
 	width: 1350px;
 	height: 700px;
 	padding-top: 70px;
-	background-color: #ff8989;
+	background-color: #2d2d2d;
 	margin: 0 auto;
 	border-radius: 8px;
 	/*             position: relative; */
@@ -122,18 +124,20 @@
 	/* grid-template-columns: repeat(2,1fr);
             grid-template-rows: repeat(3,1fr); */
 }
-
+.red{
+	background-color: #bb0000;
+}
 .seatNum {
-	border: 1px solid rgb(36, 154, 190);
+	border: 1px solid #bbbbbb;
 	width: 58px;
 	border-radius: 8px;
 	text-align: center;
 	color: white;
-	background-color: #46B7D9;
+	background-color: #254d1e;
 }
 .seatNum:hover {
 	background-color: #2ba8cc;
-	cursor:pointer;
+	cursor:pointer;z
 }
 
 #selectSeatWrapper {
@@ -404,4 +408,16 @@ position: relative;
 #signOutWrapper a:hover {
 	text-decoration: none;
 	color: inherit;
+}
+#seatAvail{
+	width: 20px;
+	height: 20px;
+	background-color: #468a33;
+	border-style: none;
+}
+#seatNotAvail{
+	width: 20px;
+	height: 20px;
+	background-color: red;
+	border-style: none;
 }

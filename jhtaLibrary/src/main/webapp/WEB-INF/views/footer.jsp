@@ -448,12 +448,12 @@ auto
 							</div>
 							<ul>
 								<li class="footer_ovh"><p class="footer_lib">화도도서관
-										&nbsp;&nbsp; 경기도 남양주시 화도읍 수레로1260번길 33 &nbsp; &nbsp; TEL :
-										031-590-4587</p>
+										&nbsp;&nbsp; 경기도 중앙주시 화도읍 수레로1260번길 33 &nbsp; &nbsp; TEL :
+										031-690-4887</p>
 							</ul>
 
 
-							<cite>Copyright © 남양주시도서관. ALL RIGHTS RESERVED.</cite>
+							<cite>Copyright © 중앙주시도서관. ALL RIGHTS RESERVED.</cite>
 
 						</div>
 						<!--Footer 텍스트부분-->
