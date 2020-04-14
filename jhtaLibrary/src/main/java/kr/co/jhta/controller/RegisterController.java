@@ -188,23 +188,15 @@ public class RegisterController {
 			System.out.println("메일있음");
 			String sendKey = "가입된 이메일 주소입니다.";
 			request.setAttribute("sendKey", sendKey);
-
-//			return mv;
 		} else {
 			System.out.println("메일없음");
 			ModelAndView mv2 = new ModelAndView();
-
-//			mv2.setViewName("/securityLogin/registerMemberForm/auth.do");
-
 			session.setAttribute("tomail", tomail);
 			session.setAttribute("em1", em1);
 			session.setAttribute("em2", em2);
-
 			String setfrom = "jhta4@nn.com";
-
 			String title = "회원가입 인증 이메일 입니다."; // 제목
 			String content =
-
 					System.getProperty("line.separator") + // 한줄씩 줄간격을 두기위해 작성
 
 							System.getProperty("line.separator") +
@@ -226,7 +218,6 @@ public class RegisterController {
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-
 				messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
 				messageHelper.setTo(tomail); // 받는사람 이메일
 				messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
@@ -242,10 +233,8 @@ public class RegisterController {
 			System.out.println(e_mail);
 			System.out.println(tomail);
 			System.out.println("mv3 : " + mv3);
-
 			model.addAttribute(em1, em1);
 			model.addAttribute(em2, em2);
-
 			response_email.setContentType("text/html; charset=UTF-8");
 			PrintWriter out_email = response_email.getWriter();
 			String sendKey = "이메일이 발송되었습니다. 인증번호를 입력해주세요.";
@@ -289,33 +278,19 @@ public class RegisterController {
 		System.out.println("마지막 : email_injeung : " + email_injeung);
 
 		System.out.println("마지막 : dice : " + dice);
-
 		// 페이지이동과 자료를 동시에 하기위해 ModelAndView를 사용해서 이동할 페이지와 자료를 담음
-
 		ModelAndView mv = new ModelAndView();
-
 		mv.setViewName("/securityLogin/registerMemberForm/register2");
-
 		mv.addObject("e_mail", email_injeung);
-
 		if (email_injeung.equals(dice)) {
-
 			// 인증번호가 일치할 경우 인증번호가 맞다는 창을 출력하고 회원가입창으로 이동함
-
-//            mv.setViewName("register2"); //석근씨가 빼라함
-
 			mv.addObject("e_mail", email_injeung);
-
 			// 만약 인증번호가 같다면 이메일을 회원가입 페이지로 같이 넘겨서 이메일을
-			// 한번더 입력할 필요가 없게 한다.
-
+			// 한번 더 입력할 필요가 없게 한다.
 			response_equals.setContentType("text/html; charset=UTF-8");
 			PrintWriter out_equals = response_equals.getWriter();
-
 			out_equals.flush();
-
 			return mv;
-
 		} else if (email_injeung != dice) {
 
 			ModelAndView mv2 = new ModelAndView();
@@ -324,9 +299,7 @@ public class RegisterController {
 			PrintWriter out_equals = response_equals.getWriter();
 			String keych = "일치하지 않습니다. 다시 확인해주세요";
 			request.setAttribute("keych", keych);
-//            out_equals.println("<script>alert('인증번호가 일치하지않습니다. 인증번호를 다시 입력해주세요.');</script>");
 			out_equals.flush();
-
 			return mv2;
 
 		}

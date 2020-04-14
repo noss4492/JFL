@@ -234,38 +234,27 @@ ul li {
 											<h3>메일 인증</h3>
 											<div class="fieldText">E-mail :</div>
 											<div class="form-inline">
-												<input type="text" name="em1" id="em1" size="10"
-													class="form-control" value="${em1 }"> @ <input
-													type="text" name="em2" id="em2" size="10" value="${em2 }"
-													class="form-control"> <select name="sbox"
-													class="form-control" id="sbox">
+												<input type="text" name="em1" id="em1" size="10"class="form-control" value="${em1 }"> @ 
+												<input type="text" name="em2" id="em2" size="10" value="${em2 }" class="form-control"> 
+												<select name="sbox"	class="form-control" id="sbox">
 													<option value="1">직접입력</option>
 													<option value="naver.com">네이버</option>
 													<option value="daum.com">다음</option>
 													<option value="gmail.com">구글</option>
-												</select> <input type="submit" value="인증코드요청" name="submit" /> <input
-													type="hidden" name="${_csrf.parameterName}"
-													value="${_csrf.token}" />
+												</select> <input type="submit" value="인증코드요청" name="submit" /> 
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 												<div>${sendKey }</div>
 											</div>
 										</form>
 									</div>
-
-
 									<div class="code">
 										<div class="fieldText">인증코드 :</div>
 										<form action="join_injeung.do" method="post">
-											<input type="hidden" name="${_csrf.parameterName}"
-												value="${_csrf.token}" />
-											<!-- <div class="input"> -->
-											<!-- <progress id="progress"> -->
-											<input type="text" name="email_injeung" id="chCo" size="10" />
-											<!-- </progress> -->
-											<!-- </div> -->
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />											
+											<input type="text" name="email_injeung" id="chCo" size="10" />										
 											<div class="keyCh">${keych }</div>
 											<div class="btnfield">
-												<button type="submit" id="agree" class="btn btn-primary"
-													name="submit">본인확인</button>
+												<button type="submit" id="agree" class="btn btn-primary" name="submit">본인확인</button>
 												<button type="button" id="noagree" class="btn btn-warning" onclick="location.href='../../jhta/'">취소</button>
 											</div>
 										</form>
