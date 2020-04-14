@@ -42,8 +42,8 @@ public class MyinfoController {
 		UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
 		model.addAttribute("dto", dto);
 		ModelAndView mv = new ModelAndView();
-		model.addAttribute("category", "회원정보");
-		model.addAttribute("menu", "내정보");		
+		model.addAttribute("category","나만의도서관");
+		model.addAttribute("title","기본정보");		
 		return "/mypage";
 	}	
 	
@@ -52,8 +52,8 @@ public class MyinfoController {
 		UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
 		model.addAttribute("dto", dto);
 		ModelAndView mv = new ModelAndView();
-		model.addAttribute("category", "회원정보");
-		model.addAttribute("menu", "정보변경");		
+		model.addAttribute("category", "나만의도서관");
+		model.addAttribute("title", "정보수정");		
 		return "/infochange";
 
 	}	

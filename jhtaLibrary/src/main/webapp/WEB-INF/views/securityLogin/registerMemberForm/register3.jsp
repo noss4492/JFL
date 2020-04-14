@@ -316,7 +316,6 @@ ul li {
 									<td>
 										<div class="input">
 											<input type="text" name="username" id="user_m_id" max-width="220" />&nbsp;&nbsp;
-<!-- 											<input type="button" value="중복확인" id="btn" /> -->
 											 <span id="id_check"></span>
 										</div>
 									</td>
@@ -450,14 +449,8 @@ ul li {
 
 
 $(document).ready(function(){
-
 		$("#user_m_id").blur(function() {
-
-			var username=$('#user_m_id').val();
-			
-			
-
-			
+			var username=$('#user_m_id').val();		
 			$.ajax({
 			async : false,
 			type : "POST",
