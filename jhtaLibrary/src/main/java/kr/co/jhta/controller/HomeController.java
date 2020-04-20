@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +38,17 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value ="/" , method = RequestMethod.GET)
-	public String main(Principal principal, Model model) {
+	public String main(Principal principal, Model model, HttpSession session) {
 		if(principal!=null) {
+			System.out.println("메인페이지로 왔는데 어쨋든 유저 정보가 있다면");
+			System.out.println("userId를 가져온다.");
 			UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
 			model.addAttribute("username", dto.getName());
 			model.addAttribute("userno", dto.getUserId());
+			session.setAttribute("userId", dto.getUserId());
+			System.out.println("다음 뷰단에 전달 가능 username : "+dto.getName());
+			System.out.println("다음 뷰단에 전달 가능 userno : "+dto.getUserId());
+			System.out.println("세션에 유저 번호를 등록함 >>userId :"+dto.getUserId());
 		}
 		return "main";
 	}
