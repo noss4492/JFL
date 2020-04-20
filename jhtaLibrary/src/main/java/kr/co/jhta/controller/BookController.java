@@ -91,11 +91,18 @@ public class BookController {
 		System.out.println("t : "+tList);
 		System.out.println("lbdtoList : "+ lbdtoList);
 		
+//		페이지에서 사용될 정보 (일반적인 책 정보 +(작가/번역가), 도서관이 소유한 해당 책에 대한 정보) 
 		model.addAttribute("gbdto", gbdto);
 		model.addAttribute("aList", aList);
 		model.addAttribute("tList", tList);
 		model.addAttribute("lbdtoList", lbdtoList);
+
+		for(int itx=0; itx<lbdtoList.size(); itx++) {
+			System.out.println("itx : "+itx);
+			
+		}
 		
+//		상단 분류 표기시 필요한 정보 기입
 		model.addAttribute("category", "자료검색");
 		model.addAttribute("title", "통합검색");
 		model.addAttribute("menu", "간략검색");

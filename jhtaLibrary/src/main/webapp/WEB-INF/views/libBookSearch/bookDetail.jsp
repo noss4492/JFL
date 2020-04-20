@@ -275,7 +275,28 @@
 							</c:choose>
 							</td>
 							<th class="tth"> ${lbdto.libraryBookId } </th>	 
-							<th class="tth"> - </th>	
+							<th class="tth">
+							<!-- 반납예정일은 대여 상태에 따라 구분되어야한다. -->
+							<c:choose>
+								<c:when test="${lbdto.status == 1 }">
+								대여중이니까 이 반납일을 표시함<br>
+								${lbdto.libraryBookId} 이게 도서관 소장도서 번호니까 이걸로 서치하시오<br>
+								
+								</c:when>
+								<c:when test="${lbdto.status == 2 }">
+								대여중(연체)
+								</c:when>
+								<c:when test="${lbdto.status == 3 }">
+								대여중(예약)
+								</c:when>
+								<c:when test="${lbdto.status == 4 }">
+								분실
+								</c:when>
+								<c:otherwise>
+								대여가능
+								</c:otherwise>
+							</c:choose>
+							</th>	
 							<!-- 
 							<c:choose>
 								<c:when test="${borrowedBookEndDate eq null }">

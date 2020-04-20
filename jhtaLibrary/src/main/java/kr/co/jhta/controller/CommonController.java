@@ -71,6 +71,7 @@ public class CommonController {
 	}
 	@RequestMapping(value="/securityLogin/logout")
 	public String slo() {
+//		여기서 세션 username remove하셈
 		return "/securityLogin/logout";
 	}
 	@RequestMapping(value="/login")
