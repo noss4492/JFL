@@ -54,9 +54,13 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		System.out.println("로그인시 성공직후 바로 받아온 유저 이름 : "+username);
 		System.out.println("위 유저 이름으로 검색하여 나온 user_m_id(pk, seq)값을 세션에 등록함");
 		
+		session.setAttribute("username", username);
+		System.out.println("세션에 username을 넣었습니다 username:"+username);
+		
 //		session.setAttribute("userId", udtoX.getUserId()); 안되네요 안되는 이유가 있을텐데
 
-		response.sendRedirect("/jhtaLibrary/");
+//		이게맞지
+		response.sendRedirect("./");
 	}
 }
 
