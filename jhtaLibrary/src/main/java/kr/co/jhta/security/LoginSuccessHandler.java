@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import kr.co.jhta.dto.UserDTO;
 import kr.co.jhta.service.MemberService;
+import kr.co.jhta.service.MemberServiceImpl;
 import lombok.Setter;
 
 // 로그인이 성공하고나서 바로 직후의 시점에 동작할 것들을 이곳에 작성.
@@ -46,16 +47,23 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		if(session == null) {
 			return;
 		}
-		
+/*		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
 		User user = (User) auth.getPrincipal();
 		String username = user.getUsername();
 
+		System.out.println("ms 왜 로드 안되는데 :"+ms);
+		ms = new MemberServiceImpl();
+		System.out.println("왜왜왜 ms DI 안되는데 :"+ms);
+		
+		
 		System.out.println("로그인시 성공직후 바로 받아온 유저 이름 : "+username);
 		System.out.println("위 유저 이름으로 검색하여 나온 user_m_id(pk, seq)값을 세션에 등록함");
 		
-		session.setAttribute("username", username);
-		System.out.println("세션에 username을 넣었습니다 username:"+username);
+		long userId = ms.readOneMemberByName(username).getUserId();
+		session.setAttribute("userId", userId);
+		System.out.println("세션에 userId을 넣었습니다 userId:"+userId);
+*/	
 		
 //		session.setAttribute("userId", udtoX.getUserId()); 안되네요 안되는 이유가 있을텐데
 
