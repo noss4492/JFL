@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import kr.co.jhta.dao.MemberDAO;
 import kr.co.jhta.dto.UserDTO;
+import kr.co.jhta.security.CustomPasswordEncoder;
 import lombok.Setter;
 
 @Service
@@ -31,6 +32,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public void wrtieOneMember(UserDTO dto) {
+		CustomPasswordEncoder cpe;
 		dao.insertOne(dto);
 	}
 	

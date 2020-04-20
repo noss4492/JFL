@@ -278,6 +278,7 @@
 	]]>
 	</select>
 	<select id="selectNewestRandom20" resultType="gbdto">
+	<!-- 메인화면에서 필요한 정보 : 썸네일, 책제목, 작가, ISBN으로 하이퍼링크 만들어서 걸기 -->
 	<![CDATA[
 	select library_book_id libraryBookId, general_book_id, TITLE, AUTHOR_NAME authorName, THUMBNAIL_URL thumbnailUrl
 	from(
