@@ -213,7 +213,7 @@
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             <button id="btns1" type="submit" class="btn btn-lg btn-info btn-block" >일반로그인</button>
               				  <button id="btns2" type="button" class="btn btn-lg btn-info btn-block" 
-              				  onClick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=788b6c819d4b6c6e2e83afa567cfd156&redirect_uri=http://localhost:8080/jhta/kakaoOauth&response_type=code'">카카오로그인</button>
+              				  onClick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=788b6c819d4b6c6e2e83afa567cfd156&redirect_uri=http://ec2-54-180-124-92.ap-northeast-2.compute.amazonaws.com:8080/jhta/kakaoOauth&response_type=code'">카카오로그인</button>
         				 </div>
                         </div>
                     </form>

@@ -56,7 +56,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 //		session.setAttribute("userId", udtoX.getUserId()); 안되네요 안되는 이유가 있을텐데
 
-		response.sendRedirect("/jhta/");
+		response.sendRedirect("/jhtaLibrary/");
 	}
 }
 
