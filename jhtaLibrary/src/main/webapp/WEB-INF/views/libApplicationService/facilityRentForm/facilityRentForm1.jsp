@@ -141,34 +141,12 @@
                     </dl>
                 </div><!-- applyformCore-->
             </div><!-- applyFormWrapper -->
-        </div><!-- wholeWrapper2-->
-    </div><!-- wholeWrapper -->
+        </div><!-- allContents-->
+    </div><!-- mainWrapper -->
    
          
      
    <%@include file="../../footer.jsp"%>
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 </body>
 </html>
