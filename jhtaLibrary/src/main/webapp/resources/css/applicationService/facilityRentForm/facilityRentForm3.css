@@ -172,7 +172,7 @@
             border: none;
         }
         .cal td {
-            height: 20px;
+            height: 80px;
             font-weight: bold;
             line-height: 20px;
             font-size: 1em;
@@ -213,11 +213,24 @@
         #calendar tr:nth-child(1) {
 		border-top: 2px solid black;
 		}
-		#calendar tr:nth-child(1) > th:nth-child(2)  {
-		border-right: none;
-		border-left: none;
+		#calendarTr th:nth-child(1){
+			border-right-style: none;
+			
 		}
-
+		
+		#calendarTr th:nth-child(2){
+			border-right-style: none;
+			border-left-style: none;
+		}
+		#calendarTr th:nth-child(3){
+			border-left-style: none;
+		}
+		#pickTime td{
+			height: 60px;
+			width: 176px;
+		}
+		
+		
 
 
 

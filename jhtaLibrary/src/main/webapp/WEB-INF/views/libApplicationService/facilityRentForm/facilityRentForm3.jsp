@@ -44,6 +44,7 @@
 <script>
 $(document).ready(function() {
     buildCalendar();
+    
 });
 
 //        <li class="on"><a href="#bookBest">대출베스트</a></li>
@@ -121,7 +122,16 @@ function buildCalendar() { //현재 달 달력 만들기
         }
         
     }
+    $(function apply(){
+    	$(".cal td").on("click",function(){
+    	$("#pickTimeTitle input").val(today.getFullYear() + "년 " + (today.getMonth()) + "월"+$(this).text()+"일 신청현황");
+    		
+    	console.log(today.Date());
+    	})
+    	})
 }
+
+
 
 </script>
 </head>
@@ -151,7 +161,7 @@ function buildCalendar() { //현재 달 달력 만들기
                     
                     <div class="cal">
                         <table id="calendar" align="center" >
-                            <tr>
+                            <tr id="calendarTr">
                                 <!-- label은 마우스로 클릭을 편하게 해줌 -->
                                 <th colspan="2"><i class="xi-angle-left caltitle" onclick="prevCalendar()"></i></th>
                                 <th align="center" id="tbCalendarYM" class="caltitle" colspan="3"> 
@@ -183,7 +193,30 @@ function buildCalendar() { //현재 달 달력 만들기
                 </div>
                 </div>	
 						
-						                        
+						
+				<div id="pickTime">
+					<div id="pickTimeTitle">
+					<input type="text" />
+					</div>
+					<div id="pickTimeTable">
+					<table>
+						<tr>
+							<td>10:00</td>
+							<td>11:00</td>
+							<td>12:00</td>
+							<td>13:00</td>
+							<td>14:00</td>
+						</tr>
+						<tr>
+							<td>15:00</td>
+							<td>16:00</td>
+							<td>17:00</td>
+							<td>18:00</td>
+							<td>19:00</td>
+						</tr>					
+					</table>
+					</div>
+				</div>		                        
                         
                         
                         
