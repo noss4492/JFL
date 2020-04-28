@@ -125,13 +125,9 @@ public class ArticleController {
 		Date time = new Date();
 		UserDTO dto = memberServiceImple.readOneMemberByName(principal.getName());
 		model.addAttribute("name", dto.getName());
-		model.addAttribute("time",format1.format(time));
-		
-		
-		
+		model.addAttribute("time",format1.format(time));		
 		model.addAttribute("category", "도서관소식");
-		model.addAttribute("title", "열린소리함");
-		
+		model.addAttribute("title", "열린소리함");		
 		return "boardForm";
 	}
 	

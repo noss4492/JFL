@@ -15,6 +15,6 @@ public interface ReadingRoomService {
 	public long rSelectNoByUserName(String userName);
   
 	public int rCheckUser(long userId);
-	
-	
+
+	public List<Long> rFinish();
 }
