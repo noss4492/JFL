@@ -144,8 +144,9 @@
  			},0);
  			$("#selectSeat").css("display", "block");
 		})
+		
 	});
-
+	
 // 	자리 사용 div 없애는 메소드
 	$(function() {
 		$(".xi-close-square-o").click(function() {
@@ -175,6 +176,7 @@
 			
 		})
 	});
+	
 </script>
 
 
@@ -233,7 +235,7 @@
 				</div>
 				<div id="readingRoomTitle">중앙 도서관 제1열람실</div>
 				<div id="right">
-					<div id="userInfo">${principal.username}님</div>
+					<div id="userInfo">${principal.username}</div>
 					<div id="currentTimeWrapper">
 						<input id="currentTime" type="text" class="currentTime1" />
 					</div>

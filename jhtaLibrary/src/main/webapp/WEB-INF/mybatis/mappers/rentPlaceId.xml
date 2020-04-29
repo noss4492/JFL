@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.co.jhta.rentPlaceId">
+  	
+  	<select id="selectAll" resultType="rpidto">
+  		SELECT RENT_PLACE_ID rentPlaceId, PLACE_ID placeId, USER_M_ID userId, RENT_DATE rentDate, START_TIME startTime, END_TIME endTime, REQUEST_DATE requestDate, STATUS
+  		FROM RENT_PLACE 
+  	</select>
+  	<select id="selectByDate" resultType="rpidto" parameterType="String">
+  		SELECT START_TIME startTime, to_char(trunc(RENT_DATE,'DD'), 'YYYY-MM-DD HH24:MI:SS') rentDate
+  		FROM RENT_PLACE
+  		WHERE RENT_DATE = #{rentDate}
+  		
+  	</select>
+  	<insert id="insertOne" parameterType="rpidto">
+  		INSERT INTO RENT_PLACE
+  		VALUES (RENT_PLACE_SEQ.NEXTVAL, #{placeId},#{userId},TO_DATE(#{startTime}, 'YYYY-MM-DD HH24:MI:SS'),TO_DATE(#{endTime}, 'YYYY-MM-DD HH24:MI:SS'),1 )
+  	
+  	</insert>
+  	
+  	
+  	
+  	
+  	
+  
+  
+  </mapper>

@@ -40,8 +40,16 @@
    margin-left: 50px;
    word-break: keep-all;
 } 
+a{
+height: 80px;
+width: 120px;
+}
 </style>
 <script>
+function dateToMyFormat(y, m, d){
+    return ''+y+'/'+(m<10?'0'+m:m)+'/'+(d<10?'0'+d:d);
+}
+
 $(document).ready(function() {
     buildCalendar();
     
@@ -111,7 +119,7 @@ function buildCalendar() { //현재 달 달력 만들기
     for (i = 1; i <= lastDate.getDate(); i++) {
         //1일부터 마지막 일까지 돌림
         cell = row.insertCell(); //열 한칸한칸 계속 만들어주는 역할
-        cell.innerHTML = i; //셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
+        cell.innerHTML = '<a href=root/rentroom/?'+i+'>'+i+'</a>'; //셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
         cnt = cnt + 1; //열의 갯수를 계속 다음으로 위치하게 해주는 역할
         if (cnt % 7 == 0) {
             /* 1주일이 7일 이므로 토요일 구하기*/
@@ -124,10 +132,35 @@ function buildCalendar() { //현재 달 달력 만들기
     }
     $(function apply(){
     	$(".cal td").on("click",function(){
-    	$("#pickTimeTitle input").val(today.getFullYear() + "년 " + (today.getMonth()) + "월"+$(this).text()+"일 신청현황");
+    	$("#pickTimeTitle input").val(today.getFullYear() + "년 " + (today.getMonth()+1) + "월"+$(this).text()+"일 대관현황");
+    	var date = {
+    			rentDate : dateToMyFormat(today.getFullYear(),(today.getMonth()+1),$(this).text())
+//     				today.getFullYear()+""+(today.getMonth()+1)+""+$(this).text()
+    	}
+    	console.log(date);
+    	$.ajax({
+    		url:"facilityRentInfo",
+    		type:"GET",
+    		data:date,
+    		success:function(data){
+    			
+    			console.log(data);
+    			                  	
+					alert("성공함");
+    		},
+    		error:function(){
+    			alert("에러남");
+    		}
+    	
     		
-    	console.log(today.Date());
     	})
+    	//console.log(today.getFullYear()+"/"+(today.getMonth()+1)+"/"+$(this).text());
+    	})
+    	$(".availability").on("click",function(){
+    		console.log("나오나")
+    		
+    	})
+    	
     	})
 }
 
@@ -201,23 +234,29 @@ function buildCalendar() { //현재 달 달력 만들기
 					<div id="pickTimeTable">
 					<table>
 						<tr>
-							<td>10:00</td>
-							<td>11:00</td>
-							<td>12:00</td>
-							<td>13:00</td>
-							<td>14:00</td>
+							<td>10:00 <input type="button" value="123" class="availability"/></td>
+							<td>11:00 <input type="button" value="" class="availability"/></td>
+							<td>12:00 <input type="button" value="" class="availability"/></td>
+							<td>13:00 <input type="button" value="" class="availability"/></td>
+							<td>14:00 <input type="button" value="" class="availability"/></td>
 						</tr>
 						<tr>
-							<td>15:00</td>
-							<td>16:00</td>
-							<td>17:00</td>
-							<td>18:00</td>
-							<td>19:00</td>
+							<td>15:00 <input type="button" value="" class="availability"/></td>
+							<td>16:00 <input type="button" value="" class="availability"/></td>
+							<td>17:00 <input type="button" value="" class="availability"/></td>
+							<td>18:00 <input type="button" value="" class="availability"/></td>
+							<td>19:00 <input type="button" value="" class="availability"/></td>
 						</tr>					
 					</table>
 					</div>
 				</div>		                        
-                        
+                  <div id="kkk">
+<%--                   <c:forEach var="rpidto" items="${list }"> --%>
+<%--                   	${rpidto.rentPlaceId} --%>
+<%--                   	${rpidto.startTime} --%>
+<%--                   	${rpidto.rentDate} --%>
+<%--                   </c:forEach>     --%>
+                  </div>
                         
                         
                    
