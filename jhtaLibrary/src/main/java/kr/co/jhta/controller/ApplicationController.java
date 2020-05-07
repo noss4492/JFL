@@ -1,6 +1,7 @@
 package kr.co.jhta.controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.jhta.dto.ReadingRoomDTO;
@@ -125,16 +127,21 @@ public class ApplicationController {
 		return mv;
 	}
 	@RequestMapping(value ="/facilityRentInfo" , method = RequestMethod.GET)
-	public ModelAndView facilityRentInfo(String rentDate) {
+	@ResponseBody
+	public ModelAndView facilityRentInfo(String rentDate, @RequestParam(value="rentDate") String date) {
 		
+	    System.out.println(date);
+	    SimpleDateFormat format1;
+	    format1 = new SimpleDateFormat("YYYY-MM-DD");
 	    
 	    ModelAndView mv = new ModelAndView();
 	    
-	    List<RentPlaceIdDTO> list = rpis.rpiSelectByDate(rentDate);
-	    for (RentPlaceIdDTO dto : list) {
-			System.out.println(dto);
+	    List<RentPlaceIdDTO> info = rpis.rpiSelectByDate(date);
+	    for (RentPlaceIdDTO dto1 : info) {
+			
+			System.out.println("뭔가 받아오질 못하나...");
+	    	mv.addObject("dto1", dto1);
 		}
-	    mv.addObject("list1", list);
 	    mv.setViewName("/libApplicationService/facilityRentForm/facilityRentForm3");
 		return mv;
 	}

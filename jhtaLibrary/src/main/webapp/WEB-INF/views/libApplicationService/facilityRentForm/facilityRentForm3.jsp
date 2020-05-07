@@ -25,6 +25,10 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/header.css">
 <script src="js/viewjs/header.js" type="text/javascript"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+	integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ="
+	crossorigin="anonymous"></script>
      
 <title>facilityRentForm3.jsp</title>
 <style>
@@ -130,23 +134,22 @@ function buildCalendar() { //현재 달 달력 만들기
         }
         
     }
-    $(function apply(){
+    $(function info(){
     	$(".cal td").on("click",function(){
     	$("#pickTimeTitle input").val(today.getFullYear() + "년 " + (today.getMonth()+1) + "월"+$(this).text()+"일 대관현황");
     	var date = {
     			rentDate : dateToMyFormat(today.getFullYear(),(today.getMonth()+1),$(this).text())
 //     				today.getFullYear()+""+(today.getMonth()+1)+""+$(this).text()
+		
     	}
     	console.log(date);
     	$.ajax({
     		url:"facilityRentInfo",
     		type:"GET",
+    		dataType:"json",
     		data:date,
     		success:function(data){
     			
-    			console.log(data);
-    			                  	
-					alert("성공함");
     		},
     		error:function(){
     			alert("에러남");
@@ -161,6 +164,21 @@ function buildCalendar() { //현재 달 달력 만들기
     		
     	})
     	
+    	})
+    	$(function rent(){
+    		var date = {
+        			rentDate : dateToMyFormat(today.getFullYear(),(today.getMonth()+1),$(this).text())
+        	}
+    		var nowT = 
+    		
+    		${".placeId"}.val("");
+    		${".userName"}.val(${principal.username});
+    		${".rentDate"}.val(date);
+    		${".startTime"}.val();
+    		${".endTime"}.val(${".startTime"}.val()+1);
+    		${".requestDate"}.val();
+    		${".status"}.val();
+    		
     	})
 }
 
@@ -232,6 +250,14 @@ function buildCalendar() { //현재 달 달력 만들기
 					<input type="text" />
 					</div>
 					<div id="pickTimeTable">
+					<input type="hidden" name="rentPlaceId" value="" />
+					<input type="hidden" name="placeId" value="" />
+					<input type="hidden" name="userName" value="" />
+					<input type="hidden" name="rentDate" value="" />
+					<input type="hidden" name="startTime" value="" />
+					<input type="hidden" name="endTime" value="" />
+					<input type="hidden" name="requestDate" value="" />
+					<input type="hidden" name="status" value="" />
 					<table>
 						<tr>
 							<td>10:00 <input type="button" value="123" class="availability"/></td>
@@ -251,6 +277,7 @@ function buildCalendar() { //현재 달 달력 만들기
 					</div>
 				</div>		                        
                   <div id="kkk">
+                  <input type="text" id="kkkk"/>
 <%--                   <c:forEach var="rpidto" items="${list }"> --%>
 <%--                   	${rpidto.rentPlaceId} --%>
 <%--                   	${rpidto.startTime} --%>
