@@ -68,7 +68,7 @@
 
 
 					<ul class="navBarSub">
-						<li class="navBarLiSub"><a href="<c:url value='book/simpleSearch'/>">통합검색</a></li>
+						<li class="navBarLiSub"><a href="<c:url value='/book/simpleSearch'/>">통합검색</a></li>
 						<li class="navBarLiSub"><a href="">주제별검색</a></li>
 						<li class="navBarLiSub"><a href="">신착자료검색</a></li>
 						<li class="navBarLiSub"><a href="">대출베스트</a></li>
