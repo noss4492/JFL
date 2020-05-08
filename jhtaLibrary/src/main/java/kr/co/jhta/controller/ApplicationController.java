@@ -2,10 +2,7 @@ package kr.co.jhta.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-
-
 import java.util.Date;
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,20 +17,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.jhta.dto.ReadingRoomDTO;
-
 import kr.co.jhta.dto.RentPlaceIdDTO;
-
 import kr.co.jhta.dto.UserDTO;
-
 import kr.co.jhta.service.MemberService;
 import kr.co.jhta.service.ReadingRoomService;
 import kr.co.jhta.service.RentPlaceIdService;
@@ -43,6 +34,8 @@ import lombok.Setter;
 @Controller
 @Component
 public class ApplicationController {
+
+	
 	@Setter(onMethod=@__({@Autowired}))
 	ReadingRoomService rrs;
 	
@@ -54,6 +47,8 @@ public class ApplicationController {
 	
 	@RequestMapping(value ="/readingRoom" , method = RequestMethod.GET)
 	public ModelAndView readingRoom(Principal principal) {
+		
+		
 		ModelAndView mv = new ModelAndView();
 		List<ReadingRoomDTO> list = rrs.rSelectAll();
 		long userId = rrs.rSelectNoByUserName(principal.getName());
@@ -61,8 +56,15 @@ public class ApplicationController {
 		mv.addObject("list", list);
 		mv.addObject("rCount", rCount);
 		mv.setViewName("/readingRoom");
+		
+		
+			
+		
+		
 		//long loggedUserNo = ms.readOneMember(principal.getName()).getUserId();
+		
 		//mv.addObject("loggedUserNo", loggedUserNo);
+		
 		return mv;
 	}
 	
