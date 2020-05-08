@@ -45,4 +45,9 @@ public class ReadingRoomServiceImple implements ReadingRoomService{
 		return dao.rCheckUser(userId);
 	}
 
+	@Override
+	public List<Long> rFinish() {
+	 return dao.rFinish();
+	}
+
 }

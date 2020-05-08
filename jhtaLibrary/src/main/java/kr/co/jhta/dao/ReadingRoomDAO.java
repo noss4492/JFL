@@ -13,6 +13,7 @@ public interface ReadingRoomDAO {
 	public void rCancel(long userId);
 	public long rSelectNoByUserName(String userName);
 	public int rCheckUser(long userId);
+	public List<Long> rFinish();
 	
 	
 }
