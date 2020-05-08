@@ -26,4 +26,9 @@ public class RentPlaceIdServiceImple implements RentPlaceIdService{
 		return dao.rpiSelectByDate(rentDate);
 	}
 
+	@Override
+	public void rpiReserve(RentPlaceIdDTO rpidto) {
+		dao.rpiReserve(rpidto);
+	}
+
 }

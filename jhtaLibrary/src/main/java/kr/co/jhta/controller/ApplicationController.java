@@ -128,24 +128,46 @@ public class ApplicationController {
 	}
 	@RequestMapping(value ="/facilityRentInfo" , method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView facilityRentInfo(String rentDate, @RequestParam(value="rentDate") String date) {
-		
-	    System.out.println(date);
+	public ModelAndView facilityRentInfo(@RequestParam(value="rentDate") String rentDate) {
+		System.out.println("여기까진 오니...");
+	    System.out.println(rentDate);
 	    SimpleDateFormat format1;
 	    format1 = new SimpleDateFormat("YYYY-MM-DD");
 	    
 	    ModelAndView mv = new ModelAndView();
 	    
-	    List<RentPlaceIdDTO> info = rpis.rpiSelectByDate(date);
+	    List<RentPlaceIdDTO> info = rpis.rpiSelectByDate(rentDate);
 	    for (RentPlaceIdDTO dto1 : info) {
 			
-			System.out.println("뭔가 받아오질 못하나...");
 	    	mv.addObject("dto1", dto1);
 		}
 	    mv.setViewName("/libApplicationService/facilityRentForm/facilityRentForm3");
 		return mv;
 	}
-	
+	@RequestMapping(value="/rentPlace", method = RequestMethod.GET)
+	public String rentPlace(@RequestParam("rentPlaceId")long rentPlaceId, @RequestParam("placeId")long placeId,
+			@RequestParam("userName")String userName, @RequestParam("rentDate")String rentDate,
+			@RequestParam("startTime")String startTime, @RequestParam("endTime")String endTime,
+			@RequestParam("requestDate")String requestDate,@RequestParam("status")byte status,
+			Principal principal) {
+
+		long userId = rrs.rSelectNoByUserName(userName);
+
+//		int rCount = rrs.rCheckUser(userId);
+//		if(rCount>=1) {
+//			System.out.println("2자리 이상 사용 하실 수 없습니다.");
+//		}else {
+//			
+//		}
+		RentPlaceIdDTO rpidto = new RentPlaceIdDTO(rentPlaceId,placeId,userId,rentDate,startTime,endTime,requestDate,status);
+		rpis.rpiReserve(rpidto);
+//		model.addAttribute("rdto", rdto);
+		
+//		System.out.println(rdto);
+//		System.out.println(rdto.toString());
+		//rrs.reserveOne(rdto);
+		return "redirect:facilityRentForm3";
+	}
 	
 	@RequestMapping(value ="/tourApplication1" , method = RequestMethod.GET)
 	public String tourApplication1(Model model) {

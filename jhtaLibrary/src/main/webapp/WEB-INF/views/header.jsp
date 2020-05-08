@@ -80,7 +80,7 @@
 				<li class="navBarLi"><a href="./facilityRentForm1">신청서비스</a>
 
 					<ul class="navBarSub">
-						<li class="navBarLiSub"><a href="./facilityRentForm1">시설대관신청</a></li>
+						<li class="navBarLiSub"><a href="<c:url value='facilityRentForm1'/>">시설대관신청</a></li>
 						<li class="navBarLiSub"><a href="./tourApplication1">도서관견학신청</a></li>
 						<li class="navBarLiSub"><a href="">자원봉사신청</a></li>
 					</ul></li>

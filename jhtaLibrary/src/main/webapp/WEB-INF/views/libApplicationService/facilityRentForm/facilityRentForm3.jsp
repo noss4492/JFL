@@ -50,8 +50,12 @@ width: 120px;
 }
 </style>
 <script>
+var nowT;
+var selectedDay;
+
+
 function dateToMyFormat(y, m, d){
-    return ''+y+'/'+(m<10?'0'+m:m)+'/'+(d<10?'0'+d:d);
+    return ''+y+'-'+(m<10?'0'+m:m)+'-'+(d<10?'0'+d:d);
 }
 
 $(document).ready(function() {
@@ -136,6 +140,9 @@ function buildCalendar() { //현재 달 달력 만들기
     }
     $(function info(){
     	$(".cal td").on("click",function(){
+    	selectedDay = today.getFullYear() + "-" + (today.getMonth()+1) + "-"+$(this).text()
+    	
+    	console.log(selectedDay);
     	$("#pickTimeTitle input").val(today.getFullYear() + "년 " + (today.getMonth()+1) + "월"+$(this).text()+"일 대관현황");
     	var date = {
     			rentDate : dateToMyFormat(today.getFullYear(),(today.getMonth()+1),$(this).text())
@@ -146,7 +153,7 @@ function buildCalendar() { //현재 달 달력 만들기
     	$.ajax({
     		url:"facilityRentInfo",
     		type:"GET",
-    		dataType:"json",
+    		
     		data:date,
     		success:function(data){
     			
@@ -166,18 +173,22 @@ function buildCalendar() { //현재 달 달력 만들기
     	
     	})
     	$(function rent(){
-    		var date = {
-        			rentDate : dateToMyFormat(today.getFullYear(),(today.getMonth()+1),$(this).text())
-        	}
-    		var nowT = 
     		
-    		${".placeId"}.val("");
+    		//nowT = moment().format('YYYY-MM-DD');
+    		$(".availability").on("click",function(){
+    		
     		${".userName"}.val(${principal.username});
     		${".rentDate"}.val(date);
-    		${".startTime"}.val();
-    		${".endTime"}.val(${".startTime"}.val()+1);
-    		${".requestDate"}.val();
-    		${".status"}.val();
+    		${".startTime"}.val(date+$(this).text());
+    		${".endTime"}.val(nowT);
+    		${".requestDate"}.val(nowT);
+    		document.frm.action = "rentPlace";
+			document.frm.method = "get";
+			document.frm.submit();
+    		
+    			
+    		})
+    		
     		
     	})
 }
@@ -244,23 +255,24 @@ function buildCalendar() { //현재 달 달력 만들기
                 </div>
                 </div>	
 						
-						
+				<form action="rentPlace" name="frm">
+				
 				<div id="pickTime">
 					<div id="pickTimeTitle">
 					<input type="text" />
 					</div>
 					<div id="pickTimeTable">
-					<input type="hidden" name="rentPlaceId" value="" />
-					<input type="hidden" name="placeId" value="" />
+					<input type="hidden" name="rentPlaceId" value="1" />
+					<input type="hidden" name="placeId" value="1" />
 					<input type="hidden" name="userName" value="" />
 					<input type="hidden" name="rentDate" value="" />
 					<input type="hidden" name="startTime" value="" />
 					<input type="hidden" name="endTime" value="" />
 					<input type="hidden" name="requestDate" value="" />
-					<input type="hidden" name="status" value="" />
+					<input type="hidden" name="status" value="1" />
 					<table>
 						<tr>
-							<td>10:00 <input type="button" value="123" class="availability"/></td>
+							<td>10:00 <input type="button" value="" class="availability"/></td>
 							<td>11:00 <input type="button" value="" class="availability"/></td>
 							<td>12:00 <input type="button" value="" class="availability"/></td>
 							<td>13:00 <input type="button" value="" class="availability"/></td>
@@ -276,6 +288,7 @@ function buildCalendar() { //현재 달 달력 만들기
 					</table>
 					</div>
 				</div>		                        
+				</form>		
                   <div id="kkk">
                   <input type="text" id="kkkk"/>
 <%--                   <c:forEach var="rpidto" items="${list }"> --%>

@@ -29,4 +29,10 @@ public class RentPlaceIdDAOImple implements RentPlaceIdDAO{
 		return ss.selectList("kr.co.jhta.rentPlaceId.selectByDate");
 	}
 
+
+	@Override
+	public void rpiReserve(RentPlaceIdDTO rpidto) {
+		ss.insert("kr.co.jhta.rentPlaceId.rpiReserve", rpidto);
+	}
+
 }
