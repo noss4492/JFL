@@ -174,14 +174,14 @@ function buildCalendar() { //현재 달 달력 만들기
     	})
     	$(function rent(){
     		
-    		//nowT = moment().format('YYYY-MM-DD');
+    		nowT = moment().format('YYYY-MM-DD');
     		$(".availability").on("click",function(){
-    		
-    		${".userName"}.val(${principal.username});
-    		${".rentDate"}.val(date);
-    		${".startTime"}.val(date+$(this).text());
-    		${".endTime"}.val(nowT);
-    		${".requestDate"}.val(nowT);
+    		//var username = ${principal.username};
+    		$(".userName").val("guest99");
+    		$(".rentDate").val(date);
+    		$(".startTime").val(date+$(this).text());
+    		$(".endTime").val(nowT);
+    		$(".requestDate").val(nowT);
     		document.frm.action = "rentPlace";
 			document.frm.method = "get";
 			document.frm.submit();
@@ -272,7 +272,7 @@ function buildCalendar() { //현재 달 달력 만들기
 					<input type="hidden" name="status" value="1" />
 					<table>
 						<tr>
-							<td>10:00 <input type="button" value="" class="availability"/></td>
+							<td>10:00 <input type="button" value="10:00" class="availability"/></td>
 							<td>11:00 <input type="button" value="" class="availability"/></td>
 							<td>12:00 <input type="button" value="" class="availability"/></td>
 							<td>13:00 <input type="button" value="" class="availability"/></td>

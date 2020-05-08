@@ -51,4 +51,10 @@ public class ReadingRoomDAOImple implements ReadingRoomDAO {
 		return ss.selectOne("kr.co.jhta.readingRoom.rCheckUser", userId);
 	}
 
+	@Override
+	public List<Long> rFinish() {
+		// TODO Auto-generated method stub
+		return ss.selectList("kr.co.jhta.readingRoom.rFinish");
+	}
+
 }
