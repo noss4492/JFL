@@ -1,1 +1,261 @@
 @charset "UTF-8";
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+ 
+
+
+#header {
+	width: 100%;
+	height: 206px;
+}
+
+#wholeWrapper1 {
+	width: 100%;
+}
+
+#wholeWrapper2 {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+#sideNav {
+	float: left;
+	width: 270px;
+	height: 400px;
+	background-color: red;
+	border: 2px solid black;
+}
+
+#applyFormWrapper {
+	width: 880px;
+	
+	float: right;
+}
+
+#applyformTitleandNav {
+	width: 100%;
+	height: 161px;
+}
+
+#applyformTitleandNav h3 {
+	height: 50px;
+	margin-top: 30px;
+	padding-top: 20px;
+	font-size: 1.875em;
+	font-family: 'Nanum Gothic';
+	font-weight: lighter;
+}
+
+#applyformNavBar {
+	height: 51px;
+	border-top: 1px solid rgb(226, 214, 214, 0.904);
+	border-bottom: 1px solid rgba(226, 214, 214, 0.904);
+}
+
+#applyformNavBar span {
+	display: inline-block;
+	line-height: 50px;
+}
+
+#applyformNavBar>a>i:nth-child(1) {
+	position: relative;
+	top: 5px;
+}
+
+#applyformCore {
+	width: 100%;
+	padding-bottom: 50px;
+}
+
+#tabNav {
+	width: 100%;
+	height: 50px;
+	text-align: center;
+}
+
+#tabNavContents {
+	list-style: none;
+	vertical-align: middle;
+	height: 50px;
+}
+
+#tabNavContents li {
+	float: left;
+	width: 33.1%;
+	border: 1px solid rgb(226, 214, 214, 0.904);
+	height: 50px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: block;
+}
+#tabNavContents a 	{ text-decoration: none;}
+#tabNavContents a:link { color: #46B7D9; text-decoration: none;}
+#tabNavContents a:hover { color: whiet; text-decoration: none;}
+
+/* #tabNavContents li:nth-child(1){ */
+/* 	background-color: #46B7D9; */
+/* } */
+#tabNavContents li:nth-child(3) {
+            
+            background-color: #46B7D9;
+            color: white;
+}
+
+#calYearMonth>table{
+	text-align: center;
+	display: blockl;
+	margin: 0 auto;
+}
+.schedule>h4 {
+            position: relative;
+            font-size: 1.563em;
+            background: #444;
+            color: #fff;
+            text-align: left;
+            z-index: 1;
+            padding: 0 20px;
+            line-height: 60px;
+            margin: 0;
+        }
+
+        #plus5 {
+            margin-left: 150px;
+            color: #ffffff;
+        }
+
+        .topgroup {
+            text-align: center;
+            padding-top: 15px;
+            margin-bottom: 15px;
+            height: 46px;
+        }
+
+        .topgroup>span,
+        .topgroup>a {
+            font-size: 27px;
+        }
+
+        .cal {
+            width: 880px;
+            height: 606px;
+            padding: 20px;
+            
+        }
+/*         .cal tr:nth-child(2) th{ */
+/*             border-bottom: 1px solid #ddd; */
+/*         } */
+  #calendar tr, td,th{
+        border: 1px solid black;
+        }
+        .cal th {
+            height: 20px;
+            font-weight: bold;
+            line-height: 20px;
+            color: #666666;
+            padding-bottom: 10px;
+            width: 125px;
+            height: 50px;
+            text-align: center;
+           
+        }
+
+        .cal tr:nth-child(1) th{
+            font-size: 20px;
+        }
+        
+        .cal tr{
+            border: none;
+        }
+        .cal td {
+            height: 80px;
+            font-weight: bold;
+            line-height: 20px;
+            font-size: 1em;
+            color: #666666;
+            width: 43px;
+            height: 80px;
+            
+        }
+        .cal_info{
+            text-align: center;
+        }
+        .schedule .cal_info i.redcircle{
+            width:15px;
+            height:15px;
+            margin:0 1px;
+            background:#fc424d; 
+            border-radius:50%;
+            display: inline-block;            
+        }
+        .schedule .cal_info i.bluesquare{
+            width:15px;
+            height:15px;
+            background:#008ace;
+            display: inline-block;
+        }
+        .schedule .cal_info i.greensquare{
+            width:15px;
+            height:15px;
+            background:#1ea953;
+            display: inline-block;
+        }
+/*         #calendar{ */
+/*         border: 1px solid black; */
+/*         border-collapse: collapse; */
+        
+/*         } */
+      
+        #calendar tr:nth-child(1) {
+		border-top: 2px solid black;
+		}
+		#calendarTr th:nth-child(1){
+			border-right-style: none;
+			
+		}
+		
+		#calendarTr th:nth-child(2){
+			border-right-style: none;
+			border-left-style: none;
+		}
+		#calendarTr th:nth-child(3){
+			border-left-style: none;
+		}
+		#pickTime td{
+			height: 60px;
+			width: 176px;
+		}
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
