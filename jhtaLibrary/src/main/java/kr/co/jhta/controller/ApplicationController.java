@@ -1,6 +1,7 @@
 package kr.co.jhta.controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.jhta.dto.ReadingRoomDTO;
+import kr.co.jhta.dto.RentPlaceIdDTO;
 import kr.co.jhta.service.MemberService;
 import kr.co.jhta.service.ReadingRoomService;
+import kr.co.jhta.service.RentPlaceIdService;
+import kr.co.jhta.service.RentPlaceIdServiceImple;
 import lombok.Setter;
 
 @Controller
@@ -27,19 +32,28 @@ public class ApplicationController {
 	@Setter(onMethod=@__({@Autowired}))
 	MemberService ms;
 	
+	@Setter(onMethod=@__({@Autowired}))
+	RentPlaceIdService rpis;
+	
 	@RequestMapping(value ="/readingRoom" , method = RequestMethod.GET)
 	public ModelAndView readingRoom(Principal principal) {
-		ModelAndView mv = new ModelAndView();
 		
+		
+		ModelAndView mv = new ModelAndView();
 		List<ReadingRoomDTO> list = rrs.rSelectAll();
 		long userId = rrs.rSelectNoByUserName(principal.getName());
 		int rCount = rrs.rCheckUser(userId);
-		//long loggedUserNo = ms.readOneMember(principal.getName()).getUserId();
-		
-		//mv.addObject("loggedUserNo", loggedUserNo);
 		mv.addObject("list", list);
 		mv.addObject("rCount", rCount);
 		mv.setViewName("/readingRoom");
+		
+		
+			
+		
+		
+		//long loggedUserNo = ms.readOneMember(principal.getName()).getUserId();
+		
+		//mv.addObject("loggedUserNo", loggedUserNo);
 		
 		return mv;
 	}
@@ -83,6 +97,99 @@ public class ApplicationController {
 		return "redirect:readingRoom";
 	}
 	//////////////////////////////////신청서비스 관련////////////////////////////////////////
+	@RequestMapping(value ="/facilityRentForm1" , method = RequestMethod.GET)
+	public String facilityRentForm1(Model model) {
+		  model.addAttribute("category", "신청서비스");
+	      model.addAttribute("title", "시설대관신청");
+	      model.addAttribute("menu", "대관안내");
+
+		return "libApplicationService/facilityRentForm/facilityRentForm1";
+	}
+	@RequestMapping(value ="/facilityRentForm2" , method = RequestMethod.GET)
+	public String facilityRentForm2(Model model) {
+		model.addAttribute("category", "신청서비스");
+	      model.addAttribute("title", "시설대관신청");
+	      model.addAttribute("menu", "시설안내");
+		return "/libApplicationService/facilityRentForm/facilityRentForm2facilityRentForm2";
+	}
+	@RequestMapping(value ="/facilityRentForm3" , method = RequestMethod.GET)
+	public ModelAndView facilityRentForm3(Model model) {
+		model.addAttribute("category", "신청서비스");
+	    model.addAttribute("title", "시설대관신청");
+	    model.addAttribute("menu", "신청현황/신청하기");
+	    
+	    ModelAndView mv = new ModelAndView();
+	    
+	    List<RentPlaceIdDTO> list = rpis.rpiSelectAll();
+	    
+	    mv.addObject("list", list);
+	    mv.setViewName("/libApplicationService/facilityRentForm/facilityRentForm3");
+		return mv;
+	}
+	@RequestMapping(value ="/facilityRentInfo" , method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView facilityRentInfo(@RequestParam(value="rentDate") String rentDate) {
+		System.out.println("여기까진 오니...");
+	    System.out.println(rentDate);
+	    SimpleDateFormat format1;
+	    format1 = new SimpleDateFormat("YYYY-MM-DD");
+	    
+	    ModelAndView mv = new ModelAndView();
+	    
+	    List<RentPlaceIdDTO> info = rpis.rpiSelectByDate(rentDate);
+	    for (RentPlaceIdDTO dto1 : info) {
+			
+	    	mv.addObject("dto1", dto1);
+		}
+	    mv.setViewName("/libApplicationService/facilityRentForm/facilityRentForm3");
+		return mv;
+	}
+	@RequestMapping(value="/rentPlace", method = RequestMethod.GET)
+	public String rentPlace(@RequestParam("rentPlaceId")long rentPlaceId, @RequestParam("placeId")long placeId,
+			@RequestParam("userName")String userName, @RequestParam("rentDate")String rentDate,
+			@RequestParam("startTime")String startTime, @RequestParam("endTime")String endTime,
+			@RequestParam("requestDate")String requestDate,@RequestParam("status")byte status,
+			Principal principal) {
+
+		long userId = rrs.rSelectNoByUserName(userName);
+
+//		int rCount = rrs.rCheckUser(userId);
+//		if(rCount>=1) {
+//			System.out.println("2자리 이상 사용 하실 수 없습니다.");
+//		}else {
+//			
+//		}
+		RentPlaceIdDTO rpidto = new RentPlaceIdDTO(rentPlaceId,placeId,userId,rentDate,startTime,endTime,requestDate,status);
+		rpis.rpiReserve(rpidto);
+//		model.addAttribute("rdto", rdto);
+		
+//		System.out.println(rdto);
+//		System.out.println(rdto.toString());
+		//rrs.reserveOne(rdto);
+		return "redirect:facilityRentForm3";
+	}
 	
+	@RequestMapping(value ="/tourApplication1" , method = RequestMethod.GET)
+	public String tourApplication1(Model model) {
+			model.addAttribute("category", "신청서비스");
+	      model.addAttribute("title", "도서관견학신청");
+	      model.addAttribute("menu", "신청안내");
+		return "/libApplicationService/tourApplication/tourApplication1";
+	}
+	@RequestMapping(value ="/tourApplication2" , method = RequestMethod.GET)
+	public String tourApplication2(Model model) {
+		model.addAttribute("category", "신청서비스");
+	      model.addAttribute("title", "도서관견학신청");
+	      model.addAttribute("menu", "신청현황/신청하기");
+		return "/libApplicationService/tourApplication/tourApplication2";
+	}
+	@RequestMapping(value ="/volunteerApplication1" , method = RequestMethod.GET)
+	public String volunteerApplication() {
+		return "/libApplicationService/volunteerApplication/volunteerApplication1";
+	}
+	@RequestMapping(value ="/basicForm" , method = RequestMethod.GET)
+	public String basicForm() {
+		return "/basicForm";
+	}
 	
 }

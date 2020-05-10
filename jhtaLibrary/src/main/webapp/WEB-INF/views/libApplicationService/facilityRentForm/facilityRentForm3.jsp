@@ -25,6 +25,10 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/header.css">
 <script src="js/viewjs/header.js" type="text/javascript"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+	integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ="
+	crossorigin="anonymous"></script>
      
 <title>facilityRentForm3.jsp</title>
 <style>
@@ -40,8 +44,20 @@
    margin-left: 50px;
    word-break: keep-all;
 } 
+a{
+height: 80px;
+width: 120px;
+}
 </style>
 <script>
+var nowT;
+var selectedDay;
+
+
+function dateToMyFormat(y, m, d){
+    return ''+y+'-'+(m<10?'0'+m:m)+'-'+(d<10?'0'+d:d);
+}
+
 $(document).ready(function() {
     buildCalendar();
     
@@ -111,7 +127,7 @@ function buildCalendar() { //현재 달 달력 만들기
     for (i = 1; i <= lastDate.getDate(); i++) {
         //1일부터 마지막 일까지 돌림
         cell = row.insertCell(); //열 한칸한칸 계속 만들어주는 역할
-        cell.innerHTML = i; //셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
+        cell.innerHTML = '<a href=root/rentroom/?'+i+'>'+i+'</a>'; //셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
         cnt = cnt + 1; //열의 갯수를 계속 다음으로 위치하게 해주는 역할
         if (cnt % 7 == 0) {
             /* 1주일이 7일 이므로 토요일 구하기*/
@@ -122,12 +138,58 @@ function buildCalendar() { //현재 달 달력 만들기
         }
         
     }
-    $(function apply(){
+    $(function info(){
     	$(".cal td").on("click",function(){
-    	$("#pickTimeTitle input").val(today.getFullYear() + "년 " + (today.getMonth()) + "월"+$(this).text()+"일 신청현황");
+    	selectedDay = today.getFullYear() + "-" + (today.getMonth()+1) + "-"+$(this).text()
+    	
+    	console.log(selectedDay);
+    	$("#pickTimeTitle input").val(today.getFullYear() + "년 " + (today.getMonth()+1) + "월"+$(this).text()+"일 대관현황");
+    	var date = {
+    			rentDate : dateToMyFormat(today.getFullYear(),(today.getMonth()+1),$(this).text())
+//     				today.getFullYear()+""+(today.getMonth()+1)+""+$(this).text()
+		
+    	}
+    	console.log(date);
+    	$.ajax({
+    		url:"facilityRentInfo",
+    		type:"GET",
     		
-    	console.log(today.Date());
+    		data:date,
+    		success:function(data){
+    			
+    		},
+    		error:function(){
+    			alert("에러남");
+    		}
+    	
+    		
     	})
+    	//console.log(today.getFullYear()+"/"+(today.getMonth()+1)+"/"+$(this).text());
+    	})
+    	$(".availability").on("click",function(){
+    		console.log("나오나")
+    		
+    	})
+    	
+    	})
+    	$(function rent(){
+    		
+    		//nowT = moment().format('YYYY-MM-DD');
+    		$(".availability").on("click",function(){
+    		
+    		${".userName"}.val(${principal.username});
+    		${".rentDate"}.val(date);
+    		${".startTime"}.val(date+$(this).text());
+    		${".endTime"}.val(nowT);
+    		${".requestDate"}.val(nowT);
+    		document.frm.action = "rentPlace";
+			document.frm.method = "get";
+			document.frm.submit();
+    		
+    			
+    		})
+    		
+    		
     	})
 }
 
@@ -193,31 +255,48 @@ function buildCalendar() { //현재 달 달력 만들기
                 </div>
                 </div>	
 						
-						
+				<form action="rentPlace" name="frm">
+				
 				<div id="pickTime">
 					<div id="pickTimeTitle">
 					<input type="text" />
 					</div>
 					<div id="pickTimeTable">
+					<input type="hidden" name="rentPlaceId" value="1" />
+					<input type="hidden" name="placeId" value="1" />
+					<input type="hidden" name="userName" value="" />
+					<input type="hidden" name="rentDate" value="" />
+					<input type="hidden" name="startTime" value="" />
+					<input type="hidden" name="endTime" value="" />
+					<input type="hidden" name="requestDate" value="" />
+					<input type="hidden" name="status" value="1" />
 					<table>
 						<tr>
-							<td>10:00</td>
-							<td>11:00</td>
-							<td>12:00</td>
-							<td>13:00</td>
-							<td>14:00</td>
+							<td>10:00 <input type="button" value="" class="availability"/></td>
+							<td>11:00 <input type="button" value="" class="availability"/></td>
+							<td>12:00 <input type="button" value="" class="availability"/></td>
+							<td>13:00 <input type="button" value="" class="availability"/></td>
+							<td>14:00 <input type="button" value="" class="availability"/></td>
 						</tr>
 						<tr>
-							<td>15:00</td>
-							<td>16:00</td>
-							<td>17:00</td>
-							<td>18:00</td>
-							<td>19:00</td>
+							<td>15:00 <input type="button" value="" class="availability"/></td>
+							<td>16:00 <input type="button" value="" class="availability"/></td>
+							<td>17:00 <input type="button" value="" class="availability"/></td>
+							<td>18:00 <input type="button" value="" class="availability"/></td>
+							<td>19:00 <input type="button" value="" class="availability"/></td>
 						</tr>					
 					</table>
 					</div>
 				</div>		                        
-                        
+				</form>		
+                  <div id="kkk">
+                  <input type="text" id="kkkk"/>
+<%--                   <c:forEach var="rpidto" items="${list }"> --%>
+<%--                   	${rpidto.rentPlaceId} --%>
+<%--                   	${rpidto.startTime} --%>
+<%--                   	${rpidto.rentDate} --%>
+<%--                   </c:forEach>     --%>
+                  </div>
                         
                         
                    

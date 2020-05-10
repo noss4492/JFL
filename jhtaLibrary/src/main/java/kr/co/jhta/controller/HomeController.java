@@ -108,50 +108,7 @@ public class HomeController {
 	public String header2() {
 		return "header2";
 	}
-	@RequestMapping(value ="/facilityRentForm1" , method = RequestMethod.GET)
-	public String facilityRentForm1(Model model) {
-		  model.addAttribute("category", "신청서비스");
-	      model.addAttribute("title", "시설대관신청");
-	      model.addAttribute("menu", "대관안내");
-
-		return "libApplicationService/facilityRentForm/facilityRentForm1";
-	}
-	@RequestMapping(value ="/facilityRentForm2" , method = RequestMethod.GET)
-	public String facilityRentForm2(Model model) {
-		model.addAttribute("category", "신청서비스");
-	      model.addAttribute("title", "시설대관신청");
-	      model.addAttribute("menu", "시설안내");
-		return "/libApplicationService/facilityRentForm/facilityRentForm2";
-	}
-	@RequestMapping(value ="/facilityRentForm3" , method = RequestMethod.GET)
-	public String facilityRentForm3(Model model) {
-			model.addAttribute("category", "신청서비스");
-	      model.addAttribute("title", "시설대관신청");
-	      model.addAttribute("menu", "신청현황/신청하기");
-		return "/libApplicationService/facilityRentForm/facilityRentForm3";
-	}
-	@RequestMapping(value ="/tourApplication1" , method = RequestMethod.GET)
-	public String tourApplication1(Model model) {
-			model.addAttribute("category", "신청서비스");
-	      model.addAttribute("title", "도서관견학신청");
-	      model.addAttribute("menu", "신청안내");
-		return "/libApplicationService/tourApplication/tourApplication1";
-	}
-	@RequestMapping(value ="/tourApplication2" , method = RequestMethod.GET)
-	public String tourApplication2(Model model) {
-		model.addAttribute("category", "신청서비스");
-	      model.addAttribute("title", "도서관견학신청");
-	      model.addAttribute("menu", "신청현황/신청하기");
-		return "/libApplicationService/tourApplication/tourApplication2";
-	}
-	@RequestMapping(value ="/volunteerApplication1" , method = RequestMethod.GET)
-	public String volunteerApplication() {
-		return "/libApplicationService/volunteerApplication/volunteerApplication1";
-	}
-	@RequestMapping(value ="/basicForm" , method = RequestMethod.GET)
-	public String basicForm() {
-		return "/basicForm";
-	}
+	
 	
 //	준영 end
 }

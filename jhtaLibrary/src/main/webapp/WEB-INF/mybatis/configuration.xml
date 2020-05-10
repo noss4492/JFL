@@ -22,6 +22,9 @@
 		<typeAlias type="kr.co.jhta.dto.GeneralBookDTO" alias="gbdto"/>
 		<!--2020-03-31준영  -->
 		<typeAlias type="kr.co.jhta.dto.ReadingRoomDTO" alias="rdto"/>
+		<!--2020-04-23준영  -->
+		<typeAlias type="kr.co.jhta.dto.RentPlaceIdDTO" alias="rpidto"/>
+		
 	</typeAliases>
 
 	<!-- <mappers> 어떻게 해도 web-inf 경로가 안먹네... 이쪽에서는 접근 불가능인가봄-->
