@@ -29,7 +29,15 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
 	integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ="
 	crossorigin="anonymous"></script>
-     
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+
 <title>facilityRentForm3.jsp</title>
 <style>
 	#mainWrapper {
@@ -172,28 +180,61 @@ function buildCalendar() { //현재 달 달력 만들기
     	})
     	
     	})
-    	$(function rent(){
+//     	$(function rent(){
     		
-    		nowT = moment().format('YYYY-MM-DD');
-    		$(".availability").on("click",function(){
-    		//var username = ${principal.username};
-    		$(".userName").val("guest99");
-    		$(".rentDate").val(date);
-    		$(".startTime").val(date+$(this).text());
-    		$(".endTime").val(nowT);
-    		$(".requestDate").val(nowT);
-    		document.frm.action = "rentPlace";
-			document.frm.method = "get";
-			document.frm.submit();
+//     		nowT = moment().format('YYYY-MM-DD');
+//     		$(".availability").on("click",function(){
+//     		//var username = ${principal.username};
+//     		$(".userName").val("guest99");
+//     		$(".rentDate").val(date);
+//     		$(".startTime").val(date+$(this).text());
+//     		$(".endTime").val(nowT);
+//     		$(".requestDate").val(nowT);
+//     		document.frm.action = "rentPlace";
+// 			document.frm.method = "get";
+// 			document.frm.submit();
     		
     			
-    		})
+//     		})
     		
     		
-    	})
+//     	})
+    	
 }
+// $(function() {
+// 	  $('input[name="rentPlace"]').daterangepicker({
+// 	    singleDatePicker: true,
+// 	    showDropdowns: false,
+// 	    timePicker:true,
+// 	    timePickerIncrement:30,
+// 	    alwaysShowCalendars:true,
+// 	    "alwaysShowCalendars": true,
+// 	    minYear: 2020,
+// 	    maxYear: parseInt(moment().format('YYYY'),10)
+// 	  }, function(start, end, label) {
+// 	    var years = moment().diff(start, 'years');
+// 	    console.log(start.format('YYYY-MM-DD'));
+// 	    alert("You are " + years + " years old!");
+// 	  });
+// 	});
+	
+// KR language callendar
+$.datepicker.regional['kr'] = {
+    closeText: '닫기', // 닫기 버튼 텍스트 변경
+    currentText: '오늘', // 오늘 텍스트 변경
+    monthNames: ['1 월','2 월','3 월','4 월','5 월','6 월','7 월','8 월','9 월','10 월','11 월','12 월'], // 개월 텍스트 설정
+    monthNamesShort: ['1 월','2 월','3 월','4 월','5 월','6 월','7 월','8 월','9 월','10 월','11 월','12 월'], // 개월 텍스트 설정
+    dayNames: ['월요일','화요일','수요일','목요일','금요일','토요일','일요일'], // 요일 텍스트 설정
+    dayNamesShort: ['월','화','수','목','금','토','일'], // 요일 텍스트 축약 설정&nbsp;   dayNamesMin: ['월','화','수','목','금','토','일'], // 요일 최소 축약 텍스트 설정
+    dateFormat: 'dd/mm/yy' // 날짜 포맷 설정
+};
 
+// Seeting up default language, Korean
+$.datepicker.setDefaults($.datepicker.regional['kr']);
 
+$(function() {
+    $("#datepicker1").datepicker();
+});
 
 </script>
 </head>
@@ -215,6 +256,14 @@ function buildCalendar() { //현재 달 달력 만들기
                             <li><a href="./facilityRentForm3"><strong>신청현황/신청하기</strong></a></li>
                         </ul>
                     </div>
+					
+					<div>
+					<input type="text" name="rentPlace" value="" />
+					</div>	
+						
+					<div>
+					<input type="text" id="datepicker1"/>
+					</div>	
 						
 					<div class="schedule">
                     
@@ -297,6 +346,7 @@ function buildCalendar() { //현재 달 달력 만들기
 <%--                   	${rpidto.rentDate} --%>
 <%--                   </c:forEach>     --%>
                   </div>
+                  
                         
                         
                    

@@ -158,6 +158,20 @@ public class ApplicationController {
 	    mv.setViewName("/libApplicationService/facilityRentForm/facilityRentForm3");
 		return mv;
 	}
+	@RequestMapping(value ="/facilityRentForm4" , method = RequestMethod.GET)
+	public ModelAndView facilityRentForm4(Model model) {
+		model.addAttribute("category", "신청서비스");
+		model.addAttribute("title", "시설대관신청");
+		model.addAttribute("menu", "신청현황/신청하기");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		List<RentPlaceIdDTO> list = rpis.rpiSelectAll();
+		
+		mv.addObject("list", list);
+		mv.setViewName("/libApplicationService/facilityRentForm/facilityRentForm4");
+		return mv;
+	}
 	@RequestMapping(value ="/facilityRentInfo" , method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView facilityRentInfo(@RequestParam(value="rentDate") String rentDate) {
