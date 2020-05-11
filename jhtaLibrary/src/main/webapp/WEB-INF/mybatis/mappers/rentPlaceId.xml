@@ -15,10 +15,10 @@
   		WHERE RENT_DATE = #{rentDate}
   		
   	</select>
-  	<insert id="insertOne" parameterType="rpidto">
+  	<insert id="rpiReserve" parameterType="rpidto">
   		INSERT INTO RENT_PLACE
   		VALUES (RENT_PLACE_SEQ.NEXTVAL, #{placeId},#{userId}, TO_DATE(#{rentDate},'YYYY-MM-DD'),TO_DATE(#{startTime}, 'YYYY-MM-DD HH24:MI:SS'),TO_DATE(#{endTime},'YYYY-MM-DD HH24:MI:SS'),
-  		TO_DATE(#{request_date},'YYYY-MM-DD HH24:MI:SS')1 )
+  		TO_DATE(#{requestDate},'YYYY-MM-DD HH24:MI:SS'),1 )
   	
   	</insert>
   	

@@ -56,11 +56,6 @@ public class ApplicationController {
 		mv.addObject("list", list);
 		mv.addObject("rCount", rCount);
 		mv.setViewName("/readingRoom");
-		
-		
-			
-		
-		
 		//long loggedUserNo = ms.readOneMember(principal.getName()).getUserId();
 		
 		//mv.addObject("loggedUserNo", loggedUserNo);
@@ -85,9 +80,6 @@ public class ApplicationController {
 		}
 
 	}*/
-	
-	
-	
 	@RequestMapping(value ="/timeCalTest" , method = RequestMethod.GET)
 	public String timeCalTest() {
 		//List<ReadingRoomDTO> list = rrs.rSelectAll();	
@@ -119,7 +111,6 @@ public class ApplicationController {
 		//rrs.reserveOne(rdto);
 		return "redirect:readingRoom";
 	}
-	
 	@RequestMapping(value="rCancel")
 	public String rCancel(Principal principal) {
 		
@@ -218,6 +209,33 @@ public class ApplicationController {
 		//rrs.reserveOne(rdto);
 		return "redirect:facilityRentForm3";
 	}
+/////////////////////////////////////대관 인서트 테스트///////////////////////////////////////////
+	////////////////////////////////05/11///////////////////////////////////////////////////
+	
+	@RequestMapping(value="/placeApply")
+	public String placeApply(@RequestParam("startTime")String startTime,@RequestParam("endTime")String endTime,
+			@RequestParam("placeId")long placeId,@RequestParam("rentDate")String rentDate,
+			@RequestParam("requestDate")String requestDate,@RequestParam("rentPlaceId")long rentPlaceId,
+			@RequestParam("status")byte status, Principal principal) {
+			long userId = rrs.rSelectNoByUserName(principal.getName());
+		
+		System.out.println("startTime : "+startTime);
+		System.out.println("endTime : "+endTime);
+		System.out.println("userName : "+principal.getName());
+		System.out.println("placeId : "+placeId);
+		System.out.println("requestDate : "+requestDate);
+		System.out.println("rentDate : "+rentDate);
+		
+		RentPlaceIdDTO rpidto = new RentPlaceIdDTO(rentPlaceId, placeId, userId, rentDate, startTime, endTime, requestDate, status);
+		
+		rpis.rpiReserve(rpidto);
+		
+		
+		return "redirect:redirect:facilityRentForm4";
+	}
+	
+/////////////////////////////////////대관 인서트 테스트///////////////////////////////////////////
+	////////////////////////////////05/11///////////////////////////////////////////////////
 	
 	@RequestMapping(value ="/tourApplication1" , method = RequestMethod.GET)
 	public String tourApplication1(Model model) {
