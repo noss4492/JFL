@@ -134,11 +134,11 @@
 	text-align: center;
 	color: white;
 	background-color: #254d1e;
-	padding-top: 4px;
+	padding-top: 6px;
 }
 .seatNum:hover {
 	background-color: #2ba8cc;
-	cursor:pointer;z
+	cursor:pointer;
 }
 
 #selectSeatWrapper {

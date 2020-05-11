@@ -231,7 +231,7 @@
 		<div id="readingRoomWrapper">
 			<div id="readingRoomHeadWrapper">
 				<div id="libLogo">
-					<img src="img/mainPage/logo1.png" alt="errrr">
+				  <a href='<c:url value="main" />'> <img src="img/mainPage/logo1.png" alt="errrr"></a>
 				</div>
 				<div id="readingRoomTitle">중앙 도서관 제1열람실</div>
 				<div id="right">

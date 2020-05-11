@@ -128,6 +128,10 @@ public class ApplicationController {
 		return "redirect:readingRoom";
 		
 	}
+	@RequestMapping(value="/main")
+	public String main() {
+		return "main";
+	}
 	//////////////////////////////////신청서비스 관련////////////////////////////////////////
 	@RequestMapping(value ="/facilityRentForm1" , method = RequestMethod.GET)
 	public String facilityRentForm1(Model model) {
