@@ -29,6 +29,11 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
 	integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ="
 	crossorigin="anonymous"></script>
+	
+	
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />	
+	
      
 <title>facilityRentForm3.jsp</title>
 <style>
@@ -172,25 +177,42 @@ function buildCalendar() { //현재 달 달력 만들기
     	})
     	
     	})
-    	$(function rent(){
+//     	$(function rent(){
     		
-    		//nowT = moment().format('YYYY-MM-DD');
-    		$(".availability").on("click",function(){
+//     		//nowT = moment().format('YYYY-MM-DD');
+//     		$(".availability").on("click",function(){
     		
-    		${".userName"}.val(${principal.username});
-    		${".rentDate"}.val(date);
-    		${".startTime"}.val(date+$(this).text());
-    		${".endTime"}.val(nowT);
-    		${".requestDate"}.val(nowT);
-    		document.frm.action = "rentPlace";
-			document.frm.method = "get";
-			document.frm.submit();
+//     		${".userName"}.val(${principal.username});
+//     		${".rentDate"}.val(date);
+//     		${".startTime"}.val(date+$(this).text());
+//     		${".endTime"}.val(nowT);
+//     		${".requestDate"}.val(nowT);
+//     		document.frm.action = "rentPlace";
+// 			document.frm.method = "get";
+// 			document.frm.submit();
     		
     			
-    		})
+//     		})
     		
-    		
-    	})
+    			
+//     	})
+    	
+    	$(function() {
+    		  $('input[name="datetimes"]').daterangepicker({
+    		    timePicker:true,
+    		    singleDatePicker: true,
+    		    timePicker24Hour: true,
+    		    timePickerIncrement:60,
+    		    
+    		    startDate: moment().startOf('hour'),
+    		    endDate: moment().startOf('hour').add(32, 'hour'),
+    		    locale: {
+    		      format: 'YYYY-MM-DD hh:mm:ss'
+    		      }
+    		  });
+    		  $('')
+    		});
+
 }
 
 
@@ -290,12 +312,8 @@ function buildCalendar() { //현재 달 달력 만들기
 				</div>		                        
 				</form>		
                   <div id="kkk">
-                  <input type="text" id="kkkk"/>
-<%--                   <c:forEach var="rpidto" items="${list }"> --%>
-<%--                   	${rpidto.rentPlaceId} --%>
-<%--                   	${rpidto.startTime} --%>
-<%--                   	${rpidto.rentDate} --%>
-<%--                   </c:forEach>     --%>
+                  <input type="text" name="datetimes" value="10/24/1984" />
+
                   </div>
                         
                         
