@@ -1282,7 +1282,7 @@
             var col = title.substr(3, 1);
             var cal = $(e.target).parents('.drp-calendar');
             var date = cal.hasClass('left') ? this.leftCalendar.calendar[row][col] : this.rightCalendar.calendar[row][col];
-            
+           console.log("하하하");
             //
             // this function needs to do a few things:
             // * alternate between selecting a start and end date for the range,
@@ -1291,7 +1291,7 @@
             // * if single date picker mode, and time picker isn't enabled, apply the selection immediately
             // * if one of the inputs above the calendars was focused, cancel that manual input
             //
-
+            
             if (this.endDate || date.isBefore(this.startDate, 'day')) { //picking start
                 if (this.timePicker) {
                     var hour = parseInt(this.container.find('.left .hourselect').val(), 10);
@@ -1343,6 +1343,9 @@
                 this.setEndDate(this.startDate);
                 if (!this.timePicker)
                     this.clickApply();
+                console.log(this.startDate.format("YYYY-MM-DD"));
+               
+                
             }
 
             this.updateView();
@@ -1350,6 +1353,7 @@
             //This is to cancel the blur event handler if the mouse was in one of the inputs
             e.stopPropagation();
             this.element.trigger('dateClick.daterangepicker', this);
+            
         },
 
         calculateChosenLabel: function () {
