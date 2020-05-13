@@ -42,8 +42,8 @@
 
 	
 	
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />	
+<script type="text/javascript" src="js/lib/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="css/lib/daterangepicker.css" />	
 	
      
 
@@ -65,8 +65,77 @@ a{
 height: 80px;
 width: 120px;
 }
+
+.drp-calendar left single{
+width: 880px;
+}
+.calendar-table{
+width: 878px;
+height: 400px;
+
+}
+#placeApplyInfo{
+	display: inline-block;
+	width: 880px;
+}
+#placeApplyInfo .daterangepicker{
+display: block !important;
+width: 880px;
+}
+#dates{
+font-size: 20px;
+width: 600px;
+height: 50px;
+
+}
+.daterangepicker {
+width: 880px;
+height: 550px;
+/* background-color: red; */
+}
+/* .calendar-time{ */
+/* float: right; */
+/* } */
+.drp-calendar left single{
+display: inline-block;
+width: 880px !important;
+}
+.calendar-time{
+width: 880px;
+height: 50px;
+
+}
+.daterangepicker ltr single opensright show-calendar{
+height: 550px;
+background-color: red;
+}
+
+.drp-calendar{
+padding: 0px !important;
+}
+.table-condensed{
+font-size: 20px !important;
+}
+.calendar-table{
+padding-right: 0px;
+}
+.minuteselect{
+display: none;
+}
+.cancelBtn{
+width: 80px;
+height: 40px;
+font-size: 20px !important;
+}
+.applyBtn{
+width: 80px;
+height: 40px;
+font-size: 20px !important;
+}
+
 </style>
 <script>
+
 $(function() {
 	  $('input[id="dates"]').daterangepicker({
 	    singleDatePicker: true,
@@ -74,6 +143,8 @@ $(function() {
 	    timePicker:true,
 	    timePicker24Hour:true,
 	    timePickerIncrement:60,
+	    opens:"right",
+	    
 	    locale: {
 	        "format": "YYYY/MM/DD HH:mm:ss",
 	        "separator": " - ",
@@ -90,6 +161,8 @@ $(function() {
 	        ],
 	        "firstDay": 1
 	    }
+	  },function(start, end, label){
+		  console.log(start.format('YYYY-MM-DD'));
 	  });
 	  $('#dates').on('apply.daterangepicker',function(ev,picker){
 		  	var startTime = $("#startTime").val(picker.startDate.format('YYYY/MM/DD HH:mm:ss'));
@@ -98,15 +171,25 @@ $(function() {
 			var rentDate = picker.startDate.format('YYYY-MM-DD');
 			$("#rentDate").val(rentDate);
 			$("#requestDate").val(moment().format('YYYY-MM-DD HH:mm:ss'));
-			
+			alert(picker.startDate.subtract(1,'h').format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
 			document.frm.action = "placeApply";
 			document.frm.method = "get";
 			document.frm.submit();
 		})
+		$('#dates').on('hide.daterangepicker', function(ev, picker) {
+            $('#dates').click();
+        });
+        $('#dates').click();
+		$('td.available').on("click",function(){
+			console.log("sdlfkjsdlkfj");
+		})
 	});
-    	
-    	
-
+	
+			
+		
+		
+		
+		
 
 </script>
 </head>
@@ -118,8 +201,6 @@ $(function() {
          <%@include file="../../contentTitle.jsp"%>
             <div id="applyFormWrapper">
                 
-                
-                
                 <div id="applyformCore">
                     <div id="tabNav">
                         <ul id="tabNavContents">
@@ -129,35 +210,22 @@ $(function() {
                         </ul>
                     </div>
 					
-				<div>
 				<form action="placeApply" name="frm">
-					<div id="1">
-  						<input type="text" id="dates">
-  						<input type="text" id="startTime" name="startTime"/>
- 						<input type="text" id="endTime" name="endTime"/>
-  						<input type="text" id="rentPlaceId" name="rentPlaceId" value="1"/>
-  						<input type="text" id="placeId" name="placeId" value="1"/>
-  						<input type="text" id="userName" name="userName"/>
-  						<input type="text" id="rentDate" name="rentDate"/>
-  						<input type="text" id="requestDate" name="requestDate"/>
-  						<input type="text" id="status" name="status" value="1"/>
+					<div id="placeApplyInfo">
+						
+  						<input type="text" id="dates" readonly="readonly">
+  						<input type="hidden" id="startTime" name="startTime"/>
+ 						<input type="hidden" id="endTime" name="endTime"/>
+  						<input type="hidden" id="rentPlaceId" name="rentPlaceId" value="1"/>
+  						<input type="hidden" id="placeId" name="placeId" value="1"/>
+  						<input type="hidden" id="userName" name="userName"/>
+  						<input type="hidden" id="rentDate" name="rentDate"/>
+  						<input type="hidden" id="requestDate" name="requestDate"/>
+  						<input type="hidden" id="status" name="status" value="1"/>
 					</div>
 				</form>	
-						
-						
-						
-				
-                  
-                  
-                        
-                        
-                   
-                
-                
-                
-                
-                
-                    </div><!-- applyformCore-->
+               
+                </div><!-- applyformCore-->
             </div><!-- applyFormWrapper -->
         </div><!-- all_contents-->
     </div><!-- mainWrapper -->

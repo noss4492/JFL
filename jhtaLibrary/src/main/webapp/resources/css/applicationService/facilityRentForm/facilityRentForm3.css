@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@charset "UTF-8";
 
 * {
 	margin: 0;
@@ -23,17 +22,11 @@
 	margin: 0 auto;
 }
 
-#sideNav {
-	float: left;
-	width: 270px;
-	height: 400px;
-	background-color: red;
-	border: 2px solid black;
-}
+
 
 #applyFormWrapper {
 	width: 880px;
-	
+	height: 1000px;
 	float: right;
 }
 
@@ -70,6 +63,7 @@
 #applyformCore {
 	width: 100%;
 	padding-bottom: 50px;
+	position: relative;
 }
 
 #tabNav {
