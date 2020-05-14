@@ -1343,7 +1343,26 @@
                 this.setEndDate(this.startDate);
                 if (!this.timePicker)
                     this.clickApply();
+                /////////////////////////////////////////////ajax로 컨트롤러 넘어가는 테스트///////////////////////////////////
+                ////////////////////////////////////////////05/14///////////////////////////////////////////////////////
+                
+                var selectedDate = this.startDate.format("YYYY-MM-DD");
                 console.log(this.startDate.format("YYYY-MM-DD"));
+                $.ajax({
+                	type:"GET",
+                	url:"facilityRentInfo",
+                	data:{
+                		"selectedDate":selectedDate
+                	},
+                	success:function(){
+                		console.log("성공");
+                	},
+                	error:function(){
+                		console.log("실패");
+                	}
+                		
+                	
+                })
                
                 
             }

@@ -1,9 +1,10 @@
 package kr.co.jhta.controller;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -169,19 +170,18 @@ public class ApplicationController {
 	}
 	@RequestMapping(value ="/facilityRentInfo" , method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView facilityRentInfo(@RequestParam(value="rentDate") String rentDate) {
-		System.out.println("여기까진 오니...");
-	    System.out.println(rentDate);
-	    SimpleDateFormat format1;
-	    format1 = new SimpleDateFormat("YYYY-MM-DD");
+	public ModelAndView facilityRentInfo(@RequestParam(value="selectedDate")String selectedDate) {
+	    //System.out.println(selectedDate);
+	    List<RentPlaceIdDTO> example = rpis.rpiSelectAll();
+	    for (int i = 0; i < example.size(); i++) {
+			System.out.println("example:"+example.get(i));
+		
+		}
 	    
 	    ModelAndView mv = new ModelAndView();
-	    
-	    List<RentPlaceIdDTO> info = rpis.rpiSelectByDate(rentDate);
-	    for (RentPlaceIdDTO dto1 : info) {
-			
-	    	mv.addObject("dto1", dto1);
-		}
+	    List<RentPlaceIdDTO> list = rpis.rpiSelectByDate(selectedDate);
+	    	mv.addObject("dto1", list);
+			System.out.println("list : "+list);
 	    mv.setViewName("/libApplicationService/facilityRentForm/facilityRentForm3");
 		return mv;
 	}
@@ -231,7 +231,7 @@ public class ApplicationController {
 		rpis.rpiReserve(rpidto);
 		
 		
-		return "redirect:redirect:facilityRentForm4";
+		return "redirect:facilityRentForm3";
 	}
 	
 /////////////////////////////////////대관 인서트 테스트///////////////////////////////////////////
@@ -266,7 +266,7 @@ public class ApplicationController {
  	@Scheduled(cron = "0/30 * * * * *")
 	public void autoUpdate() {
 		
- 		Date today = new Date();
+ 		java.util.Date today = new java.util.Date();
  		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
  		String to = transFormat.format(today);
  		

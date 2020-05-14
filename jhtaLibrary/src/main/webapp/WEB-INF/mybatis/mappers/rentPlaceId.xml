@@ -6,13 +6,13 @@
   <mapper namespace="kr.co.jhta.rentPlaceId">
   	
   	<select id="selectAll" resultType="rpidto">
-  		SELECT RENT_PLACE_ID rentPlaceId, PLACE_ID placeId, USER_M_ID userId, RENT_DATE rentDate, START_TIME startTime, END_TIME endTime, REQUEST_DATE requestDate, STATUS
+  		SELECT RENT_PLACE_ID rentPlaceId, PLACE_ID placeId, USER_M_ID userId, TO_CHAR(TRUNC(RENT_DATE,'DD'),'YYYY-MM-DD') rentDate, START_TIME startTime, END_TIME endTime, REQUEST_DATE requestDate, STATUS
   		FROM RENT_PLACE 
   	</select>
   	<select id="selectByDate" resultType="rpidto" parameterType="String">
-  		SELECT START_TIME startTime, to_char(trunc(RENT_DATE,'DD'), 'YYYY-MM-DD HH24:MI:SS') rentDate
+  		SELECT START_TIME startTime, to_char(TRUNC(RENT_DATE,'DD'), 'YYYY-MM-DD HH24:MI:SS') rentDate
   		FROM RENT_PLACE
-  		WHERE RENT_DATE = #{rentDate}
+  		 WHERE TO_CHAR(RENT_DATE,'YYYY-MM-DD') = TO_CHAR(#{selectedDate},'YYYY-MM-DD')
   		
   	</select>
   	<insert id="rpiReserve" parameterType="rpidto">

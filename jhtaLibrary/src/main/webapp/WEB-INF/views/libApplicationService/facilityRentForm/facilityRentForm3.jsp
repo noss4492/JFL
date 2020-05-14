@@ -132,7 +132,12 @@ width: 80px;
 height: 40px;
 font-size: 20px !important;
 }
-
+#list{
+display: inline-block;
+width: 880px;
+height: 800px;
+background-color: yellow;
+}
 </style>
 <script>
 
@@ -168,7 +173,7 @@ $(function() {
 		  	var startTime = $("#startTime").val(picker.startDate.format('YYYY/MM/DD HH:mm:ss'));
 			var endTime = picker.startDate.add(1,'h').format('YYYY/MM/DD HH:mm:ss');
 			$("#endTime").val(endTime);
-			var rentDate = picker.startDate.format('YYYY-MM-DD');
+			var rentDate = picker.startDate.format('YYYY/MM/DD');
 			$("#rentDate").val(rentDate);
 			$("#requestDate").val(moment().format('YYYY-MM-DD HH:mm:ss'));
 			alert(picker.startDate.subtract(1,'h').format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
@@ -183,6 +188,7 @@ $(function() {
 		$('td.available').on("click",function(){
 			console.log("sdlfkjsdlkfj");
 		})
+		
 	});
 	
 			
@@ -224,7 +230,11 @@ $(function() {
   						<input type="hidden" id="status" name="status" value="1"/>
 					</div>
 				</form>	
-               
+               	<div id="list">
+               	<c:forEach var="list" items="${dto1}">
+               		<c:out value="${list.startTime }"></c:out>
+               	</c:forEach>
+               	</div>
                 </div><!-- applyformCore-->
             </div><!-- applyFormWrapper -->
         </div><!-- all_contents-->

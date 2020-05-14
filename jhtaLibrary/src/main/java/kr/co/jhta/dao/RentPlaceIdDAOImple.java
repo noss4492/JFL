@@ -1,5 +1,6 @@
 package kr.co.jhta.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
