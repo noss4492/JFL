@@ -2,6 +2,7 @@ package kr.co.jhta.dao;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,12 @@ public class RentPlaceIdDAOImple implements RentPlaceIdDAO{
 	@Override
 	public void rpiReserve(RentPlaceIdDTO rpidto) {
 		ss.insert("kr.co.jhta.rentPlaceId.rpiReserve", rpidto);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> selectDate() {
+		return ss.selectList("kr.co.jhta.rentPlaceId.selectDate");
 	}
 
 }

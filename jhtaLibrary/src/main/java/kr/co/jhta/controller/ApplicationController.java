@@ -171,17 +171,17 @@ public class ApplicationController {
 	@RequestMapping(value ="/facilityRentInfo" , method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView facilityRentInfo(@RequestParam(value="selectedDate")String selectedDate) {
+		ModelAndView mv = new ModelAndView();
 	    //System.out.println(selectedDate);
-	    List<RentPlaceIdDTO> example = rpis.rpiSelectAll();
-	    for (int i = 0; i < example.size(); i++) {
-			System.out.println("example:"+example.get(i));
-		
-		}
-	    
-	    ModelAndView mv = new ModelAndView();
-	    List<RentPlaceIdDTO> list = rpis.rpiSelectByDate(selectedDate);
-	    	mv.addObject("dto1", list);
-			System.out.println("list : "+list);
+//	    List<RentPlaceIdDTO> example = rpis.rpiSelectAll();
+//	    for (int i = 0; i < example.size(); i++) {
+//			System.out.println("example:"+example.get(i));
+//		}
+//	    List<RentPlaceIdDTO> list = rpis.rpiSelectByDate(selectedDate);
+//	    	mv.addObject("dto1", list);
+//			System.out.println("list : "+list);
+		List<Map<String, Object>> list = rpis.selectDate();
+		System.out.println(list);
 	    mv.setViewName("/libApplicationService/facilityRentForm/facilityRentForm3");
 		return mv;
 	}

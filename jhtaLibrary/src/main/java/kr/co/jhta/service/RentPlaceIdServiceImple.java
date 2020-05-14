@@ -2,6 +2,7 @@ package kr.co.jhta.service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,11 @@ public class RentPlaceIdServiceImple implements RentPlaceIdService{
 	@Override
 	public void rpiReserve(RentPlaceIdDTO rpidto) {
 		dao.rpiReserve(rpidto);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectDate() {
+		return dao.selectDate();
 	}
 
 }
