@@ -10,9 +10,14 @@
 	src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<meta charset="UTF-8">
+<!-- <link rel="stylesheet" type="text/css" -->
+<!-- 	href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
+<!-- <meta charset="UTF-8"> -->
+
+<script type="text/javascript" src="js/lib/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="css/lib/daterangepicker.css" />
+
+
 <style>
 #test {
 	border-collapse: collapse;
@@ -24,8 +29,9 @@
 }
 </style>
 <script>
-$(function(){
+// $(function(){
 	
+
 $('#demo').daterangepicker({
     "singleDatePicker": true,
     "linkedCalendars": false,
@@ -39,15 +45,16 @@ $('#demo').daterangepicker({
 $("td.available").on("click",function(){
 	console.log("sldkfjldskfj");
 })
-})
+
+
 
 $(function() {
 	  $('input[id="dates"]').daterangepicker({
 	    singleDatePicker: true,
 	    showDropdowns: true,
-// 	    timePicker:true,
-// 	    timePicker24Hour:true,
-// 	    timePickerIncrement:60,
+	    timePicker:true,
+	    timePicker24Hour:true,
+	    timePickerIncrement:60,
 	    opens:"right",
 	    
 	    locale: {
@@ -66,7 +73,7 @@ $(function() {
 	        ],
 	        "firstDay": 1
 	    }
-	  },function(start,end,label){
+	  },function(start){
 		  console.log(start.format('YYYY-MM-DD'));
 	  });
 	  $('#dates').on('apply.daterangepicker',function(ev,picker){
@@ -78,10 +85,10 @@ $(function() {
 			$("#requestDate").val(moment().format('YYYY-MM-DD HH:mm:ss'));
 			alert(picker.startDate.subtract(1,'h').format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
 		})
-// 		$('#dates').on('hide.daterangepicker', function(ev, picker) {
-//             $('#dates').click();
-//         });
-//         $('#dates').click();
+		$('#dates').on('hide.daterangepicker', function(ev, picker) {
+            $('#dates').click();
+        });
+        $('#dates').click();
         $('td.available').on("click",function(){
         	console.log("여기서는 되는거냐");
         })
