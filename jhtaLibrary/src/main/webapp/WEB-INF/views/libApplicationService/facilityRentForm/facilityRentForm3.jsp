@@ -133,10 +133,28 @@ height: 40px;
 font-size: 20px !important;
 }
 #list{
-display: inline-block;
 width: 880px;
-height: 800px;
+height: 600px;
 background-color: yellow;
+}
+#resInfo{
+width: 880px;
+height: 200px;
+background: green;
+}
+#resInfo table{
+border-collapse: collapse;
+
+}
+#resInfo tr,td{
+border: 1px solid black;
+}
+#resInfo td{
+width: 176px;
+height: 30px;
+}
+#resInfoTitle{
+padding-bottom: 20px;
 }
 </style>
 <script>
@@ -170,24 +188,29 @@ $(function() {
 		  console.log(start.format('YYYY-MM-DD'));
 	  });
 	  $('#dates').on('apply.daterangepicker',function(ev,picker){
+		  	var con = confirm(picker.startDate.format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
+		  	if(con==true){
 		  	var startTime = $("#startTime").val(picker.startDate.format('YYYY/MM/DD HH:mm:ss'));
 			var endTime = picker.startDate.add(1,'h').format('YYYY/MM/DD HH:mm:ss');
 			$("#endTime").val(endTime);
 			var rentDate = picker.startDate.format('YYYY/MM/DD');
 			$("#rentDate").val(rentDate);
 			$("#requestDate").val(moment().format('YYYY-MM-DD HH:mm:ss'));
-			alert(picker.startDate.subtract(1,'h').format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
+			//confirm(picker.startDate.subtract(1,'h').format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
+			
 			document.frm.action = "placeApply";
 			document.frm.method = "get";
 			document.frm.submit();
+		  		
+		  	}else{
+		  		
+		  	}
 		})
 		$('#dates').on('hide.daterangepicker', function(ev, picker) {
             $('#dates').click();
         });
         $('#dates').click();
-		$('td.available').on("click",function(){
-			console.log("sdlfkjsdlkfj");
-		})
+
 		
 	});
 	
@@ -231,9 +254,42 @@ $(function() {
 					</div>
 				</form>	
                	<div id="list">
-               	<c:forEach var="list" items="${dto1}">
-               		<c:out value="${list.startTime }"></c:out>
-               	</c:forEach>
+               	
+				
+               	</div>
+               	<div id="resInfo">
+               	<h2 id="resInfoTitle"></h2>
+				<table>
+					<tr>
+					<th>10:00</th>
+					<th>11:00</th>
+					<th>12:00</th>
+					<th>13:00</th>
+					<th>14:00</th>
+					</tr>
+					<tr>
+						<td class="l"><input  class="time" type="hidden" value="10:00:00"/><div id="10:00:00"></div></td>
+						<td class="l" ><input  class="time" type="hidden" value="11:00:00"/><div id="11:00:00"></div></td>
+						<td class="l" ><input  class="time" type="hidden" value="12:00:00"/><div id="12:00:00"></div></td>
+						<td class="l" ><input  class="time" type="hidden" value="13:00:00"/><div id="13:00:00"></div></td>
+						<td class="l" ><input  class="time" type="hidden" value="14:00:00"/><div id="14:00:00"></div></td>
+					</tr>
+					<tr>
+					<th>15:00</th>
+					<th>16:00</th>
+					<th>17:00</th>
+					<th>18:00</th>
+					<th>19:00</th>
+					</tr>
+					<tr>
+						<td class="l" id="15:00:00"><input  class="time" type="hidden" value="15:00:00"/></td>
+						<td class="l" id="16:00:00"><input  class="time" type="hidden" value="16:00:00"/></td>
+						<td class="l" id="17:00:00"><input  class="time" type="hidden" value="17:00:00"/></td>
+						<td class="l" id="18:00:00"><input  class="time" type="hidden" value="18:00:00"/></td>
+						<td class="l" id="19:00:00"><input  class="time" type="hidden" value="19:00:00"/></td>
+					</tr>
+				</table>
+				
                	</div>
                 </div><!-- applyformCore-->
             </div><!-- applyFormWrapper -->

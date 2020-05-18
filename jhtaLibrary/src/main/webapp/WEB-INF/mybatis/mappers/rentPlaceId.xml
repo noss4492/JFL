@@ -23,9 +23,9 @@
   	</insert>
   	
   	<select id="selectDate" resultType="map">
-  	SELECT START_TIME startTIme, RENT_DATE rentDate
+  	SELECT START_TIME startTime, RENT_DATE rentDate
   	FROM RENT_PLACE
-  	
+  	ORDER BY startTime asc
   	
   	</select>
   	

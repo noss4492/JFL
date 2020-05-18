@@ -900,7 +900,7 @@
             html = '<select class="hourselect">';
 
             var start = this.timePicker24Hour ? 10 : 1;
-            var end = this.timePicker24Hour ? 20 : 12;
+            var end = this.timePicker24Hour ? 19 : 12;
 
             for (var i = start; i <= end; i++) {
                 var i_in_24 = i;
@@ -1282,7 +1282,6 @@
             var col = title.substr(3, 1);
             var cal = $(e.target).parents('.drp-calendar');
             var date = cal.hasClass('left') ? this.leftCalendar.calendar[row][col] : this.rightCalendar.calendar[row][col];
-           console.log("하하하");
             //
             // this function needs to do a few things:
             // * alternate between selecting a start and end date for the range,
@@ -1347,15 +1346,28 @@
                 ////////////////////////////////////////////05/14///////////////////////////////////////////////////////
                 
                 var selectedDate = this.startDate.format("YYYY-MM-DD");
-                console.log(this.startDate.format("YYYY-MM-DD"));
+                var selectedDate2 = this.startDate.format("YYYY년 M월 D일");
+                //console.log(this.startDate.format("YYYY-MM-DD"));
                 $.ajax({
                 	type:"GET",
                 	url:"facilityRentInfo",
+                	dataType : 'json',
                 	data:{
                 		"selectedDate":selectedDate
                 	},
-                	success:function(){
-                		console.log("성공");
+                	success:function(res){
+                		$("#resInfoTitle").html(selectedDate2+" 신청현황");
+                		for (var i = 0; i < res.length; i++) {
+                			console.log("res[i] : "+res[i]);
+							if(res[i]==="10:00:00"){
+								$("#10:00:00").html("예약완료");
+								console.log("되는거 맞음?");
+							}else if(res[i]=="11:00:00"){
+								console.log("아나...");
+							}
+						}
+                		
+                		
                 	},
                 	error:function(){
                 		console.log("실패");

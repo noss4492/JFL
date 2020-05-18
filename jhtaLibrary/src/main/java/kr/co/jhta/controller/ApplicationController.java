@@ -3,6 +3,8 @@ package kr.co.jhta.controller;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -170,7 +172,7 @@ public class ApplicationController {
 	}
 	@RequestMapping(value ="/facilityRentInfo" , method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView facilityRentInfo(@RequestParam(value="selectedDate")String selectedDate) {
+	public Object facilityRentInfo(@RequestParam(value="selectedDate")String selectedDate) {
 		ModelAndView mv = new ModelAndView();
 	    //System.out.println(selectedDate);
 //	    List<RentPlaceIdDTO> example = rpis.rpiSelectAll();
@@ -180,10 +182,35 @@ public class ApplicationController {
 //	    List<RentPlaceIdDTO> list = rpis.rpiSelectByDate(selectedDate);
 //	    	mv.addObject("dto1", list);
 //			System.out.println("list : "+list);
+		
+		/////////////////////////일단 맵퍼에서 날짜 매칭이 안되서 다른 방법 사용중/////////////////////////////
+		
 		List<Map<String, Object>> list = rpis.selectDate();
 		System.out.println(list);
+		System.out.println("selectedDate : "+selectedDate);
+		//List<Map<String, Object>> test = new ArrayList<Map<String,Object>>();
+		List<String> test = new ArrayList<String>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		for(int i = 0; i<list.size(); i++) {
+			Map<String, Object> m = list.get(i);
+			String rentDate = m.get("RENTDATE").toString().substring(0, 10);
+			String startTime= m.get("STARTTIME").toString().substring(11, 19);
+			//System.out.println("STARTTIME"+m.get("STARTTIME"));
+			//System.out.println("RENTDATE : "+RENTDATE);
+			if(rentDate.equals(selectedDate)) {
+				System.out.println(" db : "+rentDate);
+				System.out.println(" db2 : "+selectedDate);
+				//mv.addObject("startTime", startTime);
+				// map.put("startTime"+i, startTime);
+				// System.out.println(mv.getModel());
+				test.add(startTime);
+			}
+		}
+		System.out.println("list에 담기는 맵 : "+ test);
 	    mv.setViewName("/libApplicationService/facilityRentForm/facilityRentForm3");
-		return mv;
+		
+	    
+	    return test;
 	}
 	@RequestMapping(value="/rentPlace", method = RequestMethod.GET)
 	public String rentPlace(@RequestParam("rentPlaceId")long rentPlaceId, @RequestParam("placeId")long placeId,
