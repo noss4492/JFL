@@ -90,11 +90,12 @@
 #tabNavContents a 	{ text-decoration: none;}
 #tabNavContents a:link { color: #46B7D9; text-decoration: none;}
 #tabNavContents a:hover { color: whiet; text-decoration: none;}
+#tabNavContents a:visited { color: whiet; text-decoration: none;}
 
 /* #tabNavContents li:nth-child(1){ */
 /* 	background-color: #46B7D9; */
 /* } */
-#tabNavContents li:nth-child(3) {
+#tabNavContents li:nth-child(3), li:nth-child(3) Strong  {
             
             background-color: #46B7D9;
             color: white;

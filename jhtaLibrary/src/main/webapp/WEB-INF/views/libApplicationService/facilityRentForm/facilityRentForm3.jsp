@@ -83,14 +83,13 @@ display: block !important;
 width: 880px;
 }
 #dates{
-font-size: 20px;
-width: 600px;
-height: 50px;
+font-size: 1px;
+width: 1px;
 
 }
 .daterangepicker {
 width: 880px;
-height: 550px;
+height: 510px;
 /* background-color: red; */
 }
 /* .calendar-time{ */
@@ -135,16 +134,16 @@ font-size: 20px !important;
 #list{
 width: 880px;
 height: 600px;
-background-color: yellow;
 }
 #resInfo{
 width: 880px;
 height: 200px;
-background: green;
 }
 #resInfo table{
 border-collapse: collapse;
-
+}
+#resInfo th{
+background-color: #f0ad4e73;
 }
 #resInfo tr,td{
 border: 1px solid black;
@@ -156,6 +155,13 @@ height: 30px;
 #resInfoTitle{
 padding-bottom: 20px;
 }
+#resInfoTable th, td{
+text-align: center;
+}
+select{
+text-align-last: center;
+}
+
 </style>
 <script>
 
@@ -197,7 +203,6 @@ $(function() {
 			$("#rentDate").val(rentDate);
 			$("#requestDate").val(moment().format('YYYY-MM-DD HH:mm:ss'));
 			//confirm(picker.startDate.subtract(1,'h').format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
-			
 			document.frm.action = "placeApply";
 			document.frm.method = "get";
 			document.frm.submit();
@@ -210,9 +215,11 @@ $(function() {
             $('#dates').click();
         });
         $('#dates').click();
-
+		
 		
 	});
+	
+	
 	
 			
 		
@@ -233,9 +240,9 @@ $(function() {
                 <div id="applyformCore">
                     <div id="tabNav">
                         <ul id="tabNavContents">
-                            <li><a href="#"> <strong>대관안내</strong></a></li>
+                            <li><a href="./facilityRentForm1"> <strong>대관안내</strong></a></li>
                             <li><a href="./facilityRentForm2"><strong>시설안내</strong></a></li>   
-                            <li><a href="./facilityRentForm3"><strong>신청현황/신청하기</strong></a></li>
+                            <li><a href="#"><strong>신청현황/신청하기</strong></a></li>
                         </ul>
                     </div>
 					
@@ -259,7 +266,7 @@ $(function() {
                	</div>
                	<div id="resInfo">
                	<h2 id="resInfoTitle"></h2>
-				<table>
+				<table id="resInfoTable">
 					<tr>
 					<th>10:00</th>
 					<th>11:00</th>
@@ -268,11 +275,11 @@ $(function() {
 					<th>14:00</th>
 					</tr>
 					<tr>
-						<td class="l"><input  class="time" type="hidden" value="10:00:00"/><div id="10:00:00"></div></td>
-						<td class="l" ><input  class="time" type="hidden" value="11:00:00"/><div id="11:00:00"></div></td>
-						<td class="l" ><input  class="time" type="hidden" value="12:00:00"/><div id="12:00:00"></div></td>
-						<td class="l" ><input  class="time" type="hidden" value="13:00:00"/><div id="13:00:00"></div></td>
-						<td class="l" ><input  class="time" type="hidden" value="14:00:00"/><div id="14:00:00"></div></td>
+						<td id="ten" class="state"><input  class="time" type="hidden" value="10:00:00"/></td>
+						<td id="eleven" class="state"><input  class="time" type="hidden" value="11:00:00"/></td>
+						<td id="twelve" class="state"><input  class="time" type="hidden" value="12:00:00"/></td>
+						<td id="thirteen"  class="state"><input  class="time" type="hidden" value="13:00:00"/></td>
+						<td id="fourteen"  class="state"><input  class="time" type="hidden" value="14:00:00"/></td>
 					</tr>
 					<tr>
 					<th>15:00</th>
@@ -282,15 +289,15 @@ $(function() {
 					<th>19:00</th>
 					</tr>
 					<tr>
-						<td class="l" id="15:00:00"><input  class="time" type="hidden" value="15:00:00"/></td>
-						<td class="l" id="16:00:00"><input  class="time" type="hidden" value="16:00:00"/></td>
-						<td class="l" id="17:00:00"><input  class="time" type="hidden" value="17:00:00"/></td>
-						<td class="l" id="18:00:00"><input  class="time" type="hidden" value="18:00:00"/></td>
-						<td class="l" id="19:00:00"><input  class="time" type="hidden" value="19:00:00"/></td>
+						<td  id="fifteen" class="state"><input  class="time" type="hidden" value="15:00:00"/></td>
+						<td  id="sixteen" class="state"><input  class="time" type="hidden" value="16:00:00"/></td>
+						<td  id="seventeen" class="state"><input  class="time" type="hidden" value="17:00:00"/></td>
+						<td  id="eighteen" class="state"><input  class="time" type="hidden" value="18:00:00"/></td>
+						<td  id="nineteen" class="state"><input  class="time" type="hidden" value="19:00:00"/></td>
 					</tr>
 				</table>
 				
-               	</div>
+               	</div><!-- 				resInfo End -->
                 </div><!-- applyformCore-->
             </div><!-- applyFormWrapper -->
         </div><!-- all_contents-->

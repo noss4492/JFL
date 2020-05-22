@@ -9,22 +9,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+<!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
     <link rel="stylesheet" href="<c:url value="resources/css/applicationService/facilityRentForm/facilityRentForm1.css"/>" />
     
     
-    <link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-   href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    
+<!-- <!-- 부가적인 테마 --> -->
+<!-- <link rel="stylesheet" -->
+<!--    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+<!-- <!-- 합쳐지고 최소화된 최신 자바스크립트 --> -->
+<!-- <script -->
+<!--    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" -->
+<!--    href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"> -->
 
 <link rel="stylesheet"
    href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
@@ -78,9 +77,9 @@
                     </div>
                     <h3 id="rentPolicy">대관 규정 안내</h3>
                     <ul id="rendPolicyDetail">
-                        <li>대관대상 : 남양주시 시민 및 단체</li>
+                        <li>대관대상 : 중앙시 시민 및 단체</li>
                         <li>신청방법 : 홈페이지 온라인 접수</li>
-                        <li>신청취소 : 관리자 승인 전까지(승인 후 별도 연락 후 취소 가능))</li>
+                        <li>신청취소 : 관리자 승인 전까지(승인 후 별도 연락 후 취소 가능)</li>
                     </ul>
                     <h3 id="rentInfo">대관정보</h3>
                     <div id="rentInfoTableWrapper">
@@ -117,7 +116,7 @@
                                     <td>접수기간</td>
                                     <td>대관희망일 30일전부터~3일전까지</td>
                                     <td>대관희망일 60일전부터~10일전까지</td>
-                                    <td>대관희망일 60일젙부터~10일전까지</td>
+                                    <td>대관희망일 60일전부터~10일전까지</td>
                                 </tr>
                                 <tr>
                                     <td>이용제한</td>
@@ -137,7 +136,7 @@
                    </ol>
                     <dl id="rentLink">
                         <dt>신청조회 또는 신청하기 버튼을 누르세요</dt>
-                        <dd><a href=""><button id="rentLinkBtn1">신청내역 조회</button> </a> <a href=""><button id="rentLinkBtn2"><i class="xi-pen-o xi-1x"></i>신청하기</button></a></dd>
+                        <dd><a href=""><button id="rentLinkBtn1">신청내역 조회</button> </a> <a href="./facilityRentForm3"><button id="rentLinkBtn2"><i class="xi-pen-o xi-1x"></i>신청하기</button></a></dd>
                     </dl>
                 </div><!-- applyformCore-->
             </div><!-- applyFormWrapper -->

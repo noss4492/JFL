@@ -226,27 +226,29 @@
 }
 
 .daterangepicker select.monthselect, .daterangepicker select.yearselect {
-  font-size: 17px;
+  font-size: 20px;
   padding: 1px;
   height: 25px;
   margin: 0;
   cursor: default;
+  height: 40px;
+  
 }
 
 .daterangepicker select.monthselect {
   margin-right: 2%;
-  width: 56%;
+  width: 30%;
 }
 
 .daterangepicker select.yearselect {
-  width: 40%;
+  width: 30%;
 }
 
 .daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.secondselect, .daterangepicker select.ampmselect {
-  width: 100px;
+  width: 60px;
   height: 40px;
   margin: 0 auto;
-  background: #eee;
+  background: #f0ad4e73;
   border: 1px solid #eee;
   padding: 2px;
   outline: 0;
