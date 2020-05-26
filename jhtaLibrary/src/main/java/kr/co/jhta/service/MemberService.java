@@ -14,8 +14,5 @@ public interface MemberService {
 	public int getTotal();
 	public int idChk(String username);
 	public int mailChk(String email);	
-	public long selectUserPkByUsername(String username);;
-
-
-
+	public long selectUserPkByUsername(String username);
 }
