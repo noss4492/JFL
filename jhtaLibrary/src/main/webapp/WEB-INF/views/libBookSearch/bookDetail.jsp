@@ -308,22 +308,13 @@
 							</c:choose>			
 							 -->
 							<th class="tth"> ${lbdto.registrationDate } </th>							
-							<th class="tth"> <input type="submit" value="책 대여하기" /> </th>
+							<th class="tth"> <a href="${lbdto.libraryBookId }"><input type="button" value="책 대여하기" /></a> </th>
                         </tr>
 		            </c:forEach>
 					</form>
                     </tbody>
                 </table>
             </div>
-                            
-		
-		
-			
-
-		
-               
-                          
-                            
             <div class="btngroup">
                <input type="button" class="list-btn modify" value="관심자료담기"/>
                 <a class="list-btn delete">관심자료보기</a>

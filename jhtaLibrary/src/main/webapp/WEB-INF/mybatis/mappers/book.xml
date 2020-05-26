@@ -263,35 +263,75 @@
 	 
 	<select id="selectRentalBestRandom20" resultType="gbdto">
 	<![CDATA[
-	select library_book_id libraryBookId, general_book_id, TITLE, AUTHOR_NAME authorName, THUMBNAIL_URL thumbnailUrl
-	from(
-	    select library_book_id, L.general_book_id, TITLE, AUTHOR_NAME, THUMBNAIL_URL
-		from library_book L 
-		inner join general_book G 
-		on L.general_book_id = G.general_book_id 
-	    inner join author A
-	    on G.general_book_id = L.general_book_id
-	    WHERE ROWNUM <= 20 
-	    order by rental_cnt desc
-	)
-	order by DBMS_RANDOM.VALUE
+	SELECT rownum, uniqueId, rental_cnt, library_book_id, general_book_id, registration_date, title, publisher, thumbnail_url, author_name 
+	FROM
+	    (
+	    SELECT l.rowid||a.rowid as uniqueId, l.rental_cnt, l.library_book_id, l.general_book_id, l.registration_date, g.title, g.publisher, g.thumbnail_url, a.author_name 
+	    FROM library_book L 
+	    INNER JOIN general_book G 
+	    ON L.general_book_id = G.general_book_id 
+	    INNER JOIN author A 
+	    ON G.general_book_id = A.general_book_id 
+	    INNER JOIN (
+	        SELECT sum(l.rental_cnt), g.general_book_id
+	        FROM library_book L 
+	        INNER JOIN general_book G 
+	        ON L.general_book_id = G.general_book_id 
+	        INNER JOIN author A 
+	        ON G.general_book_id = A.general_book_id 
+	        GROUP BY g.general_book_id ) RR
+	    ON G.general_book_id = RR.general_book_id
+	    ORDER BY l.rental_cnt desc
+	    )
+	WHERE uniqueId IN 
+	    ( 
+	    SELECT MIN(uniqueId) 
+	    FROM library_book L 
+	    INNER JOIN general_book G 
+	    ON L.general_book_id = G.general_book_id 
+	    inner join author A 
+	    ON G.general_book_id = A.general_book_id 
+	    ) 
+	and rownum <= 20
 	]]>
 	</select>
 	<select id="selectNewestRandom20" resultType="gbdto">
 	<!-- 메인화면에서 필요한 정보 : 썸네일, 책제목, 작가, ISBN으로 하이퍼링크 만들어서 걸기 -->
+	<!--
+	메인화면에서 필요한 정보 : 썸네일, 책제목, 작가, ISBN, 그리고 디테일페이지 정보(이거는 DB에서 가져오지 않음)
+	메인화면에 도서관내에 존재하는 책의 
+	사실은 복수개의 같은 책이 존재한다면 rental_cnt
+	
+	* 1.   최상위 FROM 내부 절(L join G join A) : 일반 책 정보 + 도서관 책 정보 + 저자 목록 (중복제거 되어있지 않음)
+	* 2.   최상위 WHERE IN 내부 절 (L join G join A group by G.g_book_id) : 위에서 중복되는 general_book_id를 제거함
+	* 2-2. 이때  join 절에서는 rownum을 쓸 수 없기 때문에 이에 대한 구분값을 만들기 위해 l.rowid + a.rowid를 사용하였다. 
+	* 3.   최초의 author를 뽑기 위해 MIN(uniqueId)로 1저자를 뽑았음.
+	* 4. + 도서관 책의 빌린 횟수 합을 해서 
+	-->
 	<![CDATA[
-	select library_book_id libraryBookId, general_book_id, TITLE, AUTHOR_NAME authorName, THUMBNAIL_URL thumbnailUrl
-	from(
-	    select library_book_id, L.general_book_id, TITLE, AUTHOR_NAME, THUMBNAIL_URL
-		from library_book L 
-		inner join general_book G 
-		on L.general_book_id = G.general_book_id 
-	    inner join author A
-	    on G.general_book_id = L.general_book_id
-	    WHERE ROWNUM <= 20 
-	    order by REGISTRATION_DATE desc 
-	)
-	order by DBMS_RANDOM.VALUE
+	SELECT rownum, uniqueId, library_book_id, general_book_id, registration_date, title, publisher, thumbnail_url, author_name
+	FROM
+	    (
+	    SELECT l.rowid||a.rowid as uniqueId, l.library_book_id, l.general_book_id, l.registration_date, g.title, g.publisher, g.thumbnail_url, a.author_name
+	    FROM library_book L 
+	    INNER JOIN general_book G 
+	    ON L.general_book_id = G.general_book_id 
+	    inner join author A 
+	    ON G.general_book_id = A.general_book_id 
+	    ORDER BY registration_date desc
+	    )
+	WHERE uniqueId IN
+		( 
+	    SELECT MIN(uniqueId) 
+	    FROM library_book L 
+	    INNER JOIN general_book G 
+	    ON L.general_book_id = G.general_book_id 
+	    inner join author A 
+	    ON G.general_book_id = A.general_book_id 
+	    GROUP BY G.general_book_id 
+	    ) 
+	    and rownum <= 20
+	    order by DBMS_RANDOM.VALUE 
 	]]>
 	</select>
 	<select id="selectRecommendRandom20" resultType="gbdto">
