@@ -124,6 +124,7 @@ public class ApplicationController {
 	public String main() {
 		return "main";
 	}
+	
 	//////////////////////////////////신청서비스 관련////////////////////////////////////////
 	@RequestMapping(value ="/facilityRentForm1" , method = RequestMethod.GET)
 	public String facilityRentForm1(Model model) {
@@ -138,7 +139,7 @@ public class ApplicationController {
 		model.addAttribute("category", "신청서비스");
 	      model.addAttribute("title", "시설대관신청");
 	      model.addAttribute("menu", "시설안내");
-		return "/libApplicationService/facilityRentForm/facilityRentForm2facilityRentForm2";
+		return "/libApplicationService/facilityRentForm/facilityRentForm2";
 	}
 	@RequestMapping(value ="/facilityRentForm3" , method = RequestMethod.GET)
 	public ModelAndView facilityRentForm3(Model model) {

@@ -185,8 +185,7 @@ $(function() {
             $('#dates').click();
         });
         $('#dates').click();
-		$('td.available').on("click",function(){
-			console.log("sdlfkjsdlkfj");
+		
 		})
 		
 	});
