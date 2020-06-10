@@ -2,7 +2,7 @@
 $(function() {
 	var jbOffset = $("#navBarWrapper").offset();
 	var jbOffset2 = $("#navBarMain").offset();
-	console.log(jbOffset);
+	//console.log(jbOffset);
 	$(window).scroll(function() {
 		
 		if ($(document).scrollTop() > jbOffset.top) {
@@ -30,11 +30,11 @@ $(function() {
 		var temp2 = target.value;
 		if(temp==temp2){
 			if(document.querySelector("#hidden_menu")){
-				console.log("메뉴있어")
+				//console.log("메뉴있어")
 				li[i].classList.remove("Nav_li_off");
 				li[i].classList.add("Nav_li_on_haveMenu");
 			}else{
-				console.log("메뉴없어")
+				//console.log("메뉴없어")
 				li[i].classList.remove("Nav_li_off");
 				li[i].classList.add("Nav_li_on");
 			}
@@ -53,8 +53,8 @@ $(function() {
 		var temp = document.querySelectorAll(".submenu>li>a");
 		var temp2 = document.querySelector("#hidden_menu").value;
 			for(var i = 0; i < temp.length; i++){
-				console.log(temp[i].innerText);
-				console.log(temp2);
+				//console.log(temp[i].innerText);
+				//console.log(temp2);
 				if(temp[i].innerText==temp2){
 					console.log(temp[i].innerText);					
 					temp[i].classList.add("submenuSelect");

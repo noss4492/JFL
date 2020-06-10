@@ -110,9 +110,11 @@
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
-
+#rendPolicyDetail{
+	list-style-type: disc;
+	
+}
 #rendPolicyDetail li {
-	list-style: inside;
 	padding-top: 5px;
 	font-size: 17px;
 	font-weight: bold;
@@ -127,15 +129,22 @@
 
 #rentInfoTableWrapper {
 	width: 100%;
+	height: 250px;
 }
-
-#rentInfoTable>tr, th, td {
-	border: 1px solid black;
+#rentInfoTable{
+	width: 100%;
+	height: 250px;
+	
+}
+#rentInfoTable tr, th, td {
+	border: 1px solid #e6e6e6;
 	text-align: center;
 	vertical-align: middle;
 	padding: 10px 5px 10px 5px;
 }
-
+#rentInfoTable th{
+	text-align: center;
+}
 #rentInfoTable th, td:nth-child(1), td:last-child {
 	border-left: white;
 	border-right: white;
@@ -172,8 +181,10 @@
 }
 
 #howToUseList {
+	list-style-type: disc;
 	list-style-position: inside;
 	color: rgb(141, 136, 136);
+	
 }
 
 #rentLink {

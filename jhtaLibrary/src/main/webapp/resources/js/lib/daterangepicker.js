@@ -900,7 +900,7 @@
             html = '<select class="hourselect">';
 
             var start = this.timePicker24Hour ? 10 : 1;
-            var end = this.timePicker24Hour ? 20 : 12;
+            var end = this.timePicker24Hour ? 19 : 12;
 
             for (var i = start; i <= end; i++) {
                 var i_in_24 = i;
@@ -915,7 +915,7 @@
                     disabled = true;
 
                 if (i_in_24 == selected.hour() && !disabled) {
-                    html += '<option value="' + i + '" selected="selected">' + i + '</option>';
+                    html += '<option value="' + i +'" selected="selected">' + i+ '</option>';
                 } else if (disabled) {
                     html += '<option value="' + i + '" disabled="disabled" class="disabled">' + i + '</option>';
                 } else {
@@ -1282,7 +1282,6 @@
             var col = title.substr(3, 1);
             var cal = $(e.target).parents('.drp-calendar');
             var date = cal.hasClass('left') ? this.leftCalendar.calendar[row][col] : this.rightCalendar.calendar[row][col];
-           console.log("하하하");
             //
             // this function needs to do a few things:
             // * alternate between selecting a start and end date for the range,
@@ -1347,15 +1346,46 @@
                 ////////////////////////////////////////////05/14///////////////////////////////////////////////////////
                 
                 var selectedDate = this.startDate.format("YYYY-MM-DD");
-                console.log(this.startDate.format("YYYY-MM-DD"));
+                var selectedDate2 = this.startDate.format("YYYY년 M월 D일");
+                //console.log(this.startDate.format("YYYY-MM-DD"));
                 $.ajax({
                 	type:"GET",
                 	url:"facilityRentInfo",
+                	dataType : 'json',
                 	data:{
                 		"selectedDate":selectedDate
                 	},
-                	success:function(){
-                		console.log("성공");
+                	success:function(res){
+                		$("#resInfoTitle").html(selectedDate2+" 신청현황");
+                		$(".state").text("-");
+                		for (var i = 0; i < res.length; i++) {
+                			console.log("res[i] : "+res[i]);
+							if(res[i]==="10:00:00"){
+								$("#ten").text("예약완료");
+								console.log("되는거 맞음?");
+							}else if(res[i]=="11:00:00"){
+								$("#eleven").text("예약완료");
+							}else if(res[i]=="12:00:00"){
+								$("#twelve").text("예약완료");
+							}else if(res[i]=="13:00:00"){
+								$("#thirteen").text("예약완료");
+							}else if(res[i]=="14:00:00"){
+								$("#fourteen").text("예약완료");
+							}else if(res[i]=="15:00:00"){
+								$("#fifteen").text("예약완료");
+							}else if(res[i]=="16:00:00"){
+								$("#sixteen").text("예약완료");
+							}else if(res[i]=="17:00:00"){
+								$("#seventeen").text("예약완료");
+							}else if(res[i]=="18:00:00"){
+								$("#eighteen").text("예약완료");
+							}else if(res[i]=="19:00:00"){
+								$("#nineteen").text("예약완료");
+								
+							}
+                		}
+                		
+                		
                 	},
                 	error:function(){
                 		console.log("실패");

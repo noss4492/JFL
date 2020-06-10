@@ -83,14 +83,13 @@ display: block !important;
 width: 880px;
 }
 #dates{
-font-size: 20px;
-width: 600px;
-height: 50px;
+font-size: 1px;
+width: 1px;
 
 }
 .daterangepicker {
 width: 880px;
-height: 550px;
+height: 510px;
 /* background-color: red; */
 }
 /* .calendar-time{ */
@@ -133,11 +132,36 @@ height: 40px;
 font-size: 20px !important;
 }
 #list{
-display: inline-block;
 width: 880px;
-height: 800px;
-background-color: yellow;
+height: 600px;
 }
+#resInfo{
+width: 880px;
+height: 200px;
+}
+#resInfo table{
+border-collapse: collapse;
+}
+#resInfo th{
+background-color: #f0ad4e73;
+}
+#resInfo tr,td{
+border: 1px solid black;
+}
+#resInfo td{
+width: 176px;
+height: 30px;
+}
+#resInfoTitle{
+padding-bottom: 20px;
+}
+#resInfoTable th, td{
+text-align: center;
+}
+select{
+text-align-last: center;
+}
+
 </style>
 <script>
 
@@ -170,25 +194,33 @@ $(function() {
 		  console.log(start.format('YYYY-MM-DD'));
 	  });
 	  $('#dates').on('apply.daterangepicker',function(ev,picker){
+		  	var con = confirm(picker.startDate.format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
+		  	if(con==true){
 		  	var startTime = $("#startTime").val(picker.startDate.format('YYYY/MM/DD HH:mm:ss'));
 			var endTime = picker.startDate.add(1,'h').format('YYYY/MM/DD HH:mm:ss');
 			$("#endTime").val(endTime);
 			var rentDate = picker.startDate.format('YYYY/MM/DD');
 			$("#rentDate").val(rentDate);
 			$("#requestDate").val(moment().format('YYYY-MM-DD HH:mm:ss'));
-			alert(picker.startDate.subtract(1,'h').format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
+			//confirm(picker.startDate.subtract(1,'h').format('YYYY/MM/DD HH:mm:ss')+"에 대실 신청을 하시겠습니까?");
 			document.frm.action = "placeApply";
 			document.frm.method = "get";
 			document.frm.submit();
+		  		
+		  	}else{
+		  		
+		  	}
 		})
 		$('#dates').on('hide.daterangepicker', function(ev, picker) {
             $('#dates').click();
         });
         $('#dates').click();
 		
-		})
+
 		
 	});
+	
+	
 	
 			
 		
@@ -209,9 +241,9 @@ $(function() {
                 <div id="applyformCore">
                     <div id="tabNav">
                         <ul id="tabNavContents">
-                            <li><a href="#"> <strong>대관안내</strong></a></li>
+                            <li><a href="./facilityRentForm1"> <strong>대관안내</strong></a></li>
                             <li><a href="./facilityRentForm2"><strong>시설안내</strong></a></li>   
-                            <li><a href="./facilityRentForm3"><strong>신청현황/신청하기</strong></a></li>
+                            <li><a href="#"><strong>신청현황/신청하기</strong></a></li>
                         </ul>
                     </div>
 					
@@ -230,10 +262,43 @@ $(function() {
 					</div>
 				</form>	
                	<div id="list">
-               	<c:forEach var="list" items="${dto1}">
-               		<c:out value="${list.startTime }"></c:out>
-               	</c:forEach>
+               	
+				
                	</div>
+               	<div id="resInfo">
+               	<h2 id="resInfoTitle"></h2>
+				<table id="resInfoTable">
+					<tr>
+					<th>10:00</th>
+					<th>11:00</th>
+					<th>12:00</th>
+					<th>13:00</th>
+					<th>14:00</th>
+					</tr>
+					<tr>
+						<td id="ten" class="state"><input  class="time" type="hidden" value="10:00:00"/></td>
+						<td id="eleven" class="state"><input  class="time" type="hidden" value="11:00:00"/></td>
+						<td id="twelve" class="state"><input  class="time" type="hidden" value="12:00:00"/></td>
+						<td id="thirteen"  class="state"><input  class="time" type="hidden" value="13:00:00"/></td>
+						<td id="fourteen"  class="state"><input  class="time" type="hidden" value="14:00:00"/></td>
+					</tr>
+					<tr>
+					<th>15:00</th>
+					<th>16:00</th>
+					<th>17:00</th>
+					<th>18:00</th>
+					<th>19:00</th>
+					</tr>
+					<tr>
+						<td  id="fifteen" class="state"><input  class="time" type="hidden" value="15:00:00"/></td>
+						<td  id="sixteen" class="state"><input  class="time" type="hidden" value="16:00:00"/></td>
+						<td  id="seventeen" class="state"><input  class="time" type="hidden" value="17:00:00"/></td>
+						<td  id="eighteen" class="state"><input  class="time" type="hidden" value="18:00:00"/></td>
+						<td  id="nineteen" class="state"><input  class="time" type="hidden" value="19:00:00"/></td>
+					</tr>
+				</table>
+				
+               	</div><!-- 				resInfo End -->
                 </div><!-- applyformCore-->
             </div><!-- applyFormWrapper -->
         </div><!-- all_contents-->

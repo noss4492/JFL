@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.co.jhta.readingRoom">
+  	
+  	<select id="selectAll" resultType="rdto">
+  	SELECT RENT_SEAT_ID rentSeatId, SEAT_ID seatId, USER_M_ID userId, START_TIME startTime, END_TIME endTime,STATUS
+  	FROM RENT_SEAT 
+  	WHERE END_TIME >= sysdate
+  	</select>
+  	
+  	<select id="selectOne" resultType="rdto">
+  	SELECT RENT_SEAT_ID rentSeatId, SEAT_ID seatId, USER_M_ID userId,START_TIME startTime,END_TIME endTime,STATUS
+  	FROM RENT_SEAT 
+  	WHERE SEAT_ID = #{seatId}	
+  	</select>
+  	  	
+  	<insert id="rentOne" parameterType="rdto">
+  	INSERT INTO RENT_SEAT(RENT_SEAT_ID , SEAT_ID , USER_M_ID ,START_TIME ,END_TIME, STATUS )
+  	VALUES (RENT_SEAT_SEQ.NEXTVAL, #{seatId},#{userId},TO_DATE(#{startTime}, 'YYYY-MM-DD HH24:MI:SS'),TO_DATE(#{endTime}, 'YYYY-MM-DD HH24:MI:SS'),1 )
+  	</insert>
+  	 	 	
+  	<select id="rselectNoByUserName" parameterType="String" resultType="long">
+  	SELECT USER_M_ID 
+  	FROM USER_M 
+  	WHERE USERNAME = #{userName}
+  	</select>
+  	
+  	<select id="rCheckUser" resultType="int" parameterType="long">
+  	select count(*)
+    from (SELECT RENT_SEAT_ID rentSeatId, SEAT_ID seatId, USER_M_ID userId, START_TIME startTime, END_TIME endTime,STATUS
+        FROM RENT_SEAT 
+        WHERE END_TIME >= sysdate and USER_M_ID = #{userId} 
+    )
+  	</select>
+  	<select id="rCheckAvailableSeatNo" resultType="int" parameterType="long">
+  	select count(*)
+    from (SELECT RENT_SEAT_ID rentSeatId, SEAT_ID seatId, USER_M_ID userId, START_TIME startTime, END_TIME endTime,STATUS
+        FROM RENT_SEAT 
+        WHERE END_TIME >= sysdate and USER_M_ID = #{userId} 
+    )
+  	</select>
+  	
+  	<update id="rCancel" parameterType="long">
+  	UPDATE RENT_SEAT
+  	SET END_TIME = sysdate
+  	WHERE  USER_M_ID = #{userID} and END_TIME >= sysdate	
+  	
+  	</update>
+  	<!--타이머  -->
+	<select id="rFinish" resultType="long">  
+	SELECT user_m_id 
+	FROM rent_seat 
+	WHERE TO_CHAR(TRUNC(SYSDATE,'MI'), 'YYYY/MM/DD HH24:MI:SS') = TO_CHAR(TRUNC((rent_seat.end_time - 28/(24*60)),'MI'), 'YYYY/MM/DD HH24:MI:SS')
+  	</select>  	
+  
+  </mapper>
+  
+  
+ 
